@@ -32,6 +32,8 @@
 package simbio.se.nheengare;
 
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.Menu;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -40,12 +42,12 @@ import android.widget.AutoCompleteTextView;
  * @author Ademar Alves de Oliveira
  * @author ademar111190@gmail.com
  */
-public class MainActivity extends AbstractActivity {
+public class MainActivity extends AbstractActivity implements TextWatcher {
 
 	// variables
 	private AutoCompleteTextView actv;
-	private static final String[] COUNTRIES = new String[] { "Belgium",
-			"France", "Italy", "Germany", "Spain" };
+	private static final String[] COUNTRIES = new String[] { "Azul", "Amarelo",
+			"Amado", "Amei", "amando" };
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +59,7 @@ public class MainActivity extends AbstractActivity {
 		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
 				android.R.layout.simple_dropdown_item_1line, COUNTRIES);
 		actv.setAdapter(adapter);
+		actv.addTextChangedListener(this);
 	}
 
 	@Override
@@ -64,6 +67,20 @@ public class MainActivity extends AbstractActivity {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		// getMenuInflater().inflate(R.menu.main, menu);
 		return false;
+	}
+
+	//textWatcher
+	@Override
+	public void afterTextChanged(Editable s) {
+	}
+
+	@Override
+	public void beforeTextChanged(CharSequence s, int start, int count,
+			int after) {
+	}
+
+	@Override
+	public void onTextChanged(CharSequence s, int start, int before, int count) {
 	}
 
 }
