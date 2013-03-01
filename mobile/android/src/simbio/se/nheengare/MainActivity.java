@@ -34,6 +34,9 @@ package simbio.se.nheengare;
 import java.io.IOException;
 import java.io.InputStream;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import simbio.se.nheengare.utils.SimbiLog;
 import android.os.Bundle;
 import android.text.Editable;
@@ -66,10 +69,12 @@ public class MainActivity extends AbstractActivity implements TextWatcher {
 			byte[] buffer = new byte[size];
 			is.read(buffer);
 			is.close();
-			String text = new String(buffer);
-			SimbiLog.print(text);
+			JSONObject jsonObject = new JSONObject(new String(buffer));
+			SimbiLog.print(jsonObject);
 		} catch (IOException e) {
 			throw new RuntimeException(e);
+		} catch (JSONException j) {
+
 		}
 
 		// load AutoCompleteTextView of search

@@ -71,4 +71,10 @@ public class SimbiLog {
 		}
 	}
 
+	public static void printException(Exception e) {
+		if (Config.LOG) {
+			Log.e(Config.LOG_TOKEN, e.toString());
+		}
+	}
+
 }
