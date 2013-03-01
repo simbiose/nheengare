@@ -33,6 +33,8 @@ package simbio.se.nheengare;
 
 import android.os.Bundle;
 import android.view.Menu;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 
 /**
  * @author Ademar Alves de Oliveira
@@ -40,16 +42,27 @@ import android.view.Menu;
  */
 public class MainActivity extends AbstractActivity {
 
+	// variables
+	private AutoCompleteTextView actv;
+	private static final String[] COUNTRIES = new String[] { "Belgium",
+			"France", "Italy", "Germany", "Spain" };
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+
+		// load AutoCompleteTextView of search
+		actv = (AutoCompleteTextView) findViewById(R.id.autoCompleteTextViewMain);
+		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+				android.R.layout.simple_dropdown_item_1line, COUNTRIES);
+		actv.setAdapter(adapter);
 	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-//		getMenuInflater().inflate(R.menu.main, menu);
+		// getMenuInflater().inflate(R.menu.main, menu);
 		return false;
 	}
 
