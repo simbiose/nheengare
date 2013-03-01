@@ -62,6 +62,7 @@ public class MainActivity extends AbstractActivity implements TextWatcher {
 				android.R.layout.simple_dropdown_item_1line, COUNTRIES);
 		actv.setAdapter(adapter);
 		actv.addTextChangedListener(this);
+		actv.setThreshold(1);
 	}
 
 	@Override
