@@ -1,2 +1,3 @@
-.class
-.apk
+mobile/android/bin/
+mobile/android/gen/
+.DS_Store

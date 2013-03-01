@@ -31,6 +31,7 @@
  */
 package simbio.se.nheengare;
 
+import simbio.se.nheengare.utils.SimbiLog;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -51,6 +52,7 @@ public class MainActivity extends AbstractActivity implements TextWatcher {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		SimbiLog.log(this, savedInstanceState);
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
@@ -66,21 +68,25 @@ public class MainActivity extends AbstractActivity implements TextWatcher {
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		// getMenuInflater().inflate(R.menu.main, menu);
+		SimbiLog.log(this, menu);
 		return false;
 	}
 
-	//textWatcher
+	// textWatcher
 	@Override
 	public void afterTextChanged(Editable s) {
+		SimbiLog.log(this, s);
 	}
 
 	@Override
 	public void beforeTextChanged(CharSequence s, int start, int count,
 			int after) {
+		SimbiLog.log(this, s, start, count, after);
 	}
 
 	@Override
 	public void onTextChanged(CharSequence s, int start, int before, int count) {
+		SimbiLog.log(this, s, start, before, count);
 	}
 
 }
