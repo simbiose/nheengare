@@ -40,6 +40,6 @@ public class Config {
 	public static final boolean LOG = true;
 	public static final String LOG_TOKEN = "simbiose";
 	public static final boolean LOG_STACK_TRACE = true;
-	public static final String LOG_TOKEN_STACK_TRACE = "simbioseStackTrace";
+	public static final String LOG_TOKEN_STACK_TRACE = "simbioStackTrace";
 
 }
