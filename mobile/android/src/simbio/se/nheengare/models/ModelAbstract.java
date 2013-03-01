@@ -31,10 +31,17 @@
  */
 package simbio.se.nheengare.models;
 
+import com.google.gson.Gson;
+
 /**
  * @author Ademar Alves de Oliveira
  * @author ademar111190@gmail.com
  */
 public class ModelAbstract {
+
+	@Override
+	public String toString() {
+		return new Gson().toJson(this);
+	}
 
 }
