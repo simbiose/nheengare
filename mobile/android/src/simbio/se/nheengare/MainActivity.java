@@ -33,10 +33,13 @@ package simbio.se.nheengare;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import simbio.se.nheengare.models.Source;
 import simbio.se.nheengare.utils.SimbiLog;
 import android.os.Bundle;
 import android.text.Editable;
@@ -55,6 +58,7 @@ public class MainActivity extends AbstractActivity implements TextWatcher {
 	private AutoCompleteTextView actv;
 	private static final String[] COUNTRIES = new String[] { "Azul", "Amarelo",
 			"Amado", "Amei", "amando" };
+	private ArrayList<Source> sources = new ArrayList<Source>();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -64,17 +68,27 @@ public class MainActivity extends AbstractActivity implements TextWatcher {
 
 		// load database
 		try {
+			// load file
 			InputStream is = getAssets().open("db.json");
 			int size = is.available();
 			byte[] buffer = new byte[size];
 			is.read(buffer);
 			is.close();
+
+			// load json
 			JSONObject jsonObject = new JSONObject(new String(buffer));
 			SimbiLog.print(jsonObject);
-		} catch (IOException e) {
-			throw new RuntimeException(e);
-		} catch (JSONException j) {
 
+			// load objects
+			JSONArray jsonArray = jsonObject.optJSONArray("sources");
+			for (int c = 0; c < jsonArray.length(); c++)
+				sources.add(new Source(jsonArray.optJSONObject(c)));
+
+			SimbiLog.print(sources);
+		} catch (IOException e) {
+			SimbiLog.printException(e);
+		} catch (JSONException j) {
+			SimbiLog.printException(j);
 		}
 
 		// load AutoCompleteTextView of search
