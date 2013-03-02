@@ -39,6 +39,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import simbio.se.nheengare.models.Grammatical;
 import simbio.se.nheengare.models.Language;
 import simbio.se.nheengare.models.Source;
 import simbio.se.nheengare.utils.SimbiLog;
@@ -61,6 +62,7 @@ public class MainActivity extends AbstractActivity implements TextWatcher {
 			"Amado", "Amei", "amando" };
 	private ArrayList<Source> sources = new ArrayList<Source>();
 	private ArrayList<Language> languages = new ArrayList<Language>();
+	private ArrayList<Grammatical> grammaticals = new ArrayList<Grammatical>();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -85,8 +87,10 @@ public class MainActivity extends AbstractActivity implements TextWatcher {
 			jsonArray = jsonObject.optJSONArray("languages");
 			for (int c = 0; c < jsonArray.length(); c++)
 				languages.add(new Language(jsonArray.optJSONObject(c)));
-
-			SimbiLog.print(sources, languages);
+			jsonArray = jsonObject.optJSONArray("grammatical_class");
+			for (int c = 0; c < jsonArray.length(); c++)
+				grammaticals.add(new Grammatical(jsonArray.optJSONObject(c)));
+			SimbiLog.print(sources, languages, grammaticals);
 		} catch (IOException e) {
 			SimbiLog.printException(e);
 		} catch (JSONException j) {
