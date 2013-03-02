@@ -83,6 +83,17 @@ public class Word extends ModelAbstract {
 			writes.add(array.optString(c));
 	}
 
+	// overrides
+
+	@Override
+	public int compareTo(ModelAbstract another) {
+		if (another instanceof Word) {
+			setCriteriaWeight(writes);
+			another.setCriteriaWeight(((Word) another).getWrites());
+		}
+		return super.compareTo(another);
+	}
+
 	// getters and setters
 	public int getId() {
 		return id;

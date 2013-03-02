@@ -31,17 +31,57 @@
  */
 package simbio.se.nheengare.models;
 
+import java.util.ArrayList;
+
 import com.google.gson.Gson;
 
 /**
  * @author Ademar Alves de Oliveira
  * @author ademar111190@gmail.com
  */
-public class ModelAbstract {
+public class ModelAbstract implements Comparable<ModelAbstract> {
+
+	// constants
+	public static final int CRITERIA_MAX = 100;
+	public static final int CRITERIA_MIN = 0;
+
+	// string to criteria the sort
+	public static String criteria;
+
+	// criteria range of instance
+	protected int criteriaWeight = CRITERIA_MAX;
 
 	@Override
 	public String toString() {
 		return new Gson().toJson(this);
+	}
+
+	@Override
+	public int compareTo(ModelAbstract another) {
+		return criteriaWeight - another.criteriaWeight;
+	}
+
+	public void setCriteriaWeight(ArrayList<String> compareBestToCriteria) {
+		int last = CRITERIA_MIN;
+		for (String string : compareBestToCriteria) {
+			setCriteriaWeight(string);
+			if (criteriaWeight < last)
+				criteriaWeight = last;
+			else
+				last = criteriaWeight;
+		}
+	}
+
+	public void setCriteriaWeight(String compareToCriteria) {
+		if (compareToCriteria.contains(criteria)) {
+			criteriaWeight = CRITERIA_MAX;
+		} else {
+			criteriaWeight = CRITERIA_MIN;
+		}
+	}
+
+	public float getCriteriaWeight() {
+		return criteriaWeight;
 	}
 
 }

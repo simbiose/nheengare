@@ -39,6 +39,10 @@ import android.util.Log;
  */
 public class SimbiLog {
 
+	public static void here() {
+		print("Aqui");
+	}
+
 	public static void print(String msg) {
 		if (Config.LOG) {
 			Log.d(Config.LOG_TOKEN, msg);

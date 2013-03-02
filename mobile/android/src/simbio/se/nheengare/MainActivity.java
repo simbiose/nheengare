@@ -34,6 +34,7 @@ package simbio.se.nheengare;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Collections;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -41,13 +42,13 @@ import org.json.JSONObject;
 
 import simbio.se.nheengare.models.Grammatical;
 import simbio.se.nheengare.models.Language;
+import simbio.se.nheengare.models.ModelAbstract;
 import simbio.se.nheengare.models.Source;
 import simbio.se.nheengare.models.Word;
 import simbio.se.nheengare.utils.SimbiLog;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.Menu;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -56,7 +57,8 @@ import android.widget.ListView;
  * @author Ademar Alves de Oliveira
  * @author ademar111190@gmail.com
  */
-public class MainActivity extends AbstractActivity implements TextWatcher {
+public class MainActivity extends AbstractActivity implements TextWatcher,
+		Runnable {
 
 	// variables
 	private ArrayList<Source> sources = new ArrayList<Source>();
@@ -64,10 +66,15 @@ public class MainActivity extends AbstractActivity implements TextWatcher {
 	private ArrayList<Grammatical> grammaticals = new ArrayList<Grammatical>();
 	private ArrayList<Word> words = new ArrayList<Word>();
 	private ArrayAdapter<String> adapter;
+	private ArrayList<String> values = new ArrayList<String>();
 
 	// views
 	private EditText edtInput;
 	private ListView listResults;
+
+	// Threads
+	private boolean searchLock = false;
+	private boolean searchAgain = false;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -113,30 +120,20 @@ public class MainActivity extends AbstractActivity implements TextWatcher {
 		refreshList();
 	}
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		// getMenuInflater().inflate(R.menu.main, menu);
-		SimbiLog.log(this, menu);
-		return false;
-	}
-
 	// refresh list
-
 	public void refreshList() {
-		ArrayList<String> values = new ArrayList<String>();
-		for (Word w : words)
-			for (String s : w.getWrites())
-				values.add(s);
-		adapter = new ArrayAdapter<String>(this,
-				android.R.layout.simple_list_item_1, android.R.id.text1, values);
-		listResults.setAdapter(adapter);
+		SimbiLog.log(this);
+		if (!searchLock)
+			new Thread(this).start();
+		else
+			setSearchAgain(true);
 	}
 
 	// textWatcher
 	@Override
 	public void afterTextChanged(Editable s) {
 		SimbiLog.log(this, s);
+		refreshList();
 	}
 
 	@Override
@@ -148,6 +145,44 @@ public class MainActivity extends AbstractActivity implements TextWatcher {
 	@Override
 	public void onTextChanged(CharSequence s, int start, int before, int count) {
 		SimbiLog.log(this, s, start, before, count);
+	}
+
+	// multithread
+	@Override
+	public void run() {
+		SimbiLog.log(this);
+		setSearchLock(true);
+		ModelAbstract.criteria = edtInput.getText().toString();
+		Collections.sort(words, Collections.reverseOrder());
+		values.clear();
+		for (Word w : words)
+			for (String s : w.getWrites())
+				values.add(s);
+		adapter = new ArrayAdapter<String>(this,
+				android.R.layout.simple_list_item_1, android.R.id.text1, values);
+		runOnUiThread(new Runnable() {
+
+			@Override
+			public void run() {
+				SimbiLog.log(this);
+				listResults.setAdapter(adapter);
+			}
+		});
+		if (searchAgain) {
+			setSearchAgain(false);
+			run();
+		}
+		setSearchLock(false);
+	}
+
+	public synchronized void setSearchAgain(boolean searchAgain) {
+		SimbiLog.log(this, searchAgain);
+		this.searchAgain = searchAgain;
+	}
+
+	public synchronized void setSearchLock(boolean searchLock) {
+		SimbiLog.log(this, searchLock);
+		this.searchLock = searchLock;
 	}
 
 }
