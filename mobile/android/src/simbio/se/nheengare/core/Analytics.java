@@ -31,8 +31,9 @@
  */
 package simbio.se.nheengare.core;
 
+import simbio.se.nheengare.utils.SimbiLog;
 import android.content.Context;
-import android.net.wifi.WifiManager;
+import android.telephony.TelephonyManager;
 
 import com.google.analytics.tracking.android.GAServiceManager;
 import com.google.analytics.tracking.android.GoogleAnalytics;
@@ -53,13 +54,11 @@ public class Analytics {
 		mGaInstance = GoogleAnalytics.getInstance(context);
 		mGaTracker = mGaInstance.getTracker("UA-38962564-1");
 		GAServiceManager.getInstance().setDispatchPeriod(30);
-
-		String macAddress = ((WifiManager) context
-				.getSystemService(Context.WIFI_SERVICE)).getConnectionInfo()
-				.getMacAddress();
-		if (macAddress == null)
-			macAddress = "anounymous";
-		track("/user/" + macAddress);
+		String deviceId = ((TelephonyManager) context
+				.getSystemService(Context.TELEPHONY_SERVICE)).getDeviceId();
+		if (deviceId == null)
+			deviceId = "anonymous";
+		track("/user/" + deviceId);
 	}
 
 	public static Analytics getAnalytics(Context context) {
@@ -69,8 +68,8 @@ public class Analytics {
 	}
 
 	public void track(String track) {
+		SimbiLog.log(this, track);
 		mGaTracker.sendView(track);
 		GAServiceManager.getInstance().dispatch();
 	}
-
 }

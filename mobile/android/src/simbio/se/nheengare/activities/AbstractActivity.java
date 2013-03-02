@@ -62,6 +62,8 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.google.analytics.tracking.android.EasyTracker;
+
 /**
  * @author Ademar Alves de Oliveira
  * @author ademar111190@gmail.com
@@ -515,12 +517,14 @@ public class AbstractActivity extends Activity {
 	protected void onStart() {
 		SimbiLog.log(this);
 		super.onStart();
+		EasyTracker.getInstance().activityStart(this);
 	}
 
 	@Override
 	protected void onStop() {
 		SimbiLog.log(this);
 		super.onStop();
+		EasyTracker.getInstance().activityStop(this);
 	}
 
 	@Override
