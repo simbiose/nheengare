@@ -42,6 +42,9 @@ import org.json.JSONObject;
  */
 public class Phrase extends ModelAbstract {
 
+	// serializable
+	private static final long serialVersionUID = 1L;
+
 	private int languageId;
 	private String phrase;
 	private ArrayList<Phrase> tradutions = new ArrayList<Phrase>();

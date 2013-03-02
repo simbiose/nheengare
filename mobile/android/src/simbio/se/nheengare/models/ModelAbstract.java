@@ -31,6 +31,7 @@
  */
 package simbio.se.nheengare.models;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import com.google.gson.Gson;
@@ -39,7 +40,10 @@ import com.google.gson.Gson;
  * @author Ademar Alves de Oliveira
  * @author ademar111190@gmail.com
  */
-public class ModelAbstract implements Comparable<ModelAbstract> {
+public class ModelAbstract implements Comparable<ModelAbstract>, Serializable {
+
+	// serializable
+	private static final long serialVersionUID = 1L;
 
 	// constants
 	public static final int CRITERIA_MAX = 100;

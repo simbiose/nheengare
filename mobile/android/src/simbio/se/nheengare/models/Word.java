@@ -32,11 +32,12 @@
 package simbio.se.nheengare.models;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import android.util.SparseIntArray;
+import android.annotation.SuppressLint;
 
 /**
  * @author Ademar Alves de Oliveira
@@ -44,6 +45,10 @@ import android.util.SparseIntArray;
  */
 public class Word extends ModelAbstract {
 
+	// serializable
+	private static final long serialVersionUID = 1L;
+
+	// variables
 	private int id;
 	private int langId;
 	private ArrayList<String> writes = new ArrayList<String>();
@@ -51,8 +56,9 @@ public class Word extends ModelAbstract {
 	private ArrayList<Tradutions> tradutions = new ArrayList<Tradutions>();
 	private ArrayList<Integer> sourceIds = new ArrayList<Integer>();
 	private ArrayList<Integer> grammaticalsIds = new ArrayList<Integer>();
-	private SparseIntArray grammaticals = new SparseIntArray();
 	private ArrayList<ExamplePhrases> examples = new ArrayList<ExamplePhrases>();
+	@SuppressLint("UseSparseArrays")
+	private HashMap<Integer, Integer> grammaticals = new HashMap<Integer, Integer>();
 
 	public Word(JSONObject json) {
 		id = json.optInt("id");
@@ -123,7 +129,7 @@ public class Word extends ModelAbstract {
 		return grammaticalsIds;
 	}
 
-	public SparseIntArray getGrammaticals() {
+	public HashMap<Integer, Integer> getGrammaticals() {
 		return grammaticals;
 	}
 

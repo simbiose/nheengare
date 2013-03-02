@@ -31,6 +31,7 @@
  */
 package simbio.se.nheengare;
 
+import simbio.se.nheengare.models.Word;
 import simbio.se.nheengare.utils.SimbiLog;
 import android.os.Bundle;
 
@@ -40,11 +41,15 @@ import android.os.Bundle;
  */
 public class DetailActivity extends AbstractActivity {
 
+	private Word word;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		SimbiLog.log(this, savedInstanceState);
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_detail);
+
+		word = (Word) getIntent().getExtras().getSerializable("Word");
 	}
 
 }

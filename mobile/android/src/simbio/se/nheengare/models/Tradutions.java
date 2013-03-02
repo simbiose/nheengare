@@ -42,6 +42,9 @@ import org.json.JSONObject;
  */
 public class Tradutions extends ModelAbstract {
 
+	// serializable
+	private static final long serialVersionUID = 1L;
+
 	private int languageId;
 	private ArrayList<WordWeight> words = new ArrayList<WordWeight>();
 

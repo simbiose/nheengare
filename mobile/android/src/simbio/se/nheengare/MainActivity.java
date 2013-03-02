@@ -46,9 +46,13 @@ import simbio.se.nheengare.models.ModelAbstract;
 import simbio.se.nheengare.models.Source;
 import simbio.se.nheengare.models.Word;
 import simbio.se.nheengare.utils.SimbiLog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -58,7 +62,7 @@ import android.widget.ListView;
  * @author ademar111190@gmail.com
  */
 public class MainActivity extends AbstractActivity implements TextWatcher,
-		Runnable {
+		Runnable, OnItemClickListener {
 
 	// variables
 	private ArrayList<Source> sources = new ArrayList<Source>();
@@ -117,6 +121,7 @@ public class MainActivity extends AbstractActivity implements TextWatcher,
 
 		// load list to show words
 		listResults = (ListView) findViewById(R.id.listViewMain);
+		listResults.setOnItemClickListener(this);
 		refreshList();
 	}
 
@@ -183,6 +188,14 @@ public class MainActivity extends AbstractActivity implements TextWatcher,
 	public synchronized void setSearchLock(boolean searchLock) {
 		SimbiLog.log(this, searchLock);
 		this.searchLock = searchLock;
+	}
+
+	// list click
+	@Override
+	public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+		Intent i = new Intent(getApplicationContext(), DetailActivity.class);
+		i.putExtra("Word", words.get(arg2));
+		startActivity(i);
 	}
 
 }

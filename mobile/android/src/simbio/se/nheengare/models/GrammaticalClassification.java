@@ -39,6 +39,9 @@ import org.json.JSONObject;
  */
 public class GrammaticalClassification extends ModelAbstract {
 
+	// serializable
+	private static final long serialVersionUID = 1L;
+
 	private int id;
 	private String name;
 

@@ -39,6 +39,9 @@ import org.json.JSONObject;
  */
 public class WordWeight extends ModelAbstract {
 
+	// serializable
+	private static final long serialVersionUID = 1L;
+
 	private int wordId;
 	private double weight;
 

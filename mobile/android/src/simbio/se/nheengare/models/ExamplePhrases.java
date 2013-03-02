@@ -42,6 +42,9 @@ import org.json.JSONObject;
  */
 public class ExamplePhrases extends ModelAbstract {
 
+	// serializable
+	private static final long serialVersionUID = 1L;
+
 	private int sourceId;
 	private ArrayList<Phrase> sentences = new ArrayList<Phrase>();
 

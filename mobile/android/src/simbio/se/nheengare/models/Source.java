@@ -42,6 +42,9 @@ import org.json.JSONObject;
  */
 public class Source extends ModelAbstract {
 
+	// serializable
+	private static final long serialVersionUID = 1L;
+
 	private int id;
 	private ArrayList<String> tutors = new ArrayList<String>();
 	private ArrayList<String> urls = new ArrayList<String>();
