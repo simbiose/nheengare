@@ -39,6 +39,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import simbio.se.nheengare.models.Language;
 import simbio.se.nheengare.models.Source;
 import simbio.se.nheengare.utils.SimbiLog;
 import android.os.Bundle;
@@ -59,6 +60,7 @@ public class MainActivity extends AbstractActivity implements TextWatcher {
 	private static final String[] COUNTRIES = new String[] { "Azul", "Amarelo",
 			"Amado", "Amei", "amando" };
 	private ArrayList<Source> sources = new ArrayList<Source>();
+	private ArrayList<Language> languages = new ArrayList<Language>();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -75,16 +77,16 @@ public class MainActivity extends AbstractActivity implements TextWatcher {
 			is.read(buffer);
 			is.close();
 
-			// load json
+			// load json objects
 			JSONObject jsonObject = new JSONObject(new String(buffer));
-			SimbiLog.print(jsonObject);
-
-			// load objects
 			JSONArray jsonArray = jsonObject.optJSONArray("sources");
 			for (int c = 0; c < jsonArray.length(); c++)
 				sources.add(new Source(jsonArray.optJSONObject(c)));
+			jsonArray = jsonObject.optJSONArray("languages");
+			for (int c = 0; c < jsonArray.length(); c++)
+				languages.add(new Language(jsonArray.optJSONObject(c)));
 
-			SimbiLog.print(sources);
+			SimbiLog.print(sources, languages);
 		} catch (IOException e) {
 			SimbiLog.printException(e);
 		} catch (JSONException j) {
