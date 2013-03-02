@@ -49,7 +49,8 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.Menu;
 import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
+import android.widget.EditText;
+import android.widget.ListView;
 
 /**
  * @author Ademar Alves de Oliveira
@@ -58,13 +59,15 @@ import android.widget.AutoCompleteTextView;
 public class MainActivity extends AbstractActivity implements TextWatcher {
 
 	// variables
-	private AutoCompleteTextView actv;
-	private static final String[] COUNTRIES = new String[] { "Azul", "Amarelo",
-			"Amado", "Amei", "amando" };
 	private ArrayList<Source> sources = new ArrayList<Source>();
 	private ArrayList<Language> languages = new ArrayList<Language>();
 	private ArrayList<Grammatical> grammaticals = new ArrayList<Grammatical>();
 	private ArrayList<Word> words = new ArrayList<Word>();
+	private ArrayAdapter<String> adapter;
+
+	// views
+	private EditText edtInput;
+	private ListView listResults;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -101,13 +104,13 @@ public class MainActivity extends AbstractActivity implements TextWatcher {
 			SimbiLog.printException(j);
 		}
 
-		// load AutoCompleteTextView of search
-		actv = (AutoCompleteTextView) findViewById(R.id.autoCompleteTextViewMain);
-		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-				android.R.layout.simple_dropdown_item_1line, COUNTRIES);
-		actv.setAdapter(adapter);
-		actv.addTextChangedListener(this);
-		actv.setThreshold(1);
+		// load EditView of search
+		edtInput = (EditText) findViewById(R.id.autoCompleteTextViewMain);
+		edtInput.addTextChangedListener(this);
+
+		// load list to show words
+		listResults = (ListView) findViewById(R.id.listViewMain);
+		refreshList();
 	}
 
 	@Override
@@ -116,6 +119,18 @@ public class MainActivity extends AbstractActivity implements TextWatcher {
 		// getMenuInflater().inflate(R.menu.main, menu);
 		SimbiLog.log(this, menu);
 		return false;
+	}
+
+	// refresh list
+
+	public void refreshList() {
+		ArrayList<String> values = new ArrayList<String>();
+		for (Word w : words)
+			for (String s : w.getWrites())
+				values.add(s);
+		adapter = new ArrayAdapter<String>(this,
+				android.R.layout.simple_list_item_1, android.R.id.text1, values);
+		listResults.setAdapter(adapter);
 	}
 
 	// textWatcher
