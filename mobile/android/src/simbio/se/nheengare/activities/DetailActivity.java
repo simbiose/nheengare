@@ -34,8 +34,11 @@ package simbio.se.nheengare.activities;
 import simbio.se.nheengare.R;
 import simbio.se.nheengare.core.Flag;
 import simbio.se.nheengare.core.Flag.FLAG_SIZE;
+import simbio.se.nheengare.models.Tradutions;
 import simbio.se.nheengare.models.Word;
+import simbio.se.nheengare.models.WordWeight;
 import simbio.se.nheengare.utils.SimbiLog;
+import simbio.se.nheengare.view.TranslationView;
 import android.os.Bundle;
 import android.widget.LinearLayout;
 
@@ -56,7 +59,7 @@ public class DetailActivity extends AbstractActivity {
 		// load word
 		word = getBlackBoard().getWordWithId(
 				getIntent().getExtras().getInt("Word"));
-		SimbiLog.print(word);
+		setTitle(word.getWriteUnique());
 
 		// setup header view
 		findTextViewById(R.id.textViewDetailTitle).setText(
@@ -70,5 +73,17 @@ public class DetailActivity extends AbstractActivity {
 		LinearLayout llTranslations = (LinearLayout) findViewById(R.id.linearLayoutDeatilTranslations);
 		if (word.getTradutions().isEmpty())
 			llTranslations.getLayoutParams().height = 0;
+		else {
+			for (Tradutions t : word.getTradutions()) {
+				int flagResourceId = Flag.getFlagResourceId(t.getLanguageId(),
+						FLAG_SIZE.FLAG_SIZE_24);
+				for (WordWeight ww : t.getWords())
+					llTranslations.addView(new TranslationView(
+							getApplicationContext(), flagResourceId,
+							getBlackBoard().getWordWithId(ww.getWordId())
+									.getWriteUnique(), ww.getWeight())
+							.getView());
+			}
+		}
 	}
 }
