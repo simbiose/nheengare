@@ -137,4 +137,9 @@ public class Word extends ModelAbstract {
 		return examples;
 	}
 
+	// find
+	@Override
+	public boolean isYourThisId(int id) {
+		return id == this.id;
+	}
 }

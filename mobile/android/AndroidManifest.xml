@@ -136,7 +136,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="simbio.se.nheengare.DetailActivity"
+            android:name="simbio.se.nheengare.activities.DetailActivity"
             android:label="@string/empty" />
     </application>
 

@@ -34,13 +34,16 @@ package simbio.se.nheengare.models;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+import simbio.se.nheengare.core.ISearch;
+
 import com.google.gson.Gson;
 
 /**
  * @author Ademar Alves de Oliveira
  * @author ademar111190@gmail.com
  */
-public class ModelAbstract implements Comparable<ModelAbstract>, Serializable {
+public class ModelAbstract implements Comparable<ModelAbstract>, Serializable,
+		ISearch {
 
 	// serializable
 	private static final long serialVersionUID = 1L;
@@ -86,6 +89,12 @@ public class ModelAbstract implements Comparable<ModelAbstract>, Serializable {
 
 	public float getCriteriaWeight() {
 		return criteriaWeight;
+	}
+
+	// search
+	@Override
+	public boolean isYourThisId(int id) {
+		return false;
 	}
 
 }

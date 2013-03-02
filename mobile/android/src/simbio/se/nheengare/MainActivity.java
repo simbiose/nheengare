@@ -31,19 +31,12 @@
  */
 package simbio.se.nheengare;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import simbio.se.nheengare.models.Grammatical;
-import simbio.se.nheengare.models.Language;
+import simbio.se.nheengare.activities.AbstractActivity;
+import simbio.se.nheengare.activities.DetailActivity;
 import simbio.se.nheengare.models.ModelAbstract;
-import simbio.se.nheengare.models.Source;
 import simbio.se.nheengare.models.Word;
 import simbio.se.nheengare.utils.SimbiLog;
 import android.content.Intent;
@@ -65,10 +58,6 @@ public class MainActivity extends AbstractActivity implements TextWatcher,
 		Runnable, OnItemClickListener {
 
 	// variables
-	private ArrayList<Source> sources = new ArrayList<Source>();
-	private ArrayList<Language> languages = new ArrayList<Language>();
-	private ArrayList<Grammatical> grammaticals = new ArrayList<Grammatical>();
-	private ArrayList<Word> words = new ArrayList<Word>();
 	private ArrayAdapter<String> adapter;
 	private ArrayList<String> values = new ArrayList<String>();
 
@@ -85,35 +74,6 @@ public class MainActivity extends AbstractActivity implements TextWatcher,
 		SimbiLog.log(this, savedInstanceState);
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-
-		// load database
-		try {
-			// load file
-			InputStream is = getAssets().open("db.json");
-			int size = is.available();
-			byte[] buffer = new byte[size];
-			is.read(buffer);
-			is.close();
-
-			// load json objects
-			JSONObject jsonObject = new JSONObject(new String(buffer));
-			JSONArray jsonArray = jsonObject.optJSONArray("sources");
-			for (int c = 0; c < jsonArray.length(); c++)
-				sources.add(new Source(jsonArray.optJSONObject(c)));
-			jsonArray = jsonObject.optJSONArray("languages");
-			for (int c = 0; c < jsonArray.length(); c++)
-				languages.add(new Language(jsonArray.optJSONObject(c)));
-			jsonArray = jsonObject.optJSONArray("grammatical_class");
-			for (int c = 0; c < jsonArray.length(); c++)
-				grammaticals.add(new Grammatical(jsonArray.optJSONObject(c)));
-			jsonArray = jsonObject.optJSONArray("words");
-			for (int c = 0; c < jsonArray.length(); c++)
-				words.add(new Word(jsonArray.optJSONObject(c)));
-		} catch (IOException e) {
-			SimbiLog.printException(e);
-		} catch (JSONException j) {
-			SimbiLog.printException(j);
-		}
 
 		// load EditView of search
 		edtInput = (EditText) findViewById(R.id.autoCompleteTextViewMain);
@@ -158,9 +118,10 @@ public class MainActivity extends AbstractActivity implements TextWatcher,
 		SimbiLog.log(this);
 		setSearchLock(true);
 		ModelAbstract.criteria = edtInput.getText().toString();
-		Collections.sort(words, Collections.reverseOrder());
+		Collections
+				.sort(getBlackBoard().getWords(), Collections.reverseOrder());
 		values.clear();
-		for (Word w : words)
+		for (Word w : getBlackBoard().getWords())
 			for (String s : w.getWrites())
 				values.add(s);
 		adapter = new ArrayAdapter<String>(this,
@@ -194,7 +155,7 @@ public class MainActivity extends AbstractActivity implements TextWatcher,
 	@Override
 	public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
 		Intent i = new Intent(getApplicationContext(), DetailActivity.class);
-		i.putExtra("Word", words.get(arg2));
+		i.putExtra("Word", getBlackBoard().getWords().get(arg2).getId());
 		startActivity(i);
 	}
 

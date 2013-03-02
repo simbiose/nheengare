@@ -29,8 +29,9 @@
 
     Livre(FSF) Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
-package simbio.se.nheengare;
+package simbio.se.nheengare.activities;
 
+import simbio.se.nheengare.core.BlackBoard;
 import simbio.se.nheengare.utils.SimbiLog;
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -64,6 +65,9 @@ import android.view.WindowManager.LayoutParams;
 public class AbstractActivity extends Activity {
 
 	// customs
+	protected BlackBoard getBlackBoard() {
+		return BlackBoard.getBlackBoard(getApplicationContext());
+	}
 
 	// Overrides
 
