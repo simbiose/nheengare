@@ -32,6 +32,7 @@
 package simbio.se.nheengare.activities;
 
 import simbio.se.nheengare.R;
+import simbio.se.nheengare.core.Analytics;
 import simbio.se.nheengare.core.Flag;
 import simbio.se.nheengare.core.Flag.FLAG_SIZE;
 import simbio.se.nheengare.models.Tradutions;
@@ -85,5 +86,12 @@ public class DetailActivity extends AbstractActivity {
 							.getView());
 			}
 		}
+	}
+
+	@Override
+	protected void onStart() {
+		super.onStart();
+		Analytics.getAnalytics(getApplicationContext()).track(
+				"/Detail/" + word.getId());
 	}
 }

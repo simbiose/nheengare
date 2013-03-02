@@ -36,6 +36,7 @@ import java.util.Collections;
 
 import simbio.se.nheengare.activities.AbstractActivity;
 import simbio.se.nheengare.activities.DetailActivity;
+import simbio.se.nheengare.core.Analytics;
 import simbio.se.nheengare.models.ModelAbstract;
 import simbio.se.nheengare.models.Word;
 import simbio.se.nheengare.utils.SimbiLog;
@@ -83,6 +84,12 @@ public class MainActivity extends AbstractActivity implements TextWatcher,
 		listResults = findListViewById(R.id.listViewMain);
 		listResults.setOnItemClickListener(this);
 		refreshList();
+	}
+
+	@Override
+	protected void onStart() {
+		super.onStart();
+		Analytics.getAnalytics(getApplicationContext()).track("/Main");
 	}
 
 	// refresh list
