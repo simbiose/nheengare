@@ -113,6 +113,14 @@ public class Word extends ModelAbstract {
 		return writes;
 	}
 
+	public String getWriteUnique() {
+		if (writes.size() > 1) {
+			// TODO format writes
+			return writes.toString();
+		} else
+			return writes.get(0);
+	}
+
 	public ArrayList<Integer> getWordsEqualsIds() {
 		return wordsEqualsIds;
 	}

@@ -32,9 +32,12 @@
 package simbio.se.nheengare.activities;
 
 import simbio.se.nheengare.R;
+import simbio.se.nheengare.core.Flag;
+import simbio.se.nheengare.core.Flag.FLAG_SIZE;
 import simbio.se.nheengare.models.Word;
 import simbio.se.nheengare.utils.SimbiLog;
 import android.os.Bundle;
+import android.widget.LinearLayout;
 
 /**
  * @author Ademar Alves de Oliveira
@@ -50,9 +53,22 @@ public class DetailActivity extends AbstractActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_detail);
 
+		// load word
 		word = getBlackBoard().getWordWithId(
 				getIntent().getExtras().getInt("Word"));
 		SimbiLog.print(word);
-	}
 
+		// setup header view
+		findTextViewById(R.id.textViewDetailTitle).setText(
+				word.getWriteUnique());
+		findImageViewById(R.id.imageViewDetailFlag)
+				.setImageResource(
+						Flag.getFlagResourceId(word.getLangId(),
+								FLAG_SIZE.FLAG_SIZE_32));
+
+		// setup translations view
+		LinearLayout llTranslations = (LinearLayout) findViewById(R.id.linearLayoutDeatilTranslations);
+		if (word.getTradutions().isEmpty())
+			llTranslations.getLayoutParams().height = 0;
+	}
 }

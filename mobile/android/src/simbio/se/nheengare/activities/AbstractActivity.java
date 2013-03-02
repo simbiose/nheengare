@@ -56,6 +56,11 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager.LayoutParams;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.TextView;
 
 /**
  * @author Ademar Alves de Oliveira
@@ -67,6 +72,27 @@ public class AbstractActivity extends Activity {
 	// customs
 	protected BlackBoard getBlackBoard() {
 		return BlackBoard.getBlackBoard(getApplicationContext());
+	}
+
+	// find standart view
+	public EditText findEditTextById(int id) {
+		return (EditText) super.findViewById(id);
+	}
+
+	public TextView findTextViewById(int id) {
+		return (TextView) super.findViewById(id);
+	}
+
+	public ListView findListViewById(int id) {
+		return (ListView) super.findViewById(id);
+	}
+
+	public ImageView findImageViewById(int id) {
+		return (ImageView) super.findViewById(id);
+	}
+
+	public LinearLayout findLinearLayoutById(int id) {
+		return (LinearLayout) super.findViewById(id);
 	}
 
 	// Overrides

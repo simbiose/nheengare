@@ -76,11 +76,11 @@ public class MainActivity extends AbstractActivity implements TextWatcher,
 		setContentView(R.layout.activity_main);
 
 		// load EditView of search
-		edtInput = (EditText) findViewById(R.id.autoCompleteTextViewMain);
+		edtInput = findEditTextById(R.id.autoCompleteTextViewMain);
 		edtInput.addTextChangedListener(this);
 
 		// load list to show words
-		listResults = (ListView) findViewById(R.id.listViewMain);
+		listResults = findListViewById(R.id.listViewMain);
 		listResults.setOnItemClickListener(this);
 		refreshList();
 	}

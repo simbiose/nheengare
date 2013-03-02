@@ -9,13 +9,54 @@
     tools:context=".MainActivity" >
 
     <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/textViewDetailTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
-        android:text="Large Text"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_toRightOf="@+id/imageViewDetailFlag"
+        android:text="@string/app_name"
         android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <ImageView
+        android:id="@+id/imageViewDetailFlag"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/textViewDetailTitle"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:contentDescription="@string/empty"
+        android:src="@drawable/nu_32" />
+
+    <ScrollView
+        android:id="@+id/scrollView1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignLeft="@+id/textViewTranslations"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/textViewDetailTitle" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:id="@+id/linearLayoutDeatilTranslations"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:id="@+id/textViewTranslations"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/activity_vertical_margin"
+                    android:text="@string/translation" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
 
 </RelativeLayout>
