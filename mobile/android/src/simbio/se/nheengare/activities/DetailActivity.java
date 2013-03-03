@@ -40,6 +40,8 @@ import simbio.se.nheengare.models.Tradutions;
 import simbio.se.nheengare.models.Word;
 import simbio.se.nheengare.models.WordWeight;
 import simbio.se.nheengare.utils.SimbiLog;
+import simbio.se.nheengare.view.ExampleUseView;
+import simbio.se.nheengare.view.GrammaticalView;
 import simbio.se.nheengare.view.TranslationView;
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -79,7 +81,7 @@ public class DetailActivity extends AbstractActivity {
 								FLAG_SIZE.FLAG_SIZE_32));
 
 		// setup translations view
-		LinearLayout llTranslations = (LinearLayout) findViewById(R.id.linearLayoutDeatilTranslations);
+		LinearLayout llTranslations = findLinearLayoutById(R.id.linearLayoutDeatilTranslations);
 		if (word.getTradutions().isEmpty())
 			llTranslations.getLayoutParams().height = 0;
 		else {
@@ -90,10 +92,27 @@ public class DetailActivity extends AbstractActivity {
 					llTranslations.addView(new TranslationView(
 							getApplicationContext(), flagResourceId,
 							getBlackBoard().getWordWithId(ww.getWordId())
-									.getWriteUnique(), ww.getWeight())
-							.getView());
+									.getWriteUnique(), ww).getView());
 			}
 		}
+
+		// setup grammatical class view
+		LinearLayout llGrammatical = findLinearLayoutById(R.id.linearLayoutDeatilGrammaticalClass);
+		if (word.getGrammaticalsIds().isEmpty())
+			llGrammatical.getLayoutParams().height = 0;
+		else
+			llGrammatical.addView(new GrammaticalView(getApplicationContext(),
+					word.getGrammaticalsIds()).getView());
+
+		// setup examples view
+		LinearLayout llExamples = findLinearLayoutById(R.id.linearLayoutDeatilExamplesUse);
+		if (word.getExamples().isEmpty())
+			llExamples.getLayoutParams().height = 0;
+		else
+			llExamples.addView(new ExampleUseView(getApplicationContext(), word
+					.getExamples(), word.getWrites()).getView());
+
+		// setup AFI TODO
 	}
 
 	@Override

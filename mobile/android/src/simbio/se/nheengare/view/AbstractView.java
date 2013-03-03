@@ -35,6 +35,7 @@ import simbio.se.nheengare.utils.SimbiLog;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -46,7 +47,7 @@ import android.widget.TextView;
  * @author Ademar Alves de Oliveira
  * @author ademar111190@gmail.com
  */
-public class AbstractView {
+public class AbstractView implements OnClickListener {
 
 	protected View self;
 
@@ -55,6 +56,7 @@ public class AbstractView {
 		self = ((LayoutInflater) context
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(
 				layoutId, null);
+		self.setOnClickListener(this);
 	}
 
 	public View getView() {
@@ -85,6 +87,12 @@ public class AbstractView {
 
 	public LinearLayout findLinearLayoutById(int id) {
 		return (LinearLayout) self.findViewById(id);
+	}
+
+	// onclick
+	@Override
+	public void onClick(View v) {
+		SimbiLog.log(this, v);
 	}
 
 }

@@ -131,4 +131,8 @@ public class BlackBoard {
 		return (Word) getObjectWithId(words, id);
 	}
 
+	public Grammatical getGrammaticalWithId(int id) {
+		return (Grammatical) getObjectWithId(grammaticals, id);
+	}
+
 }

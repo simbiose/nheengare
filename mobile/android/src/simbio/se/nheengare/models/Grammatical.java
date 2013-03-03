@@ -71,4 +71,10 @@ public class Grammatical extends ModelAbstract {
 		return classifications;
 	}
 
+	// find
+	@Override
+	public boolean isYourThisId(int id) {
+		return id == this.id;
+	}
+
 }

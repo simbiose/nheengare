@@ -31,42 +31,30 @@
  */
 package simbio.se.nheengare.view;
 
+import java.util.ArrayList;
+
 import simbio.se.nheengare.R;
-import simbio.se.nheengare.activities.DetailActivity;
-import simbio.se.nheengare.models.WordWeight;
+import simbio.se.nheengare.core.BlackBoard;
 import simbio.se.nheengare.utils.SimbiLog;
 import android.content.Context;
-import android.content.Intent;
-import android.view.View;
 
 /**
  * @author Ademar Alves de Oliveira
  * @author ademar111190@gmail.com
  */
-public class TranslationView extends AbstractView {
+public class GrammaticalView extends AbstractView {
 
-	private int id;
-
-	public TranslationView(Context context, int flagIdResource, String word,
-			WordWeight ww) {
-		super(context, R.layout.view_translation);
-		SimbiLog.log(this, context, flagIdResource, word, ww);
-		// customize values
-		findTextViewById(R.id.textViewTranslation).setText(word);
-		findImageViewById(R.id.imageViewTranslation).setImageResource(
-				flagIdResource);
-		findProgressBarById(R.id.progressBarTranslation).setProgress(
-				(int) (ww.getWeight() * 100.0));
-		id = ww.getWordId();
-	}
-
-	@Override
-	public void onClick(View v) {
-		super.onClick(v);
-		Intent i = new Intent(v.getContext(), DetailActivity.class);
-		i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-		i.putExtra("Word", id);
-		v.getContext().startActivity(i);
+	public GrammaticalView(Context context, ArrayList<Integer> grammaticalsIds) {
+		super(context, R.layout.view_grammatical_class);
+		SimbiLog.log(this, context, grammaticalsIds);
+		String g = new String();
+		for (Integer i : grammaticalsIds) {
+			g += BlackBoard.getBlackBoard().getGrammaticalWithId(i).getName()
+					+ ", ";
+		}
+		if (g.length() > 0)
+			g = g.substring(0, g.length() - 2);
+		findTextViewById(R.id.textViewGrammatical).setText(g);
 	}
 
 }

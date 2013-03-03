@@ -31,42 +31,31 @@
  */
 package simbio.se.nheengare.view;
 
+import java.util.ArrayList;
+
 import simbio.se.nheengare.R;
-import simbio.se.nheengare.activities.DetailActivity;
-import simbio.se.nheengare.models.WordWeight;
+import simbio.se.nheengare.models.ExamplePhrases;
+import simbio.se.nheengare.models.Phrase;
 import simbio.se.nheengare.utils.SimbiLog;
 import android.content.Context;
-import android.content.Intent;
-import android.view.View;
 
 /**
  * @author Ademar Alves de Oliveira
  * @author ademar111190@gmail.com
  */
-public class TranslationView extends AbstractView {
+public class ExampleUseView extends AbstractView {
 
-	private int id;
-
-	public TranslationView(Context context, int flagIdResource, String word,
-			WordWeight ww) {
-		super(context, R.layout.view_translation);
-		SimbiLog.log(this, context, flagIdResource, word, ww);
-		// customize values
-		findTextViewById(R.id.textViewTranslation).setText(word);
-		findImageViewById(R.id.imageViewTranslation).setImageResource(
-				flagIdResource);
-		findProgressBarById(R.id.progressBarTranslation).setProgress(
-				(int) (ww.getWeight() * 100.0));
-		id = ww.getWordId();
-	}
-
-	@Override
-	public void onClick(View v) {
-		super.onClick(v);
-		Intent i = new Intent(v.getContext(), DetailActivity.class);
-		i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-		i.putExtra("Word", id);
-		v.getContext().startActivity(i);
+	public ExampleUseView(Context context, ArrayList<ExamplePhrases> phrases,
+			ArrayList<String> words) {
+		super(context, R.layout.view_examples);
+		SimbiLog.log(this, context, phrases, words);
+		String s = new String();
+		for (ExamplePhrases examplePhrases : phrases)
+			for (Phrase p : examplePhrases.getSentences())
+				s += p.getPhrase() + "\n";
+		if (s.length() > 0)
+			s = s.substring(0, s.length() - 2);
+		findTextViewById(R.id.textViewExample).setText(s);
 	}
 
 }

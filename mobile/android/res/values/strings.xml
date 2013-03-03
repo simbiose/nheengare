@@ -6,5 +6,8 @@
     <string name="empty"></string>
     <string name="search_word">Procurar palavra</string>
     <string name="translation">Tradução</string>
+    <string name="grammatical">Classe gramatical</string>
+    <string name="examples_of_use">Exemplos de utilização</string>
+    <string name="afi">Alfabeto fonético internacional</string>
 
 </resources>
