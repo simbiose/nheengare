@@ -58,6 +58,9 @@ import android.widget.ListView;
 public class MainActivity extends AbstractActivity implements TextWatcher,
 		Runnable, OnItemClickListener {
 
+	// shared
+	public static MainActivity shared = null;
+
 	// variables
 	private ArrayAdapter<String> adapter;
 	private ArrayList<String> values = new ArrayList<String>();
@@ -74,6 +77,7 @@ public class MainActivity extends AbstractActivity implements TextWatcher,
 	protected void onCreate(Bundle savedInstanceState) {
 		SimbiLog.log(this, savedInstanceState);
 		super.onCreate(savedInstanceState);
+		shared = this;
 		setContentView(R.layout.activity_main);
 
 		// load EditView of search
