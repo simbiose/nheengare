@@ -40,6 +40,7 @@ import simbio.se.nheengare.core.Analytics;
 import simbio.se.nheengare.models.ModelAbstract;
 import simbio.se.nheengare.models.Word;
 import simbio.se.nheengare.utils.SimbiLog;
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -63,7 +64,6 @@ public class MainActivity extends AbstractActivity implements TextWatcher,
 
 	// variables
 	private ArrayAdapter<String> adapter;
-	private ArrayList<String> values = new ArrayList<String>();
 
 	// views
 	private EditText edtInput;
@@ -84,8 +84,14 @@ public class MainActivity extends AbstractActivity implements TextWatcher,
 		edtInput = findEditTextById(R.id.autoCompleteTextViewMain);
 		edtInput.addTextChangedListener(this);
 
+		// load adapter
+		adapter = new ArrayAdapter<String>(this,
+				android.R.layout.simple_list_item_1, android.R.id.text1,
+				new ArrayList<String>());
+
 		// load list to show words
 		listResults = findListViewById(R.id.listViewMain);
+		listResults.setAdapter(adapter);
 		listResults.setOnItemClickListener(this);
 		refreshList();
 	}
@@ -124,25 +130,22 @@ public class MainActivity extends AbstractActivity implements TextWatcher,
 	}
 
 	// multithread
+	@SuppressLint("DefaultLocale")
 	@Override
 	public void run() {
 		SimbiLog.log(this);
 		setSearchLock(true);
-		ModelAbstract.criteria = edtInput.getText().toString();
+		ModelAbstract.criteria = edtInput.getText().toString().toLowerCase();
 		Collections
 				.sort(getBlackBoard().getWords(), Collections.reverseOrder());
-		values.clear();
-		for (Word w : getBlackBoard().getWords())
-			for (String s : w.getWrites())
-				values.add(s);
-		adapter = new ArrayAdapter<String>(this,
-				android.R.layout.simple_list_item_1, android.R.id.text1, values);
 		runOnUiThread(new Runnable() {
-
 			@Override
 			public void run() {
-				SimbiLog.log(this);
-				listResults.setAdapter(adapter);
+				adapter.clear();
+				for (Word w : getBlackBoard().getWords())
+					for (String s : w.getWrites())
+						adapter.add(s);
+				adapter.notifyDataSetChanged();
 			}
 		});
 		if (searchAgain) {
