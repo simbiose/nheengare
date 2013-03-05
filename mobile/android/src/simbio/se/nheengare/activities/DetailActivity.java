@@ -46,6 +46,9 @@ import simbio.se.nheengare.view.TranslationView;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.NavUtils;
+import android.support.v4.app.TaskStackBuilder;
+import android.view.MenuItem;
 import android.widget.LinearLayout;
 
 /**
@@ -122,15 +125,21 @@ public class DetailActivity extends AbstractActivity {
 				"/Detail/" + word.getId());
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
-	public void onBackPressed() {
-		SimbiLog.log(this);
-		if (MainActivity.shared == null) {
-			Intent intent = new Intent(this, MainActivity.class);
-			intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-			startActivity(intent);
-		} else {
-			super.onBackPressed();
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case android.R.id.home:
+			Intent upIntent = new Intent(this, MainActivity.class);
+			if (NavUtils.shouldUpRecreateTask(this, upIntent)) {
+				TaskStackBuilder.from(this).addNextIntent(upIntent)
+						.startActivities();
+				finish();
+			} else {
+				NavUtils.navigateUpTo(this, upIntent);
+			}
+			return true;
 		}
+		return super.onOptionsItemSelected(item);
 	}
 }
