@@ -39,7 +39,6 @@ import simbio.se.nheengare.core.Flag.FLAG_SIZE;
 import simbio.se.nheengare.models.Tradutions;
 import simbio.se.nheengare.models.Word;
 import simbio.se.nheengare.models.WordWeight;
-import simbio.se.nheengare.utils.SimbiLog;
 import simbio.se.nheengare.view.AfiView;
 import simbio.se.nheengare.view.ExampleUseView;
 import simbio.se.nheengare.view.GrammaticalView;
@@ -63,7 +62,6 @@ public class DetailActivity extends AbstractActivity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		SimbiLog.log(this, savedInstanceState);
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_detail);
 

@@ -31,7 +31,6 @@
  */
 package simbio.se.nheengare.core;
 
-import simbio.se.nheengare.utils.SimbiLog;
 import android.content.Context;
 import android.telephony.TelephonyManager;
 
@@ -68,7 +67,6 @@ public class Analytics {
 	}
 
 	public void track(String track) {
-		SimbiLog.log(this, track);
 		mGaTracker.sendView(track);
 		GAServiceManager.getInstance().dispatch();
 	}

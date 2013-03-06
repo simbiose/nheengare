@@ -39,7 +39,6 @@ import simbio.se.nheengare.activities.DetailActivity;
 import simbio.se.nheengare.core.Analytics;
 import simbio.se.nheengare.models.ModelAbstract;
 import simbio.se.nheengare.models.Word;
-import simbio.se.nheengare.utils.SimbiLog;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
@@ -72,7 +71,6 @@ public class MainActivity extends AbstractActivity implements TextWatcher,
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		SimbiLog.log(this, savedInstanceState);
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
@@ -100,7 +98,6 @@ public class MainActivity extends AbstractActivity implements TextWatcher,
 
 	// refresh list
 	public void refreshList() {
-		SimbiLog.log(this);
 		if (!searchLock)
 			new Thread(this).start();
 		else
@@ -110,26 +107,22 @@ public class MainActivity extends AbstractActivity implements TextWatcher,
 	// textWatcher
 	@Override
 	public void afterTextChanged(Editable s) {
-		SimbiLog.log(this, s);
 		refreshList();
 	}
 
 	@Override
 	public void beforeTextChanged(CharSequence s, int start, int count,
 			int after) {
-		SimbiLog.log(this, s, start, count, after);
 	}
 
 	@Override
 	public void onTextChanged(CharSequence s, int start, int before, int count) {
-		SimbiLog.log(this, s, start, before, count);
 	}
 
 	// multithread
 	@SuppressLint("DefaultLocale")
 	@Override
 	public void run() {
-		SimbiLog.log(this);
 		setSearchLock(true);
 		ModelAbstract.criteria = edtInput.getText().toString().toLowerCase();
 		Collections
@@ -152,12 +145,10 @@ public class MainActivity extends AbstractActivity implements TextWatcher,
 	}
 
 	public synchronized void setSearchAgain(boolean searchAgain) {
-		SimbiLog.log(this, searchAgain);
 		this.searchAgain = searchAgain;
 	}
 
 	public synchronized void setSearchLock(boolean searchLock) {
-		SimbiLog.log(this, searchLock);
 		this.searchLock = searchLock;
 	}
 

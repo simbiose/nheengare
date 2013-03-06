@@ -36,7 +36,6 @@ import java.util.ArrayList;
 import simbio.se.nheengare.R;
 import simbio.se.nheengare.models.ExamplePhrases;
 import simbio.se.nheengare.models.Phrase;
-import simbio.se.nheengare.utils.SimbiLog;
 import simbio.se.nheengare.utils.TextFormatter;
 import android.content.Context;
 
@@ -49,7 +48,6 @@ public class ExampleUseView extends AbstractView {
 	public ExampleUseView(Context context, ArrayList<ExamplePhrases> phrases,
 			ArrayList<String> words) {
 		super(context, R.layout.view_examples);
-		SimbiLog.log(this, context, phrases, words);
 		String s = new String();
 		for (ExamplePhrases examplePhrases : phrases)
 			for (Phrase p : examplePhrases.getSentences())

@@ -34,7 +34,6 @@ package simbio.se.nheengare.view;
 import simbio.se.nheengare.R;
 import simbio.se.nheengare.activities.DetailActivity;
 import simbio.se.nheengare.models.WordWeight;
-import simbio.se.nheengare.utils.SimbiLog;
 import android.content.Context;
 import android.content.Intent;
 import android.view.View;
@@ -50,7 +49,6 @@ public class TranslationView extends AbstractView {
 	public TranslationView(Context context, int flagIdResource, String word,
 			WordWeight ww) {
 		super(context, R.layout.view_translation);
-		SimbiLog.log(this, context, flagIdResource, word, ww);
 		// customize values
 		findTextViewById(R.id.textViewTranslation).setText(word);
 		findImageViewById(R.id.imageViewTranslation).setImageResource(

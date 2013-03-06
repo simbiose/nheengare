@@ -32,7 +32,6 @@
 package simbio.se.nheengare.activities;
 
 import simbio.se.nheengare.core.BlackBoard;
-import simbio.se.nheengare.utils.SimbiLog;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.widget.EditText;
@@ -80,14 +79,12 @@ public class AbstractActivity extends Activity {
 
 	@Override
 	protected void onStart() {
-		SimbiLog.log(this);
 		super.onStart();
 		EasyTracker.getInstance().activityStart(this);
 	}
 
 	@Override
 	protected void onStop() {
-		SimbiLog.log(this);
 		super.onStop();
 		EasyTracker.getInstance().activityStop(this);
 	}

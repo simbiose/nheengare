@@ -34,7 +34,6 @@ package simbio.se.nheengare.view;
 import java.util.ArrayList;
 
 import simbio.se.nheengare.R;
-import simbio.se.nheengare.utils.SimbiLog;
 import android.content.Context;
 
 /**
@@ -45,7 +44,6 @@ public class AfiView extends AbstractView {
 
 	public AfiView(Context context, ArrayList<String> afis) {
 		super(context, R.layout.view_afi);
-		SimbiLog.log(this, context, afis);
 		String s = new String();
 		for (String afi : afis)
 			s += afi + "\n";

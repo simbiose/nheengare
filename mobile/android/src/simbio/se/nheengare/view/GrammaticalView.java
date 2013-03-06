@@ -35,7 +35,6 @@ import java.util.ArrayList;
 
 import simbio.se.nheengare.R;
 import simbio.se.nheengare.core.BlackBoard;
-import simbio.se.nheengare.utils.SimbiLog;
 import android.content.Context;
 
 /**
@@ -46,7 +45,6 @@ public class GrammaticalView extends AbstractView {
 
 	public GrammaticalView(Context context, ArrayList<Integer> grammaticalsIds) {
 		super(context, R.layout.view_grammatical_class);
-		SimbiLog.log(this, context, grammaticalsIds);
 		String g = new String();
 		for (Integer i : grammaticalsIds) {
 			g += BlackBoard.getBlackBoard().getGrammaticalWithId(i).getName()

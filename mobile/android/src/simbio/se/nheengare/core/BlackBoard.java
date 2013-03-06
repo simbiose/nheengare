@@ -60,7 +60,6 @@ public class BlackBoard {
 	private ArrayList<Word> words = new ArrayList<Word>();
 
 	public BlackBoard(Context context) {
-		SimbiLog.log(this, context);
 		// load database
 		try {
 			// load file
@@ -92,12 +91,10 @@ public class BlackBoard {
 	}
 
 	public static BlackBoard getBlackBoard() {
-		SimbiLog.log(null);
 		return getBlackBoard(null);
 	}
 
 	public static BlackBoard getBlackBoard(Context context) {
-		SimbiLog.log(null, context);
 		if (blackBoard == null)
 			blackBoard = new BlackBoard(context);
 		return blackBoard;

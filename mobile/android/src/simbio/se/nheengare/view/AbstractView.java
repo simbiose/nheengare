@@ -31,7 +31,6 @@
  */
 package simbio.se.nheengare.view;
 
-import simbio.se.nheengare.utils.SimbiLog;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -52,7 +51,6 @@ public class AbstractView implements OnClickListener {
 	protected View self;
 
 	public AbstractView(Context context, int layoutId) {
-		SimbiLog.log(this, context, layoutId);
 		self = ((LayoutInflater) context
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(
 				layoutId, null);
@@ -60,7 +58,6 @@ public class AbstractView implements OnClickListener {
 	}
 
 	public View getView() {
-		SimbiLog.log(this);
 		return self;
 	}
 
@@ -92,7 +89,6 @@ public class AbstractView implements OnClickListener {
 	// onclick
 	@Override
 	public void onClick(View v) {
-		SimbiLog.log(this, v);
 	}
 
 }
