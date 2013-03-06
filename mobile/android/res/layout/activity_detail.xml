@@ -8,6 +8,14 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".MainActivity" >
 
+    <ProgressBar
+        android:id="@+id/loadViews"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true" />
+
     <TextView
         android:id="@+id/textViewDetailTitle"
         android:layout_width="wrap_content"
@@ -17,7 +25,8 @@
         android:layout_marginLeft="@dimen/activity_horizontal_margin"
         android:layout_toRightOf="@+id/imageViewDetailFlag"
         android:text="@string/app_name"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:visibility="invisible" />
 
     <ImageView
         android:id="@+id/imageViewDetailFlag"
@@ -27,16 +36,18 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:contentDescription="@string/empty"
-        android:src="@drawable/nu_32" />
+        android:src="@drawable/nu_32"
+        android:visibility="invisible" />
 
     <ScrollView
-        android:id="@+id/scrollView1"
+        android:id="@+id/scrollViewDetailItens"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignLeft="@+id/textViewTranslations"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:layout_below="@+id/textViewDetailTitle" >
+        android:layout_below="@+id/textViewDetailTitle"
+        android:visibility="invisible" >
 
         <LinearLayout
             android:layout_width="match_parent"

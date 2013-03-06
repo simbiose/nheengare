@@ -8,6 +8,14 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".MainActivity" >
 
+    <ProgressBar
+        android:id="@+id/loadViews"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true" />
+
     <EditText
         android:id="@+id/autoCompleteTextViewMain"
         android:layout_width="wrap_content"
@@ -17,7 +25,8 @@
         android:layout_alignParentTop="true"
         android:ems="10"
         android:hint="@string/search_word"
-        android:text="@string/empty" >
+        android:text="@string/empty"
+        android:visibility="invisible" >
 
         <requestFocus />
     </EditText>
@@ -27,7 +36,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/autoCompleteTextViewMain" >
+        android:layout_below="@+id/autoCompleteTextViewMain"
+        android:visibility="invisible" >
     </ListView>
 
 </RelativeLayout>

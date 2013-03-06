@@ -31,6 +31,8 @@
  */
 package simbio.se.nheengare.activities;
 
+import java.util.ArrayList;
+
 import simbio.se.nheengare.MainActivity;
 import simbio.se.nheengare.R;
 import simbio.se.nheengare.core.Analytics;
@@ -49,7 +51,10 @@ import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.support.v4.app.TaskStackBuilder;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 /**
  * @author Ademar Alves de Oliveira
@@ -60,11 +65,40 @@ public class DetailActivity extends AbstractActivity {
 
 	private Word word;
 
+	// temp
+	private TextView tempTxtHeader = null;
+	private ImageView tempImgHeader = null;
+	private LinearLayout tempTradution = null;
+	private ArrayList<View> tempTradutions = null;
+	private LinearLayout tempGrammatical = null;
+	private View tempGrammaticals = null;
+	private LinearLayout tempExample = null;
+	private View tempExamples = null;
+	private LinearLayout tempAfi = null;
+	private View tempAfis = null;
+
+	@Override
+	protected void clearTemp() {
+		tempTxtHeader = null;
+		tempImgHeader = null;
+		tempTradution = null;
+		tempTradutions = null;
+		tempGrammatical = null;
+		tempGrammaticals = null;
+		tempExample = null;
+		tempExamples = null;
+		tempAfi = null;
+		tempAfis = null;
+	}
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_detail);
+	}
 
+	@Override
+	protected void loadOnThread() {
 		// configure screen
 		if (android.os.Build.VERSION.SDK_INT >= 11)
 			getActionBar().setDisplayHomeAsUpEnabled(true);
@@ -75,59 +109,75 @@ public class DetailActivity extends AbstractActivity {
 		setTitle(word.getWriteUnique());
 
 		// setup header view
-		findTextViewById(R.id.textViewDetailTitle).setText(
-				word.getWriteUnique());
-		findImageViewById(R.id.imageViewDetailFlag)
-				.setImageResource(
-						Flag.getFlagResourceId(word.getLangId(),
-								FLAG_SIZE.FLAG_SIZE_32));
+		tempTxtHeader = findTextViewById(R.id.textViewDetailTitle);
+		tempImgHeader = findImageViewById(R.id.imageViewDetailFlag);
 
 		// setup translations view
-		LinearLayout llTranslations = findLinearLayoutById(R.id.linearLayoutDeatilTranslations);
-		if (word.getTradutions().isEmpty())
-			llTranslations.getLayoutParams().height = 0;
-		else {
-			for (Tradutions t : word.getTradutions()) {
-				int flagResourceId = Flag.getFlagResourceId(t.getLanguageId(),
-						FLAG_SIZE.FLAG_SIZE_24);
-				for (WordWeight ww : t.getWords())
-					llTranslations.addView(new TranslationView(
-							getApplicationContext(), flagResourceId,
-							getBlackBoard().getWordWithId(ww.getWordId())
-									.getWriteUnique(), ww).getView());
-			}
+		tempTradution = findLinearLayoutById(R.id.linearLayoutDeatilTranslations);
+		tempTradutions = new ArrayList<View>();
+		for (Tradutions t : word.getTradutions()) {
+			int flagResourceId = Flag.getFlagResourceId(t.getLanguageId(),
+					FLAG_SIZE.FLAG_SIZE_24);
+			for (WordWeight ww : t.getWords())
+				tempTradutions
+						.add(new TranslationView(getApplicationContext(),
+								flagResourceId, getBlackBoard().getWordWithId(
+										ww.getWordId()).getWriteUnique(), ww)
+								.getView());
 		}
 
 		// setup grammatical class view
-		LinearLayout llGrammatical = findLinearLayoutById(R.id.linearLayoutDeatilGrammaticalClass);
-		if (word.getGrammaticalsIds().isEmpty())
-			llGrammatical.getLayoutParams().height = 0;
-		else
-			llGrammatical.addView(new GrammaticalView(getApplicationContext(),
-					word.getGrammaticalsIds()).getView());
+		tempGrammatical = findLinearLayoutById(R.id.linearLayoutDeatilGrammaticalClass);
+		if (!word.getGrammaticalsIds().isEmpty())
+			tempGrammaticals = new GrammaticalView(getApplicationContext(),
+					word.getGrammaticalsIds()).getView();
 
 		// setup examples view
-		LinearLayout llExamples = findLinearLayoutById(R.id.linearLayoutDeatilExamplesUse);
-		if (word.getExamples().isEmpty())
-			llExamples.getLayoutParams().height = 0;
-		else
-			llExamples.addView(new ExampleUseView(getApplicationContext(), word
-					.getExamples(), word.getWrites()).getView());
+		tempExample = findLinearLayoutById(R.id.linearLayoutDeatilExamplesUse);
+		if (!word.getExamples().isEmpty())
+			tempExamples = new ExampleUseView(getApplicationContext(),
+					word.getExamples(), word.getWrites()).getView();
 
 		// setup AFI
-		LinearLayout llAfi = findLinearLayoutById(R.id.linearLayoutDeatilAfi);
-		if (word.getAfis().isEmpty())
-			llAfi.getLayoutParams().height = 0;
+		tempAfi = findLinearLayoutById(R.id.linearLayoutDeatilAfi);
+		if (!word.getAfis().isEmpty())
+			tempAfis = new AfiView(getApplicationContext(), word.getAfis())
+					.getView();
+	}
+
+	protected void loadOnUiThread() {
+		tempTxtHeader.setText(word.getWriteUnique());
+		tempImgHeader.setImageResource(Flag.getFlagResourceId(word.getLangId(),
+				FLAG_SIZE.FLAG_SIZE_32));
+
+		if (word.getTradutions().isEmpty())
+			tempTradution.getLayoutParams().height = 0;
 		else
-			llAfi.addView(new AfiView(getApplicationContext(), word.getAfis())
-					.getView());
+			for (View v : tempTradutions)
+				tempTradution.addView(v);
+
+		if (word.getGrammaticalsIds().isEmpty())
+			tempGrammatical.getLayoutParams().height = 0;
+		else
+			tempGrammatical.addView(tempGrammaticals);
+
+		if (word.getExamples().isEmpty())
+			tempExample.getLayoutParams().height = 0;
+		else
+			tempExample.addView(tempExamples);
+
+		if (word.getAfis().isEmpty())
+			tempAfi.getLayoutParams().height = 0;
+		else
+			tempAfi.addView(tempAfis);
+
+		show(new int[] { R.id.textViewDetailTitle, R.id.imageViewDetailFlag,
+				R.id.scrollViewDetailItens });
 	}
 
 	@Override
-	protected void onStart() {
-		super.onStart();
-		Analytics.getAnalytics(getApplicationContext()).track(
-				"/Detail/" + word.getId());
+	protected void trackerPage(Analytics analytics) {
+		analytics.track("/Detail/" + word.getId());
 	}
 
 	@SuppressWarnings("deprecation")

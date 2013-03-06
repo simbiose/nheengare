@@ -31,9 +31,12 @@
  */
 package simbio.se.nheengare.activities;
 
+import simbio.se.nheengare.R;
+import simbio.se.nheengare.core.Analytics;
 import simbio.se.nheengare.core.BlackBoard;
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -52,6 +55,25 @@ public class AbstractActivity extends Activity {
 	// customs
 	protected BlackBoard getBlackBoard() {
 		return BlackBoard.getBlackBoard(getApplicationContext());
+	}
+
+	protected void show(int[] viewsIds) {
+		for (int i : viewsIds)
+			findViewById(i).setVisibility(View.VISIBLE);
+		findViewById(R.id.loadViews).setVisibility(View.INVISIBLE);
+		clearTemp();
+	}
+
+	protected void loadOnUiThread() {
+	}
+
+	protected void loadOnThread() {
+	}
+
+	protected void trackerPage(Analytics analytics) {
+	}
+
+	protected void clearTemp() {
 	}
 
 	// find standart view
@@ -81,6 +103,20 @@ public class AbstractActivity extends Activity {
 	protected void onStart() {
 		super.onStart();
 		EasyTracker.getInstance().activityStart(this);
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				loadOnThread();
+				runOnUiThread(new Runnable() {
+					@Override
+					public void run() {
+						loadOnUiThread();
+						trackerPage(Analytics
+								.getAnalytics(getApplicationContext()));
+					}
+				});
+			}
+		}).start();
 	}
 
 	@Override
@@ -91,6 +127,10 @@ public class AbstractActivity extends Activity {
 
 	// Others Overrides
 	//
+	// @Override
+	// protected void onCreate(Bundle savedInstanceState) {
+	// super.onCreate(savedInstanceState);
+	// }
 	// @Override
 	// public void onActionModeFinished(ActionMode mode) {
 	// SimbiLog.log(this, mode);
@@ -415,12 +455,6 @@ public class AbstractActivity extends Activity {
 	// CharSequence title) {
 	// SimbiLog.log(this, childActivity, title);
 	// super.onChildTitleChanged(childActivity, title);
-	// }
-	//
-	// @Override
-	// protected void onCreate(Bundle savedInstanceState) {
-	// SimbiLog.log(this, savedInstanceState);
-	// super.onCreate(savedInstanceState);
 	// }
 	//
 	// @Override

@@ -73,7 +73,10 @@ public class MainActivity extends AbstractActivity implements TextWatcher,
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+	}
 
+	@Override
+	protected void loadOnThread() {
 		// load EditView of search
 		edtInput = findEditTextById(R.id.autoCompleteTextViewMain);
 		edtInput.addTextChangedListener(this);
@@ -85,15 +88,19 @@ public class MainActivity extends AbstractActivity implements TextWatcher,
 
 		// load list to show words
 		listResults = findListViewById(R.id.listViewMain);
-		listResults.setAdapter(adapter);
 		listResults.setOnItemClickListener(this);
-		refreshList();
 	}
 
 	@Override
-	protected void onStart() {
-		super.onStart();
-		Analytics.getAnalytics(getApplicationContext()).track("/Main");
+	protected void loadOnUiThread() {
+		listResults.setAdapter(adapter);
+		refreshList();
+		show(new int[] { R.id.autoCompleteTextViewMain, R.id.listViewMain });
+	}
+
+	@Override
+	protected void trackerPage(Analytics analytics) {
+		analytics.track("/Main");
 	}
 
 	// refresh list
