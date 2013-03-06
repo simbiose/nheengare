@@ -40,6 +40,7 @@ import simbio.se.nheengare.models.Tradutions;
 import simbio.se.nheengare.models.Word;
 import simbio.se.nheengare.models.WordWeight;
 import simbio.se.nheengare.utils.SimbiLog;
+import simbio.se.nheengare.view.AfiView;
 import simbio.se.nheengare.view.ExampleUseView;
 import simbio.se.nheengare.view.GrammaticalView;
 import simbio.se.nheengare.view.TranslationView;
@@ -115,7 +116,13 @@ public class DetailActivity extends AbstractActivity {
 			llExamples.addView(new ExampleUseView(getApplicationContext(), word
 					.getExamples(), word.getWrites()).getView());
 
-		// setup AFI TODO
+		// setup AFI
+		LinearLayout llAfi = findLinearLayoutById(R.id.linearLayoutDeatilAfi);
+		if (word.getAfis().isEmpty())
+			llAfi.getLayoutParams().height = 0;
+		else
+			llAfi.addView(new AfiView(getApplicationContext(), word.getAfis())
+					.getView());
 	}
 
 	@Override

@@ -52,6 +52,7 @@ public class Word extends ModelAbstract {
 	private int id;
 	private int langId;
 	private ArrayList<String> writes = new ArrayList<String>();
+	private ArrayList<String> afis = new ArrayList<String>();
 	private ArrayList<Integer> wordsEqualsIds = new ArrayList<Integer>();
 	private ArrayList<Tradutions> tradutions = new ArrayList<Tradutions>();
 	private ArrayList<Integer> sourceIds = new ArrayList<Integer>();
@@ -87,6 +88,9 @@ public class Word extends ModelAbstract {
 		array = json.optJSONArray("write");
 		for (int c = 0; c < array.length(); c++)
 			writes.add(array.optString(c));
+		array = json.optJSONArray("afi");
+		for (int c = 0; c < array.length(); c++)
+			afis.add(array.optString(c));
 	}
 
 	// overrides
@@ -143,6 +147,10 @@ public class Word extends ModelAbstract {
 
 	public ArrayList<ExamplePhrases> getExamples() {
 		return examples;
+	}
+
+	public ArrayList<String> getAfis() {
+		return afis;
 	}
 
 	// find

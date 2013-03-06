@@ -34,8 +34,6 @@ package simbio.se.nheengare.view;
 import java.util.ArrayList;
 
 import simbio.se.nheengare.R;
-import simbio.se.nheengare.models.ExamplePhrases;
-import simbio.se.nheengare.models.Phrase;
 import simbio.se.nheengare.utils.SimbiLog;
 import android.content.Context;
 
@@ -43,19 +41,17 @@ import android.content.Context;
  * @author Ademar Alves de Oliveira
  * @author ademar111190@gmail.com
  */
-public class ExampleUseView extends AbstractView {
+public class AfiView extends AbstractView {
 
-	public ExampleUseView(Context context, ArrayList<ExamplePhrases> phrases,
-			ArrayList<String> words) {
-		super(context, R.layout.view_examples);
-		SimbiLog.log(this, context, phrases, words);
+	public AfiView(Context context, ArrayList<String> afis) {
+		super(context, R.layout.view_afi);
+		SimbiLog.log(this, context, afis);
 		String s = new String();
-		for (ExamplePhrases examplePhrases : phrases)
-			for (Phrase p : examplePhrases.getSentences())
-				s += p.getPhrase() + "\n";
+		for (String afi : afis)
+			s += afi + "\n";
 		if (s.length() > 0)
 			s = s.substring(0, s.length() - 1);
-		findTextViewById(R.id.textViewExample).setText(s);
+		findTextViewById(R.id.textViewAfi).setText(s);
 	}
 
 }
