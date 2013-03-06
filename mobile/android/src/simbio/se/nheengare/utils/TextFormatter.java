@@ -29,35 +29,38 @@
 
     Livre(FSF) Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
-package simbio.se.nheengare.view;
+package simbio.se.nheengare.utils;
 
 import java.util.ArrayList;
 
-import simbio.se.nheengare.R;
-import simbio.se.nheengare.models.ExamplePhrases;
-import simbio.se.nheengare.models.Phrase;
-import simbio.se.nheengare.utils.SimbiLog;
-import simbio.se.nheengare.utils.TextFormatter;
-import android.content.Context;
+import android.text.Html;
+import android.widget.TextView;
 
 /**
  * @author Ademar Alves de Oliveira
  * @author ademar111190@gmail.com
  */
-public class ExampleUseView extends AbstractView {
+public class TextFormatter {
 
-	public ExampleUseView(Context context, ArrayList<ExamplePhrases> phrases,
+	public static void setTextWithBoldedWords(TextView txt, String phrase,
 			ArrayList<String> words) {
-		super(context, R.layout.view_examples);
-		SimbiLog.log(this, context, phrases, words);
-		String s = new String();
-		for (ExamplePhrases examplePhrases : phrases)
-			for (Phrase p : examplePhrases.getSentences())
-				s += p.getPhrase() + "<br>";
-		if (s.length() > 0)
-			s = s.substring(0, s.length() - 1);
-		TextFormatter.setTextWithBoldedWords(
-				findTextViewById(R.id.textViewExample), s, words);
+		txt.setText(Html.fromHtml(makeTextWithBoldedWords(phrase, words)));
 	}
 
+	public static String makeTextWithBoldedWords(String phrase,
+			ArrayList<String> words) {
+		String formatted = new String();
+		for (String string : words)
+			formatted = makeTextWithBoldedWord(phrase, string);
+		return formatted;
+	}
+
+	public static String makeTextWithBoldedWord(String phrase, String word) {
+		String spl[] = phrase.split("\\s*(?i)" + word + "\\s*");
+		String formatted = new String();
+		for (int c = 0; c < spl.length; c++)
+			formatted += spl[c]
+					+ (c < spl.length - 1 ? "<b> " + word + " </b>" : "");
+		return formatted;
+	}
 }
