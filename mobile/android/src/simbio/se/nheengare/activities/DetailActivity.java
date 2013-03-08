@@ -95,14 +95,14 @@ public class DetailActivity extends AbstractActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_detail);
+
+		// configure screen
+		if (android.os.Build.VERSION.SDK_INT >= 11)
+			getActionBar().setDisplayHomeAsUpEnabled(true);
 	}
 
 	@Override
 	protected void loadOnThread() {
-		// configure screen
-		if (android.os.Build.VERSION.SDK_INT >= 11)
-			getActionBar().setDisplayHomeAsUpEnabled(true);
-
 		// load word
 		word = getBlackBoard().getWordWithId(
 				getIntent().getExtras().getInt("Word"));

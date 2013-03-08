@@ -52,6 +52,8 @@ import com.google.analytics.tracking.android.EasyTracker;
 @SuppressLint("NewApi")
 public class AbstractActivity extends Activity {
 
+	private boolean dataHasLoaded = false;
+
 	// customs
 	protected BlackBoard getBlackBoard() {
 		return BlackBoard.getBlackBoard(getApplicationContext());
@@ -103,20 +105,23 @@ public class AbstractActivity extends Activity {
 	protected void onStart() {
 		super.onStart();
 		EasyTracker.getInstance().activityStart(this);
-		new Thread(new Runnable() {
-			@Override
-			public void run() {
-				loadOnThread();
-				runOnUiThread(new Runnable() {
-					@Override
-					public void run() {
-						loadOnUiThread();
-						trackerPage(Analytics
-								.getAnalytics(getApplicationContext()));
-					}
-				});
-			}
-		}).start();
+		if (!dataHasLoaded) {
+			new Thread(new Runnable() {
+				@Override
+				public void run() {
+					loadOnThread();
+					runOnUiThread(new Runnable() {
+						@Override
+						public void run() {
+							loadOnUiThread();
+							trackerPage(Analytics
+									.getAnalytics(getApplicationContext()));
+						}
+					});
+				}
+			}).start();
+			dataHasLoaded = true;
+		}
 	}
 
 	@Override
