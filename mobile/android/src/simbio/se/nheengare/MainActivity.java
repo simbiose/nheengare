@@ -184,6 +184,8 @@ public class MainActivity extends AbstractActivity implements TextWatcher,
 			return true;
 		case R.id.action_speak:
 			analytics.track("/Menu/Main/Speak");
+			sendEmail(getString(R.string.action_email_subject_main),
+					getString(R.string.action_email_content_main));
 			return true;
 		case R.id.action_share:
 			analytics.track("/Menu/Main/Share");

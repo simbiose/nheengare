@@ -211,6 +211,11 @@ public class DetailActivity extends AbstractActivity {
 			return true;
 		case R.id.action_repot_error:
 			analytics.track("/Menu/Detail/Report");
+			sendEmail(String.format(
+					getString(R.string.action_email_subject_detail),
+					word.getWriteUnique()), String.format(
+					getString(R.string.action_email_content_detail),
+					word.getWriteUnique()));
 			return true;
 		default:
 			analytics.track("/Menu/Detail/Cancel");

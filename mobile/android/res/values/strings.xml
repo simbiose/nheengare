@@ -5,8 +5,14 @@
     <string name="action_about">Sobre o Nheengaré</string>
     <string name="action_about_condensed">Sobre</string>
     <string name="action_speak">Fale conosco</string>
-    <string name="action_report_error">Reporte uma palavra mal traduzida</string>
-    <string name="action_report_error_condensed">Reporte uma má tradução</string>
+    <string name="action_report_error">Reporte uma má tradução</string>
+    <string name="action_report_error_condensed">Reportar tradução</string>
+    <string name="action_email_address">dev@simbio.se</string>
+    <string name="action_email_with">Mandar email com:</string>
+    <string name="action_email_subject_main">Ola pessoal do nheengaré!</string>
+    <string name="action_email_content_main">Gostaria de dizer que&#8230;</string>
+    <string name="action_email_subject_detail">Erro na plavra %s</string>
+    <string name="action_email_content_detail">Olá, encontrei o seguinte erro na palavra %s, </string>
     <string name="action_share">Compartilhar</string>
     <string name="action_share_condensed">Share</string>
     <string name="action_share_with">Compartilhar com:</string>

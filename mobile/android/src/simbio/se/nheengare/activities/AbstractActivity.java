@@ -37,6 +37,8 @@ import simbio.se.nheengare.core.BlackBoard;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
+import android.text.Html;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -88,6 +90,15 @@ public class AbstractActivity extends Activity {
 		intent.putExtra(Intent.EXTRA_TEXT, content);
 		startActivity(Intent.createChooser(intent,
 				getString(R.string.action_share_with)));
+	}
+
+	protected void sendEmail(String subject, String content) {
+		Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts(
+				"mailto", getString(R.string.action_email_address), null));
+		emailIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, subject);
+		emailIntent.putExtra(Intent.EXTRA_TEXT, Html.fromHtml(content));
+		startActivity(Intent.createChooser(emailIntent,
+				getString(R.string.action_email_with)));
 	}
 
 	// find standart view
