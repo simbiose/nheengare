@@ -34,6 +34,7 @@ package simbio.se.nheengare;
 import java.util.ArrayList;
 import java.util.Collections;
 
+import simbio.se.nheengare.activities.AboutActivity;
 import simbio.se.nheengare.activities.AbstractActivity;
 import simbio.se.nheengare.activities.DetailActivity;
 import simbio.se.nheengare.core.Analytics;
@@ -181,6 +182,8 @@ public class MainActivity extends AbstractActivity implements TextWatcher,
 		switch (item.getItemId()) {
 		case R.id.action_about:
 			analytics.track("/Menu/Main/About");
+			startActivity(new Intent(getApplicationContext(),
+					AboutActivity.class));
 			return true;
 		case R.id.action_speak:
 			analytics.track("/Menu/Main/Speak");

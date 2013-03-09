@@ -33,7 +33,6 @@ package simbio.se.nheengare.activities;
 
 import java.util.ArrayList;
 
-import simbio.se.nheengare.MainActivity;
 import simbio.se.nheengare.R;
 import simbio.se.nheengare.core.Analytics;
 import simbio.se.nheengare.core.Flag;
@@ -46,10 +45,7 @@ import simbio.se.nheengare.view.ExampleUseView;
 import simbio.se.nheengare.view.GrammaticalView;
 import simbio.se.nheengare.view.TranslationView;
 import android.annotation.SuppressLint;
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.NavUtils;
-import android.support.v4.app.TaskStackBuilder;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -188,20 +184,12 @@ public class DetailActivity extends AbstractActivity {
 		return true;
 	}
 
-	@SuppressWarnings("deprecation")
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case android.R.id.home:
 			analytics.track("/Menu/Detail/Home");
-			Intent upIntent = new Intent(this, MainActivity.class);
-			if (NavUtils.shouldUpRecreateTask(this, upIntent)) {
-				TaskStackBuilder.from(this).addNextIntent(upIntent)
-						.startActivities();
-				finish();
-			} else {
-				NavUtils.navigateUpTo(this, upIntent);
-			}
+			backToHome();
 			return true;
 		case R.id.action_share:
 			analytics.track("/Menu/Detail/Share");

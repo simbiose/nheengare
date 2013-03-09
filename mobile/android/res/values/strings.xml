@@ -2,6 +2,12 @@
 <resources>
 
     <string name="app_name">Nheengaré</string>
+    <string name="about_title">Sobre</string>
+    <string name="about_app_name">NHEENGARÉ</string>
+    <string name="about_organization_name">Simbiose</string>
+    <string name="about_organization_url">http://simbio.se/</string>
+    <string name="about_nheengare">Nheengaré é um projeto de código livre que visa criar um dicionario online de nheengatu que seja de facil uso para as pessoas.</string>
+    <string name="about_by">Provido por</string>
     <string name="action_about">Sobre o Nheengaré</string>
     <string name="action_about_condensed">Sobre</string>
     <string name="action_speak">Fale conosco</string>

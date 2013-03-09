@@ -31,6 +31,7 @@
  */
 package simbio.se.nheengare.activities;
 
+import simbio.se.nheengare.MainActivity;
 import simbio.se.nheengare.R;
 import simbio.se.nheengare.core.Analytics;
 import simbio.se.nheengare.core.BlackBoard;
@@ -38,6 +39,8 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
+import android.support.v4.app.NavUtils;
+import android.support.v4.app.TaskStackBuilder;
 import android.text.Html;
 import android.view.View;
 import android.widget.EditText;
@@ -99,6 +102,18 @@ public class AbstractActivity extends Activity {
 		emailIntent.putExtra(Intent.EXTRA_TEXT, Html.fromHtml(content));
 		startActivity(Intent.createChooser(emailIntent,
 				getString(R.string.action_email_with)));
+	}
+
+	@SuppressWarnings("deprecation")
+	protected void backToHome() {
+		Intent upIntent = new Intent(this, MainActivity.class);
+		if (NavUtils.shouldUpRecreateTask(this, upIntent)) {
+			TaskStackBuilder.from(this).addNextIntent(upIntent)
+					.startActivities();
+			finish();
+		} else {
+			NavUtils.navigateUpTo(this, upIntent);
+		}
 	}
 
 	// find standart view

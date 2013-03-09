@@ -140,6 +140,9 @@
         <activity
             android:name="simbio.se.nheengare.activities.DetailActivity"
             android:label="@string/empty" />
+        <activity
+            android:name="simbio.se.nheengare.activities.AboutActivity"
+            android:label="@string/about_title" />
     </application>
 
 </manifest>
