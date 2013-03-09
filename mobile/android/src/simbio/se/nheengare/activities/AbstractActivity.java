@@ -53,6 +53,7 @@ import com.google.analytics.tracking.android.EasyTracker;
 public class AbstractActivity extends Activity {
 
 	private boolean dataHasLoaded = false;
+	protected Analytics analytics;
 
 	// customs
 	protected BlackBoard getBlackBoard() {
@@ -105,6 +106,7 @@ public class AbstractActivity extends Activity {
 	protected void onStart() {
 		super.onStart();
 		EasyTracker.getInstance().activityStart(this);
+		analytics = Analytics.getAnalytics(getApplicationContext());
 		if (!dataHasLoaded) {
 			new Thread(new Runnable() {
 				@Override
@@ -114,8 +116,7 @@ public class AbstractActivity extends Activity {
 						@Override
 						public void run() {
 							loadOnUiThread();
-							trackerPage(Analytics
-									.getAnalytics(getApplicationContext()));
+							trackerPage(analytics);
 						}
 					});
 				}

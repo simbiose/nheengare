@@ -180,12 +180,16 @@ public class MainActivity extends AbstractActivity implements TextWatcher,
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case R.id.action_about:
+			analytics.track("/Menu/Main/About");
 			return true;
 		case R.id.action_speak:
+			analytics.track("/Menu/Main/Speak");
 			return true;
 		case R.id.action_share:
+			analytics.track("/Menu/Main/Share");
 			return true;
 		default:
+			analytics.track("/Menu/Main/Cancel");
 			return super.onOptionsItemSelected(item);
 		}
 	}

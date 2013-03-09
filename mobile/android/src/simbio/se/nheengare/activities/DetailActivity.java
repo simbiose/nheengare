@@ -182,11 +182,18 @@ public class DetailActivity extends AbstractActivity {
 	}
 
 	// menus
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		getMenuInflater().inflate(R.menu.menu_detail, menu);
+		return true;
+	}
+
 	@SuppressWarnings("deprecation")
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case android.R.id.home:
+			analytics.track("/Menu/Detail/Home");
 			Intent upIntent = new Intent(this, MainActivity.class);
 			if (NavUtils.shouldUpRecreateTask(this, upIntent)) {
 				TaskStackBuilder.from(this).addNextIntent(upIntent)
@@ -197,18 +204,15 @@ public class DetailActivity extends AbstractActivity {
 			}
 			return true;
 		case R.id.action_share:
+			analytics.track("/Menu/Detail/Share");
 			return true;
 		case R.id.action_repot_error:
+			analytics.track("/Menu/Detail/Report");
 			return true;
 		default:
+			analytics.track("/Menu/Detail/Cancel");
 			return super.onOptionsItemSelected(item);
 		}
-	}
-
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		getMenuInflater().inflate(R.menu.menu_detail, menu);
-		return true;
 	}
 
 }
