@@ -1,0 +1,17 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
+        android:id="@+id/action_about"
+        android:icon="@android:drawable/ic_menu_info_details"
+        android:orderInCategory="100"
+        android:showAsAction="ifRoom"
+        android:title="@string/action_about"
+        android:titleCondensed="@string/action_about_condensed"/>
+    <item
+        android:id="@+id/action_speak"
+        android:icon="@android:drawable/ic_menu_send"
+        android:orderInCategory="101"
+        android:showAsAction="ifRoom"
+        android:title="@string/action_speak"/>
+
+</menu>

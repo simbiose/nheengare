@@ -3,8 +3,10 @@
 
     <string name="app_name">Nheengaré</string>
     <string name="action_about">Sobre o Nheengaré</string>
+    <string name="action_about_condensed">Sobre</string>
     <string name="action_speak">Fale conosco</string>
     <string name="action_share">Compartilhar</string>
+    <string name="action_share_condensed">Share</string>
     <string name="action_share_content">Eu aprendi o significado da plavra %s com o Nheengaré! https://play.google.com/store/apps/details?id=simbio.se.nheengare</string>
     <string name="empty"></string>
     <string name="search_word">Procurar palavra</string>
