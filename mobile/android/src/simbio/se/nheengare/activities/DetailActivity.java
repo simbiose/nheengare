@@ -50,6 +50,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.support.v4.app.TaskStackBuilder;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -180,6 +181,7 @@ public class DetailActivity extends AbstractActivity {
 		analytics.track("/Detail/" + word.getId());
 	}
 
+	// menus
 	@SuppressWarnings("deprecation")
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
@@ -194,7 +196,19 @@ public class DetailActivity extends AbstractActivity {
 				NavUtils.navigateUpTo(this, upIntent);
 			}
 			return true;
+		case R.id.action_share:
+			return true;
+		case R.id.action_repot_error:
+			return true;
+		default:
+			return super.onOptionsItemSelected(item);
 		}
-		return super.onOptionsItemSelected(item);
 	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		getMenuInflater().inflate(R.menu.menu_detail, menu);
+		return true;
+	}
+
 }
