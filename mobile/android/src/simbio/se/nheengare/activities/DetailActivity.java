@@ -205,6 +205,9 @@ public class DetailActivity extends AbstractActivity {
 			return true;
 		case R.id.action_share:
 			analytics.track("/Menu/Detail/Share");
+			share(String.format(
+					getString(R.string.action_share_content_detail),
+					word.getWriteUnique()));
 			return true;
 		case R.id.action_repot_error:
 			analytics.track("/Menu/Detail/Report");

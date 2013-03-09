@@ -36,6 +36,7 @@ import simbio.se.nheengare.core.Analytics;
 import simbio.se.nheengare.core.BlackBoard;
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Intent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -77,6 +78,16 @@ public class AbstractActivity extends Activity {
 	}
 
 	protected void clearTemp() {
+	}
+
+	protected void share(String content) {
+		Intent intent = new Intent(android.content.Intent.ACTION_SEND);
+		intent.setType("text/plain");
+		intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
+		intent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.app_name));
+		intent.putExtra(Intent.EXTRA_TEXT, content);
+		startActivity(Intent.createChooser(intent,
+				getString(R.string.action_share_with)));
 	}
 
 	// find standart view

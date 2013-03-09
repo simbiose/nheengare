@@ -187,6 +187,7 @@ public class MainActivity extends AbstractActivity implements TextWatcher,
 			return true;
 		case R.id.action_share:
 			analytics.track("/Menu/Main/Share");
+			share(getString(R.string.action_share_content_main));
 			return true;
 		default:
 			analytics.track("/Menu/Main/Cancel");
