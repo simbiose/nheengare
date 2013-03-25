@@ -81,7 +81,7 @@ public class ModelAbstract implements Comparable<ModelAbstract>, Serializable,
 
 	public void setCriteriaWeight(String compareToCriteria) {
 		if (compareToCriteria.contains(criteria)) {
-			criteriaWeight = CRITERIA_MAX;
+			criteriaWeight = CRITERIA_MAX - compareToCriteria.length();
 		} else {
 			criteriaWeight = CRITERIA_MIN;
 		}
