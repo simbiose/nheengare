@@ -9,7 +9,7 @@
 --]]
 
 local io, os, st, js = require 'io', require 'os', require 'string', require 'json'
-local exit, open, read, match, sub, gsub, format, stringify, parse = os.exit, io.open, io.read, st.match, st.sub, st.gsub, st.format, js.stringify, js.parse
+local exit, open, read, match, sub, gsub, format, find, stringify, parse = os.exit, io.open, io.read, st.match, st.sub, st.gsub, st.format, st.find, js.stringify, js.parse
 io, os, st, js = nil, nil, nil, nil
 
 local file, out_file, lines
@@ -23,18 +23,34 @@ end
 local x, pt_index_span, _, world, yrl_word, pt_word, vide, yrl_words, pt_words, pt_words_index, lng_classes =
       0, 10000, '', '', '', '', '', {}, {}, {}, 
   {
-    artigo = 1,
-    adjetivo = 2,
-    numeral = 3,
-    pronome = 4,
-    verbo = 5,
-    ["advérbio"] = 6,
-    [""] = 7,
-    ["conjunção"] = 8,
-    ["interjeição"] = 9,
-    substantivo = 10
+    artigo                      = 1,
+    adjetivo                    = 2,
+    numeral                     = 3,
+    pronome                     = 4,
+    verbo                       = 5,
+    ["adv\\u00e9rbio"]          = 6,
+    [""]                        = 7,
+    ["conjun\\u00e7\\u00e3o"]   = 8,
+    ["interjei\\u00e7\\u00e3o"] = 9,
+    substantivo                 = 10
   }
 
+local unicode_special_chars = {
+  ['á'] = '\\u00e1', ['à'] = '\\u00e0', ['â'] = '\\u00e2', ['ã'] = '\\u00e3', ['ä'] = '\\u00e4', ['Á'] = '\\u00c1', ['À'] = '\\u00c0', ['Â'] = '\\u00c2', 
+  ['Ã'] = '\\u00c3', ['Ä'] = '\\u00c4', ['é'] = '\\u00e9', ['è'] = '\\u00e8', ['ê'] = '\\u00ea', ['ê'] = '\\u00ea', ['É'] = '\\u00c9', ['È'] = '\\u00c8',
+  ['Ê'] = '\\u00ca', ['Ë'] = '\\u00cb', ['í'] = '\\u00ed', ['ì'] = '\\u00ec', ['î'] = '\\u00ee', ['ï'] = '\\u00ef', ['Í'] = '\\u00cd', ['Ì'] = '\\u00cc',
+  ['Î'] = '\\u00ce', ['Ï'] = '\\u00cf', ['ó'] = '\\u00f3', ['ò'] = '\\u00f2', ['ô'] = '\\u00f4', ['õ'] = '\\u00f5', ['ö'] = '\\u00f6', ['Ó'] = '\\u00d3',
+  ['Ò'] = '\\u00d2', ['Ô'] = '\\u00d4', ['Õ'] = '\\u00d5', ['Ö'] = '\\u00d6', ['ú'] = '\\u00fa', ['ù'] = '\\u00f9', ['û'] = '\\u00fb', ['ü'] = '\\u00fc',
+  ['Ú'] = '\\u00da', ['Ù'] = '\\u00d9', ['Û'] = '\\u00db', ['ç'] = '\\u00e7', ['Ç'] = '\\u00c7', ['ñ'] = '\\u00f1', ['Ñ'] = '\\u00d1', ['&'] = '\\u0026', ["'"] = '\\u0027'
+}
+
+--
+local function convert2unicode(string)
+  for k,v in pairs(unicode_special_chars) do string = gsub(string, k, v) end
+  return gsub(string, '\\\\', '\\')
+end
+
+--
 local function words_and_classes(fragment)
   local y, z, tmp_index, is_class, contains_class, contains_word, classified, last_classified, indexed_words = 0, 0, 0, false, false, false, {}, {}, {}
   --
@@ -63,7 +79,7 @@ local function words_and_classes(fragment)
     -- return empty words
     if match(piece, "^%s*$") then return end
     -- trim words
-    piece = match(piece, "^%s*(.-)%s*$")
+    piece = convert2unicode(match(piece, "^%s*(.-)%s*$"))
     --
     if is_class then
       gsub(piece, "%s*([^%s%,]*)%s*%,*%s*", check_class)
@@ -71,7 +87,7 @@ local function words_and_classes(fragment)
       -- create pt word if it does not exists
       if not pt_words_index[piece] then
         tmp_index                    = #pt_words + 1
-        pt_words[tmp_index]          = {id=(tmp_index + pt_index_span), lang=2, write={}, equals={}, tradutions={{lang=2, translate={}}}, afi={}, source={1}, grammatical={}, examples={}}
+        pt_words[tmp_index]          = {id=(tmp_index + pt_index_span), lang=2, write={}, equals={}, tradutions={{lang=1, translate={}}}, afi={}, source={1}, grammatical={}, examples={}}
         pt_words[tmp_index].write[1] = piece
         pt_words_index[piece]        = tmp_index + pt_index_span
       end
@@ -104,7 +120,7 @@ local function words_and_classes(fragment)
         y = 0
       end
       if not contains_word then
-        pt_words[tmp_index].tradutions[1].translate[y+1] = {word=#yrl_words, weigth=(1.1 - (y * 0.1))}
+        pt_words[tmp_index].tradutions[1].translate[y+1] = {word=#yrl_words, weigth=(1.1 - ((y+1) * 0.1))}
       end
       contains_word = false
 
@@ -130,16 +146,12 @@ for line in file:lines() do
     if not vide then
       --
       yrl_word                = {id=(#yrl_words+1), lang=1, write={}, equals={}, tradutions={{lang=2, translate={}}}, afi={}, source={1}, grammatical={}, examples={}}
-      yrl_word.write[1]       = word
+      yrl_word.write[1]       = convert2unicode(word)
       yrl_words[#yrl_words+1] = yrl_word
       --
       words_and_classes(sub(line, #word+3))
     end
   end
-  --x = x+1
-  --if x>20 then
-  --  break
-  --end
 end
 
 local output = '{"sources":[{"id":1,"tutors":["Eduardo de Almeida Navarro"],"urls":["http://tupi.fflch.usp.br/node/6",'..
@@ -173,6 +185,7 @@ output = output .. ',"languages":[{"id":1,"name":"Nheengatu","iso":"yrl"},{"id":
                    '[{"id":1,"name":"Derivado"},{"id":2,"name":"Simples"},{"id":3,"name":"Composto"},{"id":4,"name":"Pr\\u00f3prio"},{"id":5,"name":"Comum Concreto"},'..
                    '{"id":6,"name":"Comum Abstrato"},{"id":7,"name":"Comum Coletivo"},{"id":8,"name":"Biforme"},{"id":9,"name":"Heter\\u00f3nimo"},{"id":10,"name":"Uniforme Epiceno"}'..
                    ',{"id":11,"name":"Uniforme Comum"},{"id":12,"name":"Uniforme Sobrecomum"},{"id":13,"name":"Singular"},{"id":14,"name":"Plural"},{"id":15,"name":"Primitivo"}]}]}'
+
 
 if parse(output) then
   print("")
