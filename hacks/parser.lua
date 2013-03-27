@@ -47,7 +47,7 @@ local unicode_special_chars = {
 --
 local function convert2unicode(string)
   for k,v in pairs(unicode_special_chars) do string = gsub(string, k, v) end
-  return gsub(string, '\\\\', '\\')
+  return string
 end
 
 --
@@ -160,6 +160,7 @@ local output = '{"sources":[{"id":1,"tutors":["Eduardo de Almeida Navarro"],"url
 
 output = output .. sub(stringify(yrl_words), 1, -2)
 output = output ..','.. sub(stringify(pt_words), 2, -1)
+output = gsub(output, "\\\\", "\\")
 
 output = output .. ',"languages":[{"id":1,"name":"Nheengatu","iso":"yrl"},{"id":2,"name":"Portugu\\u00eas","iso":"por"}],"grammatical_class":[{"id":1,"name":"Artigo","classification"'..
                    ':[{"id":1,"name":"Definido"},{"id":2,"name":"Singular"},{"id":3,"name":"Plural"},{"id":4,"name":"Indefinido"}]},{"id":2,"name":"Adjetivo","classification"'..
