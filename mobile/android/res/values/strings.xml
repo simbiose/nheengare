@@ -13,7 +13,7 @@
     <string name="action_speak">Fale conosco</string>
     <string name="action_report_error">Reporte uma má tradução</string>
     <string name="action_report_error_condensed">Reportar tradução</string>
-    <string name="action_email_address">dev@simbio.se</string>
+    <string name="action_email_address">support@simbio.se</string>
     <string name="action_email_with">Mandar email com:</string>
     <string name="action_email_subject_main">Ola pessoal do nheengaré!</string>
     <string name="action_email_content_main">Gostaria de dizer que&#8230;</string>
