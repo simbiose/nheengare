@@ -42,6 +42,9 @@ public class Language extends ModelAbstract {
 	// serializable
 	private static final long serialVersionUID = 1L;
 
+	/**
+	 * 1 Nheengatu 2 Portugues 3 Espanhol 4 Inglês 5 Guarani 6 Tupi
+	 */
 	private int id;
 	private String name;
 	private String iso;

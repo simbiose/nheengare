@@ -67,6 +67,39 @@ public class Flag {
 			case FLAG_SIZE_48:
 				return R.drawable.pt_48;
 			}
+		case 3:
+			switch (flagSize) {
+			case FLAG_SIZE_16:
+				return R.drawable.es_16;
+			case FLAG_SIZE_24:
+				return R.drawable.es_24;
+			case FLAG_SIZE_32:
+				return R.drawable.es_32;
+			case FLAG_SIZE_48:
+				return R.drawable.es_48;
+			}
+		case 4:
+			switch (flagSize) {
+			case FLAG_SIZE_16:
+				return R.drawable.en_16;
+			case FLAG_SIZE_24:
+				return R.drawable.en_24;
+			case FLAG_SIZE_32:
+				return R.drawable.en_32;
+			case FLAG_SIZE_48:
+				return R.drawable.en_48;
+			}
+		case 5:
+			switch (flagSize) {
+			case FLAG_SIZE_16:
+				return R.drawable.gr_16;
+			case FLAG_SIZE_24:
+				return R.drawable.gr_24;
+			case FLAG_SIZE_32:
+				return R.drawable.gr_32;
+			case FLAG_SIZE_48:
+				return R.drawable.gr_48;
+			}
 		default:
 			switch (flagSize) {
 			case FLAG_SIZE_16:

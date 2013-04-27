@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- communs to all languages -->
+    <!-- view on string english -->
+
+    <!-- change on each language -->
+	<string name="about_title">Sobre</string>
+    <string name="about_nheengare">Nheengaré é um projeto de código livre que visa criar um dicionario online de nheengatu que seja de fácil uso para as pessoas.</string>
+    <string name="about_by">Provido por</string>
+    <string name="action_about">Sobre o Nheengaré</string>
+    <string name="action_about_condensed">Sobre</string>
+    <string name="action_speak">Fale conosco</string>
+    <string name="action_report_error">Reporte uma má tradução</string>
+    <string name="action_report_error_condensed">Reportar tradução</string>
+    <string name="action_email_with">Mandar email com:</string>
+    <string name="action_email_subject_main">Ola pessoal do nheengaré!</string>
+    <string name="action_email_content_main">Gostaria de dizer que&#8230;</string>
+    <string name="action_email_subject_detail">Erro na palavra %s</string>
+    <string name="action_email_content_detail">Olá, encontrei o seguinte erro na palavra %s, </string>
+    <string name="action_share">Compartilhar</string>
+    <string name="action_share_condensed">Share</string>
+    <string name="action_share_with">Compartilhar com:</string>
+    <!-- 
+    	amazon 			http://www.amazon.com/gp/mas/dl/android?p=simbio.se.nheengare
+    	google play		https://play.google.com/store/apps/details?id=simbio.se.nheengare
+    -->
+    <string name="action_share_content_main">Nheengaré um dicionario de Nheengatu gratuito! http://www.amazon.com/gp/mas/dl/android?p=simbio.se.nheengare</string>
+    <string name="action_share_content_detail">Eu aprendi o significado da palavra %s com o Nheengaré! http://www.amazon.com/gp/mas/dl/android?p=simbio.se.nheengare</string>
+    <string name="search_word">Procurar palavra</string>
+    <string name="translation">Tradução</string>
+    <string name="grammatical">Classe gramatical</string>
+    <string name="examples_of_use">Exemplos de utilização</string>
+    <string name="afi">Alfabeto fonético internacional</string>
+    
+</resources>

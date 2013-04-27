@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- communs to all languages -->
+    <!-- view on string english -->
+
+    <!-- change on each language -->
+	<string name="about_title">Acerca</string>
+    <string name="about_nheengare">Nheengaré es un proyecto de código abierto que tiene como objetivo crear un diccionario en línea de nheengatu que es fácil de usar para las personas.</string>
+    <string name="about_by">Desarrollado por</string>
+    <string name="action_about">Acerca de el Nheengaré</string>
+    <string name="action_about_condensed">Acerca</string>
+    <string name="action_speak">Contáctenos</string>
+    <string name="action_report_error">Informar de una mala traducción</string>
+    <string name="action_report_error_condensed">Informe traducción</string>
+    <string name="action_email_with">Enviar email con:</string>
+    <string name="action_email_subject_main">Hola personal de el nheengaré!</string>
+    <string name="action_email_content_main">Yo diría que&#8230;</string>
+    <string name="action_email_subject_detail">Error en la palabra %s</string>
+    <string name="action_email_content_detail">Hola, he encontrado el siguiente error en la palabra %s, </string>
+    <string name="action_share">Compartir</string>
+    <string name="action_share_condensed">Share</string>
+    <string name="action_share_with">Compartir con:</string>
+    <!-- 
+    	amazon 			http://www.amazon.com/gp/mas/dl/android?p=simbio.se.nheengare
+    	google play		https://play.google.com/store/apps/details?id=simbio.se.nheengare
+    -->
+    <string name="action_share_content_main">Nheengaré un diccionario de Nheengatu gratis! http://www.amazon.com/gp/mas/dl/android?p=simbio.se.nheengare</string>
+    <string name="action_share_content_detail">Aprendí el significado de la palabra %s con Nheengaré! http://www.amazon.com/gp/mas/dl/android?p=simbio.se.nheengare</string>
+    <string name="search_word">buscar palabra</string>
+    <string name="translation">Traducción</string>
+    <string name="grammatical">Clase gramatical</string>
+    <string name="examples_of_use">Ejemplos de uso</string>
+    <string name="afi">Alfabeto fonético internacional</string>
+    
+</resources>

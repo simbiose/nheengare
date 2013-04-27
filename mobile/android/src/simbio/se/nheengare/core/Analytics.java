@@ -52,7 +52,7 @@ public class Analytics {
 	public Analytics(Context context) {
 		mGaInstance = GoogleAnalytics.getInstance(context);
 		//testes UA-38962564-1 pra valer UA-40266822-1
-		mGaTracker = mGaInstance.getTracker("UA-40266822-1");
+		mGaTracker = mGaInstance.getTracker("UA-38962564-1");
 		GAServiceManager.getInstance().setDispatchPeriod(30);
 		String deviceId = ((TelephonyManager) context
 				.getSystemService(Context.TELEPHONY_SERVICE)).getDeviceId();
