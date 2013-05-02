@@ -36,6 +36,7 @@ import java.util.Collections;
 
 import simbio.se.nheengare.activities.AboutActivity;
 import simbio.se.nheengare.activities.AbstractActivity;
+import simbio.se.nheengare.activities.ConfigurationsActivity;
 import simbio.se.nheengare.activities.DetailActivity;
 import simbio.se.nheengare.core.Analytics;
 import simbio.se.nheengare.models.ModelAbstract;
@@ -181,6 +182,11 @@ public class MainActivity extends AbstractActivity implements TextWatcher,
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
+		case R.id.action_config:
+			analytics.track("/Menu/Main/Config");
+			startActivity(new Intent(getApplicationContext(),
+					ConfigurationsActivity.class));
+			return true;
 		case R.id.action_about:
 			analytics.track("/Menu/Main/About");
 			startActivity(new Intent(getApplicationContext(),
