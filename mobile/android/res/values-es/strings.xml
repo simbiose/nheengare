@@ -4,8 +4,9 @@
     <!-- communs to all languages -->
     <!-- view on string english -->
 
+
     <!-- change on each language -->
-	<string name="about_title">Acerca</string>
+    <string name="about_title">Acerca</string>
     <string name="about_nheengare">Nheengaré es un proyecto de código abierto que tiene como objetivo crear un diccionario en línea de nheengatu que es fácil de usar para las personas.</string>
     <string name="about_by">Desarrollado por</string>
     <string name="action_about">Acerca de el Nheengaré</string>
@@ -21,7 +22,7 @@
     <string name="action_share">Compartir</string>
     <string name="action_share_condensed">Share</string>
     <string name="action_share_with">Compartir con:</string>
-    <!-- 
+    <!--
     	amazon 			http://www.amazon.com/gp/mas/dl/android?p=simbio.se.nheengare
     	google play		https://play.google.com/store/apps/details?id=simbio.se.nheengare
     -->
@@ -29,8 +30,20 @@
     <string name="action_share_content_detail">Aprendí el significado de la palabra %s con Nheengaré! http://www.amazon.com/gp/mas/dl/android?p=simbio.se.nheengare</string>
     <string name="search_word">buscar palabra</string>
     <string name="translation">Traducción</string>
-    <string name="grammatical">Clase gramatical</string>
     <string name="examples_of_use">Ejemplos de uso</string>
     <string name="afi">Alfabeto fonético internacional</string>
-    
+
+    <!-- gramatical classes -->
+    <string name="grammatical">Clase gramatical</string>
+    <string name="grammatical_class_article">Artículo</string>
+    <string name="grammatical_class_adjective">Adjetivo</string>
+    <string name="grammatical_class_numeral">Numeral</string>
+    <string name="grammatical_class_pronoun">Pronombre</string>
+    <string name="grammatical_class_verb">Verbo</string>
+    <string name="grammatical_class_adverb">Adverbio</string>
+    <string name="grammatical_class_preposition">Preposición</string>
+    <string name="grammatical_class_conjunction">Conjunción</string>
+    <string name="grammatical_class_interjection">Interjección</string>
+    <string name="grammatical_class_noun">Sustantivo</string>
+
 </resources>

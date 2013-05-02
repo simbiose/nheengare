@@ -79,7 +79,8 @@ public class BlackBoard {
 				languages.add(new Language(jsonArray.optJSONObject(c)));
 			jsonArray = jsonObject.optJSONArray("grammatical_class");
 			for (int c = 0; c < jsonArray.length(); c++)
-				grammaticals.add(new Grammatical(jsonArray.optJSONObject(c)));
+				grammaticals.add(new Grammatical(jsonArray.optJSONObject(c),
+						context));
 			jsonArray = jsonObject.optJSONArray("words");
 			for (int c = 0; c < jsonArray.length(); c++)
 				words.add(new Word(jsonArray.optJSONObject(c)));

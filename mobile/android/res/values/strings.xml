@@ -10,7 +10,7 @@
     <string name="empty"></string>
 
     <!-- change on each language -->
-	<string name="about_title">About</string>
+    <string name="about_title">About</string>
     <string name="about_nheengare">Nheengaré is an open source project that aims to create an online dictionary of nheengatu that is easy to use for people.</string>
     <string name="about_by">Powered by</string>
     <string name="action_about">About Nheengaré</string>
@@ -26,7 +26,7 @@
     <string name="action_share">Share</string>
     <string name="action_share_condensed">Share</string>
     <string name="action_share_with">Share with:</string>
-    <!-- 
+    <!--
     	amazon 			http://www.amazon.com/gp/mas/dl/android?p=simbio.se.nheengare
     	google play		https://play.google.com/store/apps/details?id=simbio.se.nheengare
     -->
@@ -34,8 +34,20 @@
     <string name="action_share_content_detail">I learned the meaning of word %s with Nheengaré! http://www.amazon.com/gp/mas/dl/android?p=simbio.se.nheengare</string>
     <string name="search_word">Search word</string>
     <string name="translation">Translation</string>
-    <string name="grammatical">Grammatical class</string>
     <string name="examples_of_use">Examples of use</string>
     <string name="afi">International Phonetic Alphabet</string>
-    
+
+    <!-- gramatical classes -->
+    <string name="grammatical">Grammatical class</string>
+    <string name="grammatical_class_article">Article</string>
+    <string name="grammatical_class_adjective">Adjective</string>
+    <string name="grammatical_class_numeral">Numeral</string>
+    <string name="grammatical_class_pronoun">Pronoun</string>
+    <string name="grammatical_class_verb">Verb</string>
+    <string name="grammatical_class_adverb">Adverb</string>
+    <string name="grammatical_class_preposition">Preposition</string>
+    <string name="grammatical_class_conjunction">Conjunction</string>
+    <string name="grammatical_class_interjection">Interjection</string>
+    <string name="grammatical_class_noun">Noun</string>
+
 </resources>
