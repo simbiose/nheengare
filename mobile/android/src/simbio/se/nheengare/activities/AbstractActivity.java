@@ -47,6 +47,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.google.analytics.tracking.android.EasyTracker;
@@ -135,6 +137,14 @@ public class AbstractActivity extends Activity {
 
 	public LinearLayout findLinearLayoutById(int id) {
 		return (LinearLayout) super.findViewById(id);
+	}
+
+	public RelativeLayout findRelativeLayoutById(int id) {
+		return (RelativeLayout) super.findViewById(id);
+	}
+
+	public ScrollView findScrollViewById(int id) {
+		return (ScrollView) super.findViewById(id);
 	}
 
 	// Overrides

@@ -29,19 +29,27 @@
 
     Livre(FSF) Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
-package simbio.se.nheengare.activities;
+package simbio.se.nheengare.activities.configuration;
 
 import simbio.se.nheengare.R;
+import simbio.se.nheengare.activities.AbstractActivity;
 import simbio.se.nheengare.core.Analytics;
+import simbio.se.nheengare.core.BlackBoard;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.RelativeLayout;
 
 /**
  * @author Ademar Alves de Oliveira
  * @author ademar111190@gmail.com
  */
-public class ConfigurationsActivity extends AbstractActivity {
+public class ConfigurationsActivityAbstract extends AbstractActivity {
+
+	// temp
+	private RelativeLayout rlFilterSearch = null;
+	private RelativeLayout rlFilterTranslation = null;
+
 	@SuppressLint("NewApi")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +59,32 @@ public class ConfigurationsActivity extends AbstractActivity {
 		// configure screen
 		if (android.os.Build.VERSION.SDK_INT >= 11)
 			getActionBar().setDisplayHomeAsUpEnabled(true);
+	}
+
+	@Override
+	protected void clearTemp() {
+		rlFilterSearch = null;
+		rlFilterTranslation = null;
+	}
+
+	@Override
+	protected void loadOnThread() {
+		rlFilterSearch = findRelativeLayoutById(R.id.relativeLayputConfigSearch);
+		rlFilterTranslation = findRelativeLayoutById(R.id.relativeLayputConfigTranslation);
+	}
+
+	@Override
+	protected void loadOnUiThread() {
+		if (!BlackBoard.getBlackBoard().getOptions().filterSearchLanguages()) {
+			rlFilterSearch.getLayoutParams().height = 0;
+		}
+
+		if (!BlackBoard.getBlackBoard().getOptions()
+				.filterTranslationLanguages()) {
+			rlFilterTranslation.getLayoutParams().height = 0;
+		}
+
+		show(new int[] { R.id.scrollViewConfig });
 	}
 
 	@Override

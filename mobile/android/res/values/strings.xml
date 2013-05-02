@@ -52,4 +52,12 @@
     <string name="grammatical_class_interjection">Interjection</string>
     <string name="grammatical_class_noun">Noun</string>
 
+    <!-- configurations -->
+    <string name="config_search_filter">Filter languages ​at search.</string>
+    <string name="config_result_filter">Filter languages ​at translation.</string>
+    <string name="config_language_nh">Nheengatu</string>
+    <string name="config_language_pt">Portuguese</string>
+    <string name="config_language_es">Spanish</string>
+    <string name="config_language_in">English</string>
+
 </resources>

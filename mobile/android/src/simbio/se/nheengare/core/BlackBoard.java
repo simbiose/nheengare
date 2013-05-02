@@ -58,8 +58,12 @@ public class BlackBoard {
 	private ArrayList<Language> languages = new ArrayList<Language>();
 	private ArrayList<Grammatical> grammaticals = new ArrayList<Grammatical>();
 	private ArrayList<Word> words = new ArrayList<Word>();
+	private Options options;
 
 	public BlackBoard(Context context) {
+		// load options
+		options = new Options(context);
+
 		// load database
 		try {
 			// load file
@@ -99,6 +103,10 @@ public class BlackBoard {
 		if (blackBoard == null)
 			blackBoard = new BlackBoard(context);
 		return blackBoard;
+	}
+
+	public Options getOptions() {
+		return options;
 	}
 
 	public ArrayList<Source> getSources() {

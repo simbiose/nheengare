@@ -48,4 +48,12 @@
     <string name="grammatical_class_interjection">Interjeição</string>
     <string name="grammatical_class_noun">Substantivo</string>
 
+    <!-- configurations -->
+    <string name="config_search_filter">Filtrar idiomas na busca</string>
+    <string name="config_result_filter">Filtrar idiomas nas traduções</string>
+    <string name="config_language_nh">Nheengatu</string>
+    <string name="config_language_pt">Português</string>
+    <string name="config_language_es">Espanhol</string>
+    <string name="config_language_in">Inglês</string>
+
 </resources>

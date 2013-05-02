@@ -46,6 +46,11 @@
     <string name="grammatical_class_preposition">Preposición</string>
     <string name="grammatical_class_conjunction">Conjunción</string>
     <string name="grammatical_class_interjection">Interjección</string>
-    <string name="grammatical_class_noun">Sustantivo</string>
-
+    <string name="grammatical_class_noun">Sustantivo</string><!-- configurations -->
+    <string name="config_search_filter">Filtrar lenguas en la búsqueda.</string>
+    <string name="config_result_filter">Filtrar lenguas en la traducciones.</string>
+    <string name="config_language_nh">Nheengatu</string>
+    <string name="config_language_pt">Portugués</string>
+    <string name="config_language_es">Español</string>
+    <string name="config_language_in">Inglés</string>
 </resources>
