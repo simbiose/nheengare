@@ -34,13 +34,17 @@ package simbio.se.nheengare.activities.configuration;
 import simbio.se.nheengare.R;
 import simbio.se.nheengare.core.BlackBoard;
 import android.annotation.SuppressLint;
+import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.Switch;
 
 /**
  * @author Ademar Alves de Oliveira
  * @author ademar111190@gmail.com
  */
-public class ConfigurationsActivityV14 extends ConfigurationsActivityAbstract {
+@SuppressLint("NewApi")
+public class ConfigurationsActivityV14 extends ConfigurationsActivityAbstract
+		implements OnCheckedChangeListener {
 
 	// temp
 	private Switch swFilterSearch = null;
@@ -81,35 +85,68 @@ public class ConfigurationsActivityV14 extends ConfigurationsActivityAbstract {
 		swFilterTranslationPortuguese = findSwitchById(R.id.switchConfigTranslationPortuguese);
 		swFilterTranslationSpanish = findSwitchById(R.id.switchConfigTranslationSpanish);
 		swFilterTranslationEnglish = findSwitchById(R.id.switchConfigTranslationEnglish);
+
+		swFilterSearch.setOnCheckedChangeListener(this);
+		swFilterSearchNheengatu.setOnCheckedChangeListener(this);
+		swFilterSearchPortuguese.setOnCheckedChangeListener(this);
+		swFilterSearchSpanish.setOnCheckedChangeListener(this);
+		swFilterSearchEnglish.setOnCheckedChangeListener(this);
+		swFilterTranslation.setOnCheckedChangeListener(this);
+		swFilterTranslationNheengatu.setOnCheckedChangeListener(this);
+		swFilterTranslationPortuguese.setOnCheckedChangeListener(this);
+		swFilterTranslationSpanish.setOnCheckedChangeListener(this);
+		swFilterTranslationEnglish.setOnCheckedChangeListener(this);
 		super.loadOnThread();
 	}
 
 	@SuppressLint("NewApi")
 	@Override
 	protected void loadOnUiThread() {
-		swFilterSearch.setChecked(BlackBoard.getBlackBoard().getOptions()
+		swFilterSearch.setChecked(BlackBoard
+				.getBlackBoard(getApplicationContext()).getOptions()
 				.filterSearchLanguages());
-		swFilterSearchNheengatu.setChecked(BlackBoard.getBlackBoard()
-				.getOptions().filterSearchShowNheengatu());
-		swFilterSearchPortuguese.setChecked(BlackBoard.getBlackBoard()
-				.getOptions().filterSearchShowPortuguese());
-		swFilterSearchSpanish.setChecked(BlackBoard.getBlackBoard()
-				.getOptions().filterSearchShowSpanish());
-		swFilterSearchEnglish.setChecked(BlackBoard.getBlackBoard()
-				.getOptions().filterSearchShowEnglish());
+		swFilterSearchNheengatu.setChecked(BlackBoard
+				.getBlackBoard(getApplicationContext()).getOptions()
+				.filterSearchShowNheengatu());
+		swFilterSearchPortuguese.setChecked(BlackBoard
+				.getBlackBoard(getApplicationContext()).getOptions()
+				.filterSearchShowPortuguese());
+		swFilterSearchSpanish.setChecked(BlackBoard
+				.getBlackBoard(getApplicationContext()).getOptions()
+				.filterSearchShowSpanish());
+		swFilterSearchEnglish.setChecked(BlackBoard
+				.getBlackBoard(getApplicationContext()).getOptions()
+				.filterSearchShowEnglish());
 
-		swFilterTranslation.setChecked(BlackBoard.getBlackBoard().getOptions()
+		swFilterTranslation.setChecked(BlackBoard
+				.getBlackBoard(getApplicationContext()).getOptions()
 				.filterTranslationLanguages());
-		swFilterTranslationNheengatu.setChecked(BlackBoard.getBlackBoard()
-				.getOptions().filterTranslationShowNheengatu());
-		swFilterTranslationPortuguese.setChecked(BlackBoard.getBlackBoard()
-				.getOptions().filterTranslationShowPortuguese());
-		swFilterTranslationSpanish.setChecked(BlackBoard.getBlackBoard()
-				.getOptions().filterTranslationShowSpanish());
-		swFilterTranslationEnglish.setChecked(BlackBoard.getBlackBoard()
-				.getOptions().filterTranslationShowEnglish());
+		swFilterTranslationNheengatu.setChecked(BlackBoard
+				.getBlackBoard(getApplicationContext()).getOptions()
+				.filterTranslationShowNheengatu());
+		swFilterTranslationPortuguese.setChecked(BlackBoard
+				.getBlackBoard(getApplicationContext()).getOptions()
+				.filterTranslationShowPortuguese());
+		swFilterTranslationSpanish.setChecked(BlackBoard
+				.getBlackBoard(getApplicationContext()).getOptions()
+				.filterTranslationShowSpanish());
+		swFilterTranslationEnglish.setChecked(BlackBoard
+				.getBlackBoard(getApplicationContext()).getOptions()
+				.filterTranslationShowEnglish());
 
 		super.loadOnUiThread();
+	}
+
+	// events handlers
+	@Override
+	public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+		switch (buttonView.getId()) {
+		case R.id.switchConfigSearch:
+			changeFilterSearchFilter(isChecked);
+			break;
+		default:
+			break;
+		}
 	}
 
 	// this cannot be in abstract because need a api 14

@@ -95,10 +95,6 @@ public class BlackBoard {
 		}
 	}
 
-	public static BlackBoard getBlackBoard() {
-		return getBlackBoard(null);
-	}
-
 	public static BlackBoard getBlackBoard(Context context) {
 		if (blackBoard == null)
 			blackBoard = new BlackBoard(context);

@@ -38,6 +38,7 @@ import simbio.se.nheengare.core.BlackBoard;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
 /**
@@ -62,12 +63,6 @@ public class ConfigurationsActivityAbstract extends AbstractActivity {
 	}
 
 	@Override
-	protected void clearTemp() {
-		rlFilterSearch = null;
-		rlFilterTranslation = null;
-	}
-
-	@Override
 	protected void loadOnThread() {
 		rlFilterSearch = findRelativeLayoutById(R.id.relativeLayputConfigSearch);
 		rlFilterTranslation = findRelativeLayoutById(R.id.relativeLayputConfigTranslation);
@@ -75,11 +70,12 @@ public class ConfigurationsActivityAbstract extends AbstractActivity {
 
 	@Override
 	protected void loadOnUiThread() {
-		if (!BlackBoard.getBlackBoard().getOptions().filterSearchLanguages()) {
+		if (!BlackBoard.getBlackBoard(getApplicationContext()).getOptions()
+				.filterSearchLanguages()) {
 			rlFilterSearch.getLayoutParams().height = 0;
 		}
 
-		if (!BlackBoard.getBlackBoard().getOptions()
+		if (!BlackBoard.getBlackBoard(getApplicationContext()).getOptions()
 				.filterTranslationLanguages()) {
 			rlFilterTranslation.getLayoutParams().height = 0;
 		}
@@ -90,6 +86,16 @@ public class ConfigurationsActivityAbstract extends AbstractActivity {
 	@Override
 	protected void trackerPage(Analytics analytics) {
 		analytics.track("/Config");
+	}
+
+	protected void changeFilterSearchFilter(Boolean filter) {
+		if (filter) {
+			rlFilterSearch.getLayoutParams().height = ViewGroup.LayoutParams.WRAP_CONTENT;
+		} else {
+			rlFilterSearch.getLayoutParams().height = 0;
+		}
+		BlackBoard.getBlackBoard(getApplicationContext()).getOptions()
+				.setFilterSearchLanguages(filter);
 	}
 
 	// menu handler
