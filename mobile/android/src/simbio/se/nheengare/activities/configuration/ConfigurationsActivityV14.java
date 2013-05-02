@@ -86,22 +86,6 @@ public class ConfigurationsActivityV14 extends ConfigurationsActivityAbstract
 		swFilterTranslationSpanish = findSwitchById(R.id.switchConfigTranslationSpanish);
 		swFilterTranslationEnglish = findSwitchById(R.id.switchConfigTranslationEnglish);
 
-		swFilterSearch.setOnCheckedChangeListener(this);
-		swFilterSearchNheengatu.setOnCheckedChangeListener(this);
-		swFilterSearchPortuguese.setOnCheckedChangeListener(this);
-		swFilterSearchSpanish.setOnCheckedChangeListener(this);
-		swFilterSearchEnglish.setOnCheckedChangeListener(this);
-		swFilterTranslation.setOnCheckedChangeListener(this);
-		swFilterTranslationNheengatu.setOnCheckedChangeListener(this);
-		swFilterTranslationPortuguese.setOnCheckedChangeListener(this);
-		swFilterTranslationSpanish.setOnCheckedChangeListener(this);
-		swFilterTranslationEnglish.setOnCheckedChangeListener(this);
-		super.loadOnThread();
-	}
-
-	@SuppressLint("NewApi")
-	@Override
-	protected void loadOnUiThread() {
 		swFilterSearch.setChecked(BlackBoard
 				.getBlackBoard(getApplicationContext()).getOptions()
 				.filterSearchLanguages());
@@ -134,7 +118,17 @@ public class ConfigurationsActivityV14 extends ConfigurationsActivityAbstract
 				.getBlackBoard(getApplicationContext()).getOptions()
 				.filterTranslationShowEnglish());
 
-		super.loadOnUiThread();
+		swFilterSearch.setOnCheckedChangeListener(this);
+		swFilterSearchNheengatu.setOnCheckedChangeListener(this);
+		swFilterSearchPortuguese.setOnCheckedChangeListener(this);
+		swFilterSearchSpanish.setOnCheckedChangeListener(this);
+		swFilterSearchEnglish.setOnCheckedChangeListener(this);
+		swFilterTranslation.setOnCheckedChangeListener(this);
+		swFilterTranslationNheengatu.setOnCheckedChangeListener(this);
+		swFilterTranslationPortuguese.setOnCheckedChangeListener(this);
+		swFilterTranslationSpanish.setOnCheckedChangeListener(this);
+		swFilterTranslationEnglish.setOnCheckedChangeListener(this);
+		super.loadOnThread();
 	}
 
 	// events handlers
@@ -143,6 +137,9 @@ public class ConfigurationsActivityV14 extends ConfigurationsActivityAbstract
 		switch (buttonView.getId()) {
 		case R.id.switchConfigSearch:
 			changeFilterSearchFilter(isChecked);
+			break;
+		case R.id.switchConfigTranslation:
+			changeFilterTranslationFilter(isChecked);
 			break;
 		default:
 			break;

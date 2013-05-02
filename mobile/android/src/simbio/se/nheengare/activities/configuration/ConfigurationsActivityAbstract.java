@@ -35,10 +35,11 @@ import simbio.se.nheengare.R;
 import simbio.se.nheengare.activities.AbstractActivity;
 import simbio.se.nheengare.core.Analytics;
 import simbio.se.nheengare.core.BlackBoard;
+import simbio.se.nheengare.utils.SimbiLog;
+import simbio.se.nheengare.view.animation.ResizeHeigthAnimation;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
 /**
@@ -50,6 +51,8 @@ public class ConfigurationsActivityAbstract extends AbstractActivity {
 	// temp
 	private RelativeLayout rlFilterSearch = null;
 	private RelativeLayout rlFilterTranslation = null;
+	private int rlfsHeigth;
+	private int rlftHeigth;
 
 	@SuppressLint("NewApi")
 	@Override
@@ -70,17 +73,37 @@ public class ConfigurationsActivityAbstract extends AbstractActivity {
 
 	@Override
 	protected void loadOnUiThread() {
-		if (!BlackBoard.getBlackBoard(getApplicationContext()).getOptions()
-				.filterSearchLanguages()) {
-			rlFilterSearch.getLayoutParams().height = 0;
-		}
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				try {
+					Thread.sleep(100);
+				} catch (InterruptedException e) {
+					SimbiLog.printException(e);
+				}
+				runOnUiThread(new Runnable() {
+					@Override
+					public void run() {
+						rlfsHeigth = rlFilterSearch.getHeight();
+						rlftHeigth = rlFilterTranslation.getHeight();
 
-		if (!BlackBoard.getBlackBoard(getApplicationContext()).getOptions()
-				.filterTranslationLanguages()) {
-			rlFilterTranslation.getLayoutParams().height = 0;
-		}
+						if (!BlackBoard.getBlackBoard(getApplicationContext())
+								.getOptions().filterSearchLanguages()) {
+							rlFilterSearch.getLayoutParams().height = 0;
+							rlFilterSearch.requestLayout();
+						}
 
-		show(new int[] { R.id.scrollViewConfig });
+						if (!BlackBoard.getBlackBoard(getApplicationContext())
+								.getOptions().filterTranslationLanguages()) {
+							rlFilterTranslation.getLayoutParams().height = 0;
+							rlFilterTranslation.requestLayout();
+						}
+
+						show(new int[] { R.id.scrollViewConfig });
+					}
+				});
+			}
+		}).start();
 	}
 
 	@Override
@@ -89,13 +112,17 @@ public class ConfigurationsActivityAbstract extends AbstractActivity {
 	}
 
 	protected void changeFilterSearchFilter(Boolean filter) {
-		if (filter) {
-			rlFilterSearch.getLayoutParams().height = ViewGroup.LayoutParams.WRAP_CONTENT;
-		} else {
-			rlFilterSearch.getLayoutParams().height = 0;
-		}
+		rlFilterSearch.startAnimation(new ResizeHeigthAnimation(rlFilterSearch,
+				(filter ? rlfsHeigth : 0)));
 		BlackBoard.getBlackBoard(getApplicationContext()).getOptions()
 				.setFilterSearchLanguages(filter);
+	}
+
+	protected void changeFilterTranslationFilter(Boolean filter) {
+		rlFilterTranslation.startAnimation(new ResizeHeigthAnimation(
+				rlFilterTranslation, (filter ? rlftHeigth : 10)));
+		BlackBoard.getBlackBoard(getApplicationContext()).getOptions()
+				.setFilterTranslationLanguages(filter);
 	}
 
 	// menu handler
