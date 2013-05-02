@@ -26,6 +26,8 @@
     <string name="action_share">Share</string>
     <string name="action_share_condensed">Share</string>
     <string name="action_share_with">Share with:</string>
+    <string name="action_configure">Configure</string>
+    <string name="action_configure_condensed">Config</string>
     <!--
     	amazon 			http://www.amazon.com/gp/mas/dl/android?p=simbio.se.nheengare
     	google play		https://play.google.com/store/apps/details?id=simbio.se.nheengare
