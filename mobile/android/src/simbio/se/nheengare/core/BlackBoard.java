@@ -58,7 +58,7 @@ import android.content.Context;
  * @author Ademar Alves de Oliveira
  * @author ademar111190@gmail.com
  */
-public class BlackBoard {
+public class BlackBoard implements Runnable {
 
 	private static BlackBoard blackBoard;
 
@@ -67,6 +67,7 @@ public class BlackBoard {
 	private ArrayList<Grammatical> grammaticals = new ArrayList<Grammatical>();
 	private ArrayList<Word> words = new ArrayList<Word>();
 	private Options options;
+	private String path;
 
 	@SuppressWarnings("unchecked")
 	public BlackBoard(Context context) {
@@ -74,17 +75,40 @@ public class BlackBoard {
 		options = new Options(context);
 
 		// verify if data already exists
-		final String dataPath = Config.getDataPath(context);
+		path = Config.getDataPath(context);
+		String dataPathSource = path + "source.nheengare";
+		String dataPathLanguages = path + "languages.nheengare";
+		String dataPathGrammatical = path + "grammatical.nheengare";
+		String dataPathWords = path + "words.nheengare";
+
 		boolean loadedWithSucces = false;
-		File data = new File(dataPath);
-		if (data.exists()) {
+		if (new File(dataPathSource).exists()
+				&& new File(dataPathLanguages).exists()
+				&& new File(dataPathGrammatical).exists()
+				&& new File(dataPathWords).exists()) {
 			SimbiLog.print("Data alrady exists");
 			// load exterializable
 			try {
-				FileInputStream fis = new FileInputStream(dataPath);
+				FileInputStream fis = new FileInputStream(dataPathSource);
 				ObjectInputStream ois = new ObjectInputStream(fis);
+				sources = (ArrayList<Source>) ois.readObject();
+				ois.close();
+
+				fis = new FileInputStream(dataPathLanguages);
+				ois = new ObjectInputStream(fis);
+				languages = (ArrayList<Language>) ois.readObject();
+				ois.close();
+
+				fis = new FileInputStream(dataPathGrammatical);
+				ois = new ObjectInputStream(fis);
+				grammaticals = (ArrayList<Grammatical>) ois.readObject();
+				ois.close();
+
+				fis = new FileInputStream(dataPathWords);
+				ois = new ObjectInputStream(fis);
 				words = (ArrayList<Word>) ois.readObject();
 				ois.close();
+
 				loadedWithSucces = true;
 			} catch (FileNotFoundException e) {
 				SimbiLog.printException(e);
@@ -124,29 +148,48 @@ public class BlackBoard {
 					words.add(new Word(jsonArray.optJSONObject(c)));
 
 				// Save dat
-				new Thread(new Runnable() {
-
-					@Override
-					public void run() {
-						try {
-							FileOutputStream fos = new FileOutputStream(
-									dataPath);
-							ObjectOutputStream oos = new ObjectOutputStream(fos);
-							oos.writeObject(words);
-							oos.flush();
-							oos.close();
-						} catch (FileNotFoundException e) {
-							SimbiLog.printException(e);
-						} catch (IOException e) {
-							SimbiLog.printException(e);
-						}
-					}
-				}).start();
+				new Thread(this).start();
 			} catch (IOException e) {
 				SimbiLog.printException(e);
 			} catch (JSONException j) {
 				SimbiLog.printException(j);
 			}
+		}
+	}
+
+	public void run() {
+		String dataPathSource = path + "source.nheengare";
+		String dataPathLanguages = path + "languages.nheengare";
+		String dataPathGrammatical = path + "grammatical.nheengare";
+		String dataPathWords = path + "words.nheengare";
+		try {
+			FileOutputStream fos = new FileOutputStream(dataPathSource);
+			ObjectOutputStream oos = new ObjectOutputStream(fos);
+			oos.writeObject(sources);
+			oos.flush();
+			oos.close();
+
+			fos = new FileOutputStream(dataPathLanguages);
+			oos = new ObjectOutputStream(fos);
+			oos.writeObject(languages);
+			oos.flush();
+			oos.close();
+
+			fos = new FileOutputStream(dataPathGrammatical);
+			oos = new ObjectOutputStream(fos);
+			oos.writeObject(grammaticals);
+			oos.flush();
+			oos.close();
+
+			fos = new FileOutputStream(dataPathWords);
+			oos = new ObjectOutputStream(fos);
+			oos.writeObject(words);
+			oos.flush();
+			oos.close();
+		} catch (FileNotFoundException e) {
+			SimbiLog.printException(e);
+		} catch (IOException e) {
+			SimbiLog.printException(e);
 		}
 	}
 
