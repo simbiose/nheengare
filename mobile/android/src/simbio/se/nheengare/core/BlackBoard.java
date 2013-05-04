@@ -31,8 +31,15 @@
  */
 package simbio.se.nheengare.core;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.StreamCorruptedException;
 import java.util.ArrayList;
 
 import org.json.JSONArray;
@@ -43,6 +50,7 @@ import simbio.se.nheengare.models.Grammatical;
 import simbio.se.nheengare.models.Language;
 import simbio.se.nheengare.models.Source;
 import simbio.se.nheengare.models.Word;
+import simbio.se.nheengare.utils.Config;
 import simbio.se.nheengare.utils.SimbiLog;
 import android.content.Context;
 
@@ -60,38 +68,85 @@ public class BlackBoard {
 	private ArrayList<Word> words = new ArrayList<Word>();
 	private Options options;
 
+	@SuppressWarnings("unchecked")
 	public BlackBoard(Context context) {
 		// load options
 		options = new Options(context);
 
-		// load database
-		try {
-			// load file
-			InputStream is = context.getAssets().open("db.json");
-			int size = is.available();
-			byte[] buffer = new byte[size];
-			is.read(buffer);
-			is.close();
+		// verify if data already exists
+		final String dataPath = Config.getDataPath(context);
+		boolean loadedWithSucces = false;
+		File data = new File(dataPath);
+		if (data.exists()) {
+			SimbiLog.print("Data alrady exists");
+			// load exterializable
+			try {
+				FileInputStream fis = new FileInputStream(dataPath);
+				ObjectInputStream ois = new ObjectInputStream(fis);
+				words = (ArrayList<Word>) ois.readObject();
+				ois.close();
+				loadedWithSucces = true;
+			} catch (FileNotFoundException e) {
+				SimbiLog.printException(e);
+			} catch (StreamCorruptedException e) {
+				SimbiLog.printException(e);
+			} catch (IOException e) {
+				SimbiLog.printException(e);
+			} catch (ClassNotFoundException e) {
+				SimbiLog.printException(e);
+			}
+		}
+		if (!loadedWithSucces) {
+			SimbiLog.print("Data not exists or get some error, load from json and save it");
+			// load database
+			try {
+				// load file
+				InputStream is = context.getAssets().open("db.json");
+				int size = is.available();
+				byte[] buffer = new byte[size];
+				is.read(buffer);
+				is.close();
 
-			// load json objects
-			JSONObject jsonObject = new JSONObject(new String(buffer));
-			JSONArray jsonArray = jsonObject.optJSONArray("sources");
-			for (int c = 0; c < jsonArray.length(); c++)
-				sources.add(new Source(jsonArray.optJSONObject(c)));
-			jsonArray = jsonObject.optJSONArray("languages");
-			for (int c = 0; c < jsonArray.length(); c++)
-				languages.add(new Language(jsonArray.optJSONObject(c)));
-			jsonArray = jsonObject.optJSONArray("grammatical_class");
-			for (int c = 0; c < jsonArray.length(); c++)
-				grammaticals.add(new Grammatical(jsonArray.optJSONObject(c),
-						context));
-			jsonArray = jsonObject.optJSONArray("words");
-			for (int c = 0; c < jsonArray.length(); c++)
-				words.add(new Word(jsonArray.optJSONObject(c)));
-		} catch (IOException e) {
-			SimbiLog.printException(e);
-		} catch (JSONException j) {
-			SimbiLog.printException(j);
+				// load json objects
+				JSONObject jsonObject = new JSONObject(new String(buffer));
+				JSONArray jsonArray = jsonObject.optJSONArray("sources");
+				for (int c = 0; c < jsonArray.length(); c++)
+					sources.add(new Source(jsonArray.optJSONObject(c)));
+				jsonArray = jsonObject.optJSONArray("languages");
+				for (int c = 0; c < jsonArray.length(); c++)
+					languages.add(new Language(jsonArray.optJSONObject(c)));
+				jsonArray = jsonObject.optJSONArray("grammatical_class");
+				for (int c = 0; c < jsonArray.length(); c++)
+					grammaticals.add(new Grammatical(
+							jsonArray.optJSONObject(c), context));
+				jsonArray = jsonObject.optJSONArray("words");
+				for (int c = 0; c < jsonArray.length(); c++)
+					words.add(new Word(jsonArray.optJSONObject(c)));
+
+				// Save dat
+				new Thread(new Runnable() {
+
+					@Override
+					public void run() {
+						try {
+							FileOutputStream fos = new FileOutputStream(
+									dataPath);
+							ObjectOutputStream oos = new ObjectOutputStream(fos);
+							oos.writeObject(words);
+							oos.flush();
+							oos.close();
+						} catch (FileNotFoundException e) {
+							SimbiLog.printException(e);
+						} catch (IOException e) {
+							SimbiLog.printException(e);
+						}
+					}
+				}).start();
+			} catch (IOException e) {
+				SimbiLog.printException(e);
+			} catch (JSONException j) {
+				SimbiLog.printException(j);
+			}
 		}
 	}
 

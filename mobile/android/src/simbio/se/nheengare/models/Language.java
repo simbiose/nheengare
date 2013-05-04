@@ -31,6 +31,10 @@
  */
 package simbio.se.nheengare.models;
 
+import java.io.IOException;
+import java.io.ObjectInput;
+import java.io.ObjectOutput;
+
 import org.json.JSONObject;
 
 /**
@@ -65,9 +69,32 @@ public class Language extends ModelAbstract {
 		}
 	}
 
+	public static int chooseLanguageId(LANGUAGE l) {
+		switch (l) {
+		case LANGUAGE_NHEENGATU:
+			return 1;
+		case LANGUAGE_PORTUGUESE:
+			return 2;
+		case LANGUAGE_SPANISH:
+			return 3;
+		case LANGUAGE_ENGLISH:
+			return 4;
+		case LANGUAGE_GUARANI:
+			return 5;
+		case LANGUAGE_TUPI:
+			return 6;
+		default:
+			return 0;
+		}
+	}
+
 	private LANGUAGE id;
 	private String name;
 	private String iso;
+
+	// Exterializable
+	public Language() {
+	}
 
 	public Language(JSONObject json) {
 		name = json.optString("name");
@@ -88,4 +115,21 @@ public class Language extends ModelAbstract {
 		return iso;
 	}
 
+	// serialize and userialize
+	@Override
+	public void readExternal(ObjectInput input) throws IOException,
+			ClassNotFoundException {
+		super.readExternal(input);
+		id = Language.chooseLanguageUsingId(input.readInt());
+		name = (String) input.readObject();
+		iso = (String) input.readObject();
+	}
+
+	@Override
+	public void writeExternal(ObjectOutput output) throws IOException {
+		super.writeExternal(output);
+		output.writeInt(Language.chooseLanguageId(id));
+		output.writeObject(name);
+		output.writeObject(iso);
+	}
 }

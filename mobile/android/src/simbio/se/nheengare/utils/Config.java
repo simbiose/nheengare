@@ -31,6 +31,8 @@
  */
 package simbio.se.nheengare.utils;
 
+import android.content.Context;
+
 /**
  * @author Ademar Alves de Oliveira
  * @author ademar111190@gmail.com
@@ -41,5 +43,9 @@ public class Config {
 	public static final String LOG_TOKEN = "simbiose";
 	public static final boolean LOG_STACK_TRACE = true;
 	public static final String LOG_TOKEN_STACK_TRACE = "simbioStackTrace";
+
+	public static String getDataPath(Context context) {
+		return context.getFilesDir().getAbsolutePath() + "/pisiru.nheengare";
+	}
 
 }

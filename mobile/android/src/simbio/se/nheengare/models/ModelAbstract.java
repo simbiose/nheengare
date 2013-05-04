@@ -31,6 +31,10 @@
  */
 package simbio.se.nheengare.models;
 
+import java.io.Externalizable;
+import java.io.IOException;
+import java.io.ObjectInput;
+import java.io.ObjectOutput;
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -43,7 +47,7 @@ import com.google.gson.Gson;
  * @author ademar111190@gmail.com
  */
 public class ModelAbstract implements Comparable<ModelAbstract>, Serializable,
-		ISearch {
+		ISearch, Externalizable {
 
 	// serializable
 	private static final long serialVersionUID = 1L;
@@ -57,6 +61,10 @@ public class ModelAbstract implements Comparable<ModelAbstract>, Serializable,
 
 	// criteria range of instance
 	protected int criteriaWeight = CRITERIA_MAX;
+
+	// Exterializable
+	public ModelAbstract() {
+	}
 
 	@Override
 	public String toString() {
@@ -95,6 +103,16 @@ public class ModelAbstract implements Comparable<ModelAbstract>, Serializable,
 	@Override
 	public boolean isYourThisId(int id) {
 		return false;
+	}
+
+	// Save and Read more fast than json
+	@Override
+	public void readExternal(ObjectInput input) throws IOException,
+			ClassNotFoundException {
+	}
+
+	@Override
+	public void writeExternal(ObjectOutput output) throws IOException {
 	}
 
 }

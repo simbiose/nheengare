@@ -31,6 +31,10 @@
  */
 package simbio.se.nheengare.models;
 
+import java.io.IOException;
+import java.io.ObjectInput;
+import java.io.ObjectOutput;
+
 import org.json.JSONObject;
 
 /**
@@ -44,6 +48,10 @@ public class GrammaticalClassification extends ModelAbstract {
 
 	private int id;
 	private String name;
+
+	// Exterializable
+	public GrammaticalClassification() {
+	}
 
 	public GrammaticalClassification(JSONObject json) {
 		id = json.optInt("id");
@@ -59,4 +67,19 @@ public class GrammaticalClassification extends ModelAbstract {
 		return name;
 	}
 
+	// serialize and userialize
+	@Override
+	public void readExternal(ObjectInput input) throws IOException,
+			ClassNotFoundException {
+		super.readExternal(input);
+		id = input.readInt();
+		name = (String) input.readObject();
+	}
+
+	@Override
+	public void writeExternal(ObjectOutput output) throws IOException {
+		super.writeExternal(output);
+		output.writeInt(id);
+		output.writeObject(name);
+	}
 }
