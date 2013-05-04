@@ -35,8 +35,11 @@ import java.util.ArrayList;
 
 import simbio.se.nheengare.R;
 import simbio.se.nheengare.core.Analytics;
+import simbio.se.nheengare.core.BlackBoard;
 import simbio.se.nheengare.core.Flag;
 import simbio.se.nheengare.core.Flag.FLAG_SIZE;
+import simbio.se.nheengare.core.Options;
+import simbio.se.nheengare.models.Language.LANGUAGE;
 import simbio.se.nheengare.models.Tradutions;
 import simbio.se.nheengare.models.Word;
 import simbio.se.nheengare.models.WordWeight;
@@ -101,6 +104,22 @@ public class DetailActivity extends AbstractActivity {
 
 	@Override
 	protected void loadOnThread() {
+		// load options
+		ArrayList<LANGUAGE> langFilter = new ArrayList<LANGUAGE>();
+		Options options = BlackBoard.getBlackBoard(getApplicationContext())
+				.getOptions();
+
+		if (options.filterTranslationLanguages()) {
+			if (!options.filterTranslationShowNheengatu())
+				langFilter.add(LANGUAGE.LANGUAGE_NHEENGATU);
+			if (!options.filterTranslationShowPortuguese())
+				langFilter.add(LANGUAGE.LANGUAGE_PORTUGUESE);
+			if (!options.filterTranslationShowSpanish())
+				langFilter.add(LANGUAGE.LANGUAGE_SPANISH);
+			if (!options.filterTranslationShowEnglish())
+				langFilter.add(LANGUAGE.LANGUAGE_ENGLISH);
+		}
+
 		// load word
 		word = getBlackBoard().getWordWithId(
 				getIntent().getExtras().getInt("Word"));
@@ -114,14 +133,15 @@ public class DetailActivity extends AbstractActivity {
 		tempTradution = findLinearLayoutById(R.id.linearLayoutDeatilTranslations);
 		tempTradutions = new ArrayList<View>();
 		for (Tradutions t : word.getTradutions()) {
-			int flagResourceId = Flag.getFlagResourceId(t.getLanguage(),
-					FLAG_SIZE.FLAG_SIZE_24);
-			for (WordWeight ww : t.getWords())
-				tempTradutions
-						.add(new TranslationView(getApplicationContext(),
-								flagResourceId, getBlackBoard().getWordWithId(
-										ww.getWordId()).getWriteUnique(), ww)
-								.getView());
+			if (!langFilter.contains(t.getLanguage())) {
+				int flagResourceId = Flag.getFlagResourceId(t.getLanguage(),
+						FLAG_SIZE.FLAG_SIZE_24);
+				for (WordWeight ww : t.getWords())
+					tempTradutions.add(new TranslationView(
+							getApplicationContext(), flagResourceId,
+							getBlackBoard().getWordWithId(ww.getWordId())
+									.getWriteUnique(), ww).getView());
+			}
 		}
 
 		// setup grammatical class view
