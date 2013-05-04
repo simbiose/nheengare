@@ -68,6 +68,7 @@ public class MainActivity extends AbstractActivity implements TextWatcher,
 
 	// variables
 	private ArrayAdapter<String> adapter;
+	private ArrayList<Word> words = new ArrayList<Word>();
 
 	// views
 	private EditText edtInput;
@@ -141,7 +142,10 @@ public class MainActivity extends AbstractActivity implements TextWatcher,
 	public void run() {
 		setSearchLock(true);
 		ModelAbstract.criteria = edtInput.getText().toString().toLowerCase();
-		ArrayList<Word> words = getBlackBoard().getWords();
+
+		words.clear();
+		words.addAll(getBlackBoard().getWords());
+
 		Options options = BlackBoard.getBlackBoard(getApplicationContext())
 				.getOptions();
 
@@ -165,21 +169,24 @@ public class MainActivity extends AbstractActivity implements TextWatcher,
 		}
 
 		Collections.sort(words, Collections.reverseOrder());
+
 		runOnUiThread(new Runnable() {
 			@Override
 			public void run() {
 				adapter.clear();
-				for (Word w : getBlackBoard().getWords())
+				for (Word w : words)
 					for (String s : w.getWrites())
 						adapter.add(s);
 				adapter.notifyDataSetChanged();
+
+				if (searchAgain) {
+					setSearchAgain(false);
+					new Thread(MainActivity.this).start();
+				} else {
+					setSearchLock(false);
+				}
 			}
 		});
-		if (searchAgain) {
-			setSearchAgain(false);
-			run();
-		}
-		setSearchLock(false);
 	}
 
 	public synchronized void setSearchAgain(boolean searchAgain) {
