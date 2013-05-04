@@ -208,7 +208,7 @@ public class MainActivity extends AbstractActivity implements TextWatcher,
 	@Override
 	public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
 		Intent i = new Intent(getApplicationContext(), DetailActivity.class);
-		i.putExtra("Word", getBlackBoard().getWords().get(arg2).getId());
+		i.putExtra("Word", words.get(arg2).getId());
 		startActivity(i);
 	}
 
