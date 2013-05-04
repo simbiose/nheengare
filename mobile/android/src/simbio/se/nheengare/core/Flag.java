@@ -32,6 +32,7 @@
 package simbio.se.nheengare.core;
 
 import simbio.se.nheengare.R;
+import simbio.se.nheengare.models.Language.LANGUAGE;
 
 /**
  * @author Ademar Alves de Oliveira
@@ -43,9 +44,9 @@ public class Flag {
 		FLAG_SIZE_16, FLAG_SIZE_24, FLAG_SIZE_32, FLAG_SIZE_48
 	}
 
-	public static int getFlagResourceId(int languageId, FLAG_SIZE flagSize) {
-		switch (languageId) {
-		case 1:
+	public static int getFlagResourceId(LANGUAGE language, FLAG_SIZE flagSize) {
+		switch (language) {
+		case LANGUAGE_NHEENGATU:
 			switch (flagSize) {
 			case FLAG_SIZE_16:
 				return R.drawable.br_16;
@@ -56,7 +57,7 @@ public class Flag {
 			case FLAG_SIZE_48:
 				return R.drawable.br_48;
 			}
-		case 2:
+		case LANGUAGE_PORTUGUESE:
 			switch (flagSize) {
 			case FLAG_SIZE_16:
 				return R.drawable.pt_16;
@@ -67,7 +68,7 @@ public class Flag {
 			case FLAG_SIZE_48:
 				return R.drawable.pt_48;
 			}
-		case 3:
+		case LANGUAGE_SPANISH:
 			switch (flagSize) {
 			case FLAG_SIZE_16:
 				return R.drawable.es_16;
@@ -78,7 +79,7 @@ public class Flag {
 			case FLAG_SIZE_48:
 				return R.drawable.es_48;
 			}
-		case 4:
+		case LANGUAGE_ENGLISH:
 			switch (flagSize) {
 			case FLAG_SIZE_16:
 				return R.drawable.en_16;
@@ -89,7 +90,7 @@ public class Flag {
 			case FLAG_SIZE_48:
 				return R.drawable.en_48;
 			}
-		case 5:
+		case LANGUAGE_GUARANI:
 			switch (flagSize) {
 			case FLAG_SIZE_16:
 				return R.drawable.gr_16;

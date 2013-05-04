@@ -114,7 +114,7 @@ public class DetailActivity extends AbstractActivity {
 		tempTradution = findLinearLayoutById(R.id.linearLayoutDeatilTranslations);
 		tempTradutions = new ArrayList<View>();
 		for (Tradutions t : word.getTradutions()) {
-			int flagResourceId = Flag.getFlagResourceId(t.getLanguageId(),
+			int flagResourceId = Flag.getFlagResourceId(t.getLanguage(),
 					FLAG_SIZE.FLAG_SIZE_24);
 			for (WordWeight ww : t.getWords())
 				tempTradutions
@@ -145,8 +145,8 @@ public class DetailActivity extends AbstractActivity {
 
 	protected void loadOnUiThread() {
 		tempTxtHeader.setText(word.getWriteUnique());
-		tempImgHeader.setImageResource(Flag.getFlagResourceId(word.getLangId(),
-				FLAG_SIZE.FLAG_SIZE_32));
+		tempImgHeader.setImageResource(Flag.getFlagResourceId(
+				word.getLanguage(), FLAG_SIZE.FLAG_SIZE_32));
 
 		if (word.getTradutions().isEmpty())
 			tempTradution.getLayoutParams().height = 0;

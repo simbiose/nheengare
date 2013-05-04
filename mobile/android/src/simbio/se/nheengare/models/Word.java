@@ -37,6 +37,7 @@ import java.util.HashMap;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import simbio.se.nheengare.models.Language.LANGUAGE;
 import android.annotation.SuppressLint;
 
 /**
@@ -50,7 +51,7 @@ public class Word extends ModelAbstract {
 
 	// variables
 	private int id;
-	private int langId;
+	private LANGUAGE language;
 	private ArrayList<String> writes = new ArrayList<String>();
 	private ArrayList<String> afis = new ArrayList<String>();
 	private ArrayList<Integer> wordsEqualsIds = new ArrayList<Integer>();
@@ -63,7 +64,7 @@ public class Word extends ModelAbstract {
 
 	public Word(JSONObject json) {
 		id = json.optInt("id");
-		langId = json.optInt("lang");
+		language = Language.chooseLanguageUsingId(json.optInt("lang"));
 		JSONArray array = json.optJSONArray("examples");
 		for (int c = 0; c < array.length(); c++)
 			examples.add(new ExamplePhrases(array.optJSONObject(c)));
@@ -109,8 +110,8 @@ public class Word extends ModelAbstract {
 		return id;
 	}
 
-	public int getLangId() {
-		return langId;
+	public LANGUAGE getLanguage() {
+		return language;
 	}
 
 	public ArrayList<String> getWrites() {

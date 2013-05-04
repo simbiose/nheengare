@@ -40,6 +40,9 @@ import simbio.se.nheengare.activities.DetailActivity;
 import simbio.se.nheengare.activities.configuration.ConfigurationsActivity;
 import simbio.se.nheengare.activities.configuration.ConfigurationsActivityV14;
 import simbio.se.nheengare.core.Analytics;
+import simbio.se.nheengare.core.BlackBoard;
+import simbio.se.nheengare.core.Options;
+import simbio.se.nheengare.models.Language.LANGUAGE;
 import simbio.se.nheengare.models.ModelAbstract;
 import simbio.se.nheengare.models.Word;
 import android.annotation.SuppressLint;
@@ -138,8 +141,30 @@ public class MainActivity extends AbstractActivity implements TextWatcher,
 	public void run() {
 		setSearchLock(true);
 		ModelAbstract.criteria = edtInput.getText().toString().toLowerCase();
-		Collections
-				.sort(getBlackBoard().getWords(), Collections.reverseOrder());
+		ArrayList<Word> words = getBlackBoard().getWords();
+		Options options = BlackBoard.getBlackBoard(getApplicationContext())
+				.getOptions();
+
+		if (options.filterSearchLanguages()) {
+			ArrayList<LANGUAGE> langFilter = new ArrayList<LANGUAGE>();
+			if (!options.filterSearchShowNheengatu())
+				langFilter.add(LANGUAGE.LANGUAGE_NHEENGATU);
+			if (!options.filterSearchShowPortuguese())
+				langFilter.add(LANGUAGE.LANGUAGE_PORTUGUESE);
+			if (!options.filterSearchShowSpanish())
+				langFilter.add(LANGUAGE.LANGUAGE_SPANISH);
+			if (!options.filterSearchShowEnglish())
+				langFilter.add(LANGUAGE.LANGUAGE_ENGLISH);
+			if (!langFilter.isEmpty()) {
+				ArrayList<Word> wordsToRemove = new ArrayList<Word>();
+				for (Word w : words)
+					if (langFilter.contains(w.getLanguage()))
+						wordsToRemove.add(w);
+				words.removeAll(wordsToRemove);
+			}
+		}
+
+		Collections.sort(words, Collections.reverseOrder());
 		runOnUiThread(new Runnable() {
 			@Override
 			public void run() {
@@ -210,6 +235,12 @@ public class MainActivity extends AbstractActivity implements TextWatcher,
 			analytics.track("/Menu/Main/Cancel");
 			return super.onOptionsItemSelected(item);
 		}
+	}
+
+	// Options updated
+	@Override
+	public void onOptionsChanged(Options newOptions) {
+		new Thread(this).start();
 	}
 
 }

@@ -42,21 +42,41 @@ public class Language extends ModelAbstract {
 	// serializable
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * 1 Nheengatu 2 Portugues 3 Espanhol 4 Inglês 5 Guarani 6 Tupi
-	 */
-	private int id;
+	public enum LANGUAGE {
+		LANGUAGE_UNKNOW, LANGUAGE_NHEENGATU, LANGUAGE_PORTUGUESE, LANGUAGE_SPANISH, LANGUAGE_ENGLISH, LANGUAGE_GUARANI, LANGUAGE_TUPI
+	}
+
+	public static LANGUAGE chooseLanguageUsingId(int id) {
+		switch (id) {
+		case 1:
+			return LANGUAGE.LANGUAGE_NHEENGATU;
+		case 2:
+			return LANGUAGE.LANGUAGE_PORTUGUESE;
+		case 3:
+			return LANGUAGE.LANGUAGE_SPANISH;
+		case 4:
+			return LANGUAGE.LANGUAGE_ENGLISH;
+		case 5:
+			return LANGUAGE.LANGUAGE_GUARANI;
+		case 6:
+			return LANGUAGE.LANGUAGE_TUPI;
+		default:
+			return LANGUAGE.LANGUAGE_UNKNOW;
+		}
+	}
+
+	private LANGUAGE id;
 	private String name;
 	private String iso;
 
 	public Language(JSONObject json) {
-		id = json.optInt("id");
 		name = json.optString("name");
 		iso = json.optString("iso");
+		id = chooseLanguageUsingId(json.optInt("id"));
 	}
 
 	// getters and setters
-	public int getId() {
+	public LANGUAGE getId() {
 		return id;
 	}
 
