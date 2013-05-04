@@ -1,11 +1,18 @@
 package simbio.se.nheengare.core;
 
+import java.util.ArrayList;
+
 import android.content.Context;
 import android.content.SharedPreferences;
 
+/**
+ * @author Ademar Alves de Oliveira
+ * @author ademar111190@gmail.com
+ */
 public class Options {
 
 	private SharedPreferences prefs;
+	private static ArrayList<IOptionsChangedListener> optionsChangedListeners = new ArrayList<IOptionsChangedListener>();
 
 	// keys
 	private final String preferencesKey = "simbio.se.nheengare";
@@ -25,6 +32,21 @@ public class Options {
 				Context.MODE_PRIVATE);
 	}
 
+	// Listener
+	public static void addOptionsChangeListener(IOptionsChangedListener listener) {
+		optionsChangedListeners.add(listener);
+	}
+
+	public static void removeOptionsChangeListener(
+			IOptionsChangedListener listener) {
+		optionsChangedListeners.remove(listener);
+	}
+
+	private void sendUpdateMessageToListeners() {
+		for (IOptionsChangedListener listener : optionsChangedListeners)
+			listener.onOptionsChanged(this);
+	}
+
 	// search filter
 	public boolean filterSearchLanguages() {
 		return prefs.getBoolean(pkFilterSearch, false);
@@ -32,6 +54,7 @@ public class Options {
 
 	public void setFilterSearchLanguages(Boolean filter) {
 		prefs.edit().putBoolean(pkFilterSearch, filter).commit();
+		sendUpdateMessageToListeners();
 	}
 
 	// translaion on detail filter
@@ -41,6 +64,7 @@ public class Options {
 
 	public void setFilterTranslationLanguages(Boolean filter) {
 		prefs.edit().putBoolean(pkFilterTranslation, filter).commit();
+		sendUpdateMessageToListeners();
 	}
 
 	// search languages filters
@@ -51,6 +75,7 @@ public class Options {
 
 	public void setFilterSearchShowNheengatu(Boolean show) {
 		prefs.edit().putBoolean(pkFsNh, show).commit();
+		sendUpdateMessageToListeners();
 	}
 
 	// portuguese
@@ -60,6 +85,7 @@ public class Options {
 
 	public void setFilterSearchShowPortuguese(Boolean show) {
 		prefs.edit().putBoolean(pkFsPt, show).commit();
+		sendUpdateMessageToListeners();
 	}
 
 	// Spanish
@@ -69,6 +95,7 @@ public class Options {
 
 	public void setFilterSearchShowSpanish(Boolean show) {
 		prefs.edit().putBoolean(pkFsEs, show).commit();
+		sendUpdateMessageToListeners();
 	}
 
 	// English
@@ -78,6 +105,7 @@ public class Options {
 
 	public void setFilterSearchShowEnglish(Boolean show) {
 		prefs.edit().putBoolean(pkFsIn, show).commit();
+		sendUpdateMessageToListeners();
 	}
 
 	// translation on detail languages filters
@@ -88,6 +116,7 @@ public class Options {
 
 	public void setFilterTranslationShowNheengatu(Boolean show) {
 		prefs.edit().putBoolean(pkFtNh, show).commit();
+		sendUpdateMessageToListeners();
 	}
 
 	// portuguese
@@ -97,6 +126,7 @@ public class Options {
 
 	public void setFilterTranslationShowPortuguese(Boolean show) {
 		prefs.edit().putBoolean(pkFtPt, show).commit();
+		sendUpdateMessageToListeners();
 	}
 
 	// Spanish
@@ -106,6 +136,7 @@ public class Options {
 
 	public void setFilterTranslationShowSpanish(Boolean show) {
 		prefs.edit().putBoolean(pkFtEs, show).commit();
+		sendUpdateMessageToListeners();
 	}
 
 	// English
@@ -115,5 +146,6 @@ public class Options {
 
 	public void setFilterTranslationShowEnglish(Boolean show) {
 		prefs.edit().putBoolean(pkFtIn, show).commit();
+		sendUpdateMessageToListeners();
 	}
 }

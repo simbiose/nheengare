@@ -35,6 +35,8 @@ import simbio.se.nheengare.MainActivity;
 import simbio.se.nheengare.R;
 import simbio.se.nheengare.core.Analytics;
 import simbio.se.nheengare.core.BlackBoard;
+import simbio.se.nheengare.core.IOptionsChangedListener;
+import simbio.se.nheengare.core.Options;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
@@ -58,7 +60,8 @@ import com.google.analytics.tracking.android.EasyTracker;
  * @author ademar111190@gmail.com
  */
 @SuppressLint("NewApi")
-public class AbstractActivity extends Activity {
+public class AbstractActivity extends Activity implements
+		IOptionsChangedListener {
 
 	private boolean dataHasLoaded = false;
 	protected Analytics analytics;
@@ -147,6 +150,11 @@ public class AbstractActivity extends Activity {
 		return (ScrollView) super.findViewById(id);
 	}
 
+	// Options changedlistener
+	@Override
+	public void onOptionsChanged(Options newOptions) {
+	}
+
 	// Overrides
 
 	@Override
@@ -154,6 +162,7 @@ public class AbstractActivity extends Activity {
 		super.onStart();
 		EasyTracker.getInstance().activityStart(this);
 		analytics = Analytics.getAnalytics(getApplicationContext());
+		Options.addOptionsChangeListener(this);
 		if (!dataHasLoaded) {
 			new Thread(new Runnable() {
 				@Override
@@ -176,6 +185,7 @@ public class AbstractActivity extends Activity {
 	protected void onStop() {
 		super.onStop();
 		EasyTracker.getInstance().activityStop(this);
+		Options.removeOptionsChangeListener(this);
 	}
 
 	// Others Overrides
