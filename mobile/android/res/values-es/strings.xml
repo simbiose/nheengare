@@ -34,6 +34,7 @@
     <string name="translation">Traducción</string>
     <string name="examples_of_use">Ejemplos de uso</string>
     <string name="afi">Alfabeto fonético internacional</string>
+    <string name="empty_list_search">No palabras encontradas, intenta cambiar la configuración del filtro de búsqueda.</string>
 
     <!-- gramatical classes -->
     <string name="grammatical">Clase gramatical</string>
@@ -55,4 +56,5 @@
     <string name="config_language_pt">Portugués</string>
     <string name="config_language_es">Español</string>
     <string name="config_language_in">Inglés</string>
+
 </resources>

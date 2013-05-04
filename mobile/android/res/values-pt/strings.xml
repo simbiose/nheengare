@@ -34,6 +34,7 @@
     <string name="translation">Tradução</string>
     <string name="examples_of_use">Exemplos de utilização</string>
     <string name="afi">Alfabeto fonético internacional</string>
+    <string name="empty_list_search">Nenhuma palavra encontrada, tenta alterar os filtros de busca nas configurações.</string>
 
     <!-- gramatical classes -->
     <string name="grammatical">Classe gramatical</string>

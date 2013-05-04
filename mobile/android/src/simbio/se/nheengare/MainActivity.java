@@ -104,6 +104,7 @@ public class MainActivity extends AbstractActivity implements TextWatcher,
 		// load list to show words
 		listResults = findListViewById(R.id.listViewMain);
 		listResults.setOnItemClickListener(this);
+		listResults.setEmptyView(findViewById(R.id.emptyViewMain));
 	}
 
 	@Override
