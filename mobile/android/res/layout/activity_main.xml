@@ -51,7 +51,8 @@
         android:layout_alignParentRight="true"
         android:layout_below="@+id/autoCompleteTextViewMain"
         android:gravity="center"
-        android:text="@string/empty_list_search" >
+        android:text="@string/empty_list_search"
+        android:visibility="invisible" >
     </TextView>
 
 </RelativeLayout>

@@ -75,6 +75,7 @@ public class MainActivity extends AbstractActivity implements TextWatcher,
 	private ListView listResults;
 
 	// Threads
+	private boolean firstShow = true;
 	private boolean searchLock = false;
 	private boolean searchAgain = false;
 
@@ -104,14 +105,13 @@ public class MainActivity extends AbstractActivity implements TextWatcher,
 		// load list to show words
 		listResults = findListViewById(R.id.listViewMain);
 		listResults.setOnItemClickListener(this);
-		listResults.setEmptyView(findViewById(R.id.emptyViewMain));
 	}
 
 	@Override
 	protected void loadOnUiThread() {
 		listResults.setAdapter(adapter);
 		refreshList();
-		show(new int[] { R.id.autoCompleteTextViewMain, R.id.listViewMain });
+		findViewById(R.id.autoCompleteTextViewMain).setVisibility(View.VISIBLE);
 	}
 
 	@Override
@@ -185,6 +185,13 @@ public class MainActivity extends AbstractActivity implements TextWatcher,
 					for (String s : w.getWrites())
 						adapter.add(s);
 				adapter.notifyDataSetChanged();
+
+				if (firstShow) {
+					firstShow = false;
+					show(new int[] { R.id.autoCompleteTextViewMain,
+							R.id.listViewMain });
+					listResults.setEmptyView(findViewById(R.id.emptyViewMain));
+				}
 
 				if (searchAgain) {
 					setSearchAgain(false);
