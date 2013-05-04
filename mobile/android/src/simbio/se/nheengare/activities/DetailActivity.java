@@ -40,6 +40,7 @@ import simbio.se.nheengare.core.Flag.FLAG_SIZE;
 import simbio.se.nheengare.models.Tradutions;
 import simbio.se.nheengare.models.Word;
 import simbio.se.nheengare.models.WordWeight;
+import simbio.se.nheengare.utils.ActionBarHelper;
 import simbio.se.nheengare.view.AfiView;
 import simbio.se.nheengare.view.ExampleUseView;
 import simbio.se.nheengare.view.GrammaticalView;
@@ -95,7 +96,7 @@ public class DetailActivity extends AbstractActivity {
 
 		// configure screen
 		if (android.os.Build.VERSION.SDK_INT >= 11)
-			getActionBar().setDisplayHomeAsUpEnabled(true);
+			ActionBarHelper.setDisplayHomeAsUpEnabled(this, true);
 	}
 
 	@Override
