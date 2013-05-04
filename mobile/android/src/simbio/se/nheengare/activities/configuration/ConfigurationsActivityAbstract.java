@@ -111,6 +111,7 @@ public class ConfigurationsActivityAbstract extends AbstractActivity {
 		analytics.track("/Config");
 	}
 
+	// Configures master
 	protected void changeFilterSearchFilter(Boolean filter) {
 		rlFilterSearch.startAnimation(new ResizeHeigthAnimation(rlFilterSearch,
 				(filter ? rlfsHeigth : 0)));
@@ -123,6 +124,48 @@ public class ConfigurationsActivityAbstract extends AbstractActivity {
 				rlFilterTranslation, (filter ? rlftHeigth : 10)));
 		BlackBoard.getBlackBoard(getApplicationContext()).getOptions()
 				.setFilterTranslationLanguages(filter);
+	}
+
+	// Configures search
+	protected void changeFilterSearchNheengatu(Boolean filter) {
+		BlackBoard.getBlackBoard(getApplicationContext()).getOptions()
+				.setFilterSearchShowNheengatu(filter);
+	}
+
+	protected void changeFilterSearchPortuguese(Boolean filter) {
+		BlackBoard.getBlackBoard(getApplicationContext()).getOptions()
+				.setFilterSearchShowPortuguese(filter);
+	}
+
+	protected void changeFilterSearchSpanish(Boolean filter) {
+		BlackBoard.getBlackBoard(getApplicationContext()).getOptions()
+				.setFilterSearchShowSpanish(filter);
+	}
+
+	protected void changeFilterSearchEnglish(Boolean filter) {
+		BlackBoard.getBlackBoard(getApplicationContext()).getOptions()
+				.setFilterSearchShowEnglish(filter);
+	}
+
+	// Configures translations
+	protected void changeFilterTranslationNheengatu(Boolean filter) {
+		BlackBoard.getBlackBoard(getApplicationContext()).getOptions()
+				.setFilterTranslationShowNheengatu(filter);
+	}
+
+	protected void changeFilterTranslationPortuguese(Boolean filter) {
+		BlackBoard.getBlackBoard(getApplicationContext()).getOptions()
+				.setFilterTranslationShowPortuguese(filter);
+	}
+
+	protected void changeFilterTranslationSpanish(Boolean filter) {
+		BlackBoard.getBlackBoard(getApplicationContext()).getOptions()
+				.setFilterTranslationShowSpanish(filter);
+	}
+
+	protected void changeFilterTranslationEnglish(Boolean filter) {
+		BlackBoard.getBlackBoard(getApplicationContext()).getOptions()
+				.setFilterTranslationShowEnglish(filter);
 	}
 
 	// menu handler

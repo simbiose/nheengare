@@ -141,6 +141,30 @@ public class ConfigurationsActivityV14 extends ConfigurationsActivityAbstract
 		case R.id.switchConfigTranslation:
 			changeFilterTranslationFilter(isChecked);
 			break;
+		case R.id.switchConfigSearchNheengatu:
+			changeFilterSearchNheengatu(isChecked);
+			break;
+		case R.id.switchConfigSearchPortuguese:
+			changeFilterSearchPortuguese(isChecked);
+			break;
+		case R.id.switchConfigSearchSpanish:
+			changeFilterSearchSpanish(isChecked);
+			break;
+		case R.id.switchConfigSearchEnglish:
+			changeFilterSearchEnglish(isChecked);
+			break;
+		case R.id.switchConfigTranslationNheengatu:
+			changeFilterTranslationNheengatu(isChecked);
+			break;
+		case R.id.switchConfigTranslationPortuguese:
+			changeFilterTranslationPortuguese(isChecked);
+			break;
+		case R.id.switchConfigTranslationSpanish:
+			changeFilterTranslationSpanish(isChecked);
+			break;
+		case R.id.switchConfigTranslationEnglish:
+			changeFilterTranslationEnglish(isChecked);
+			break;
 		default:
 			break;
 		}
