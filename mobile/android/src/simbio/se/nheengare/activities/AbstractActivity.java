@@ -52,6 +52,7 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.ToggleButton;
 
 import com.google.analytics.tracking.android.EasyTracker;
 
@@ -148,6 +149,10 @@ public class AbstractActivity extends Activity implements
 
 	public ScrollView findScrollViewById(int id) {
 		return (ScrollView) super.findViewById(id);
+	}
+
+	public ToggleButton findToggleButtonViewById(int id) {
+		return (ToggleButton) super.findViewById(id);
 	}
 
 	// Options changedlistener

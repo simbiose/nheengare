@@ -37,6 +37,7 @@ import java.util.Collections;
 import simbio.se.nheengare.activities.AboutActivity;
 import simbio.se.nheengare.activities.AbstractActivity;
 import simbio.se.nheengare.activities.DetailActivity;
+import simbio.se.nheengare.activities.configuration.ConfigurationsActivity;
 import simbio.se.nheengare.activities.configuration.ConfigurationsActivityV14;
 import simbio.se.nheengare.core.Analytics;
 import simbio.se.nheengare.models.ModelAbstract;
@@ -187,7 +188,9 @@ public class MainActivity extends AbstractActivity implements TextWatcher,
 			if (android.os.Build.VERSION.SDK_INT >= 14)
 				startActivity(new Intent(getApplicationContext(),
 						ConfigurationsActivityV14.class));
-			// TODO Configuration to api less the 14
+			else
+				startActivity(new Intent(getApplicationContext(),
+						ConfigurationsActivity.class));
 			return true;
 		case R.id.action_about:
 			analytics.track("/Menu/Main/About");

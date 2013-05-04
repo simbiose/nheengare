@@ -150,6 +150,9 @@
         <activity
             android:name="simbio.se.nheengare.activities.configuration.ConfigurationsActivityV14"
             android:label="@string/action_configure" />
+        <activity
+            android:name="simbio.se.nheengare.activities.configuration.ConfigurationsActivity"
+            android:label="@string/action_configure" />
     </application>
 
 </manifest>
