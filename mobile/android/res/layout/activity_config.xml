@@ -28,12 +28,32 @@
             android:layout_height="wrap_content"
             android:orientation="vertical" >
 
-            <ToggleButton
-                android:id="@+id/toggleConfigSearch"
+            <RelativeLayout
+                android:id="@+id/relativeLayyoutConfigSearch"
                 style="@style/AppSwitchView"
                 android:layout_marginTop="0dp"
-                android:text="@string/config_search_filter"
-                android:textAppearance="?android:attr/textAppearanceLarge" />
+                android:padding="0dp" >
+
+                <ToggleButton
+                    android:id="@+id/toggleConfigSearch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginTop="0dp"
+                    android:checked="true"
+                    android:text="@string/config_search_filter"
+                    android:textAppearance="?android:attr/textAppearanceLarge" />
+
+                <TextView
+                    android:id="@+id/textViewConfigSearch"
+                    style="@style/AppTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="0dp"
+                    android:layout_toLeftOf="@+id/toggleConfigSearch"
+                    android:text="@string/config_search_filter"
+                    android:textAppearance="?android:attr/textAppearanceLarge" />
+            </RelativeLayout>
 
             <RelativeLayout
                 android:id="@+id/relativeLayputConfigSearch"
@@ -49,9 +69,24 @@
                 <ToggleButton
                     android:id="@+id/toggleConfigSearchNheengatu"
                     style="@style/AppSwitchViewIten"
+                    android:layout_width="wrap_content"
+                    android:layout_alignBottom="@+id/configImageViewNheengatuSearch"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignTop="@+id/configImageViewNheengatuSearch"
+                    android:text="@string/empty"
+                    android:textOff="@string/empty"
+                    android:textOn="@string/empty" />
+
+                <TextView
+                    android:id="@+id/textViewConfigSearchNheengatu"
+                    style="@style/AppTextView"
                     android:layout_alignBottom="@+id/configImageViewNheengatuSearch"
                     android:layout_alignTop="@+id/configImageViewNheengatuSearch"
+                    android:layout_toLeftOf="@+id/toggleConfigSearchNheengatu"
                     android:layout_toRightOf="@+id/configImageViewNheengatuSearch"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="4dp"
                     android:text="@string/config_language_nh" />
 
                 <ImageView
@@ -64,9 +99,24 @@
                 <ToggleButton
                     android:id="@+id/toggleConfigSearchPortuguese"
                     style="@style/AppSwitchViewIten"
+                    android:layout_width="wrap_content"
+                    android:layout_alignBottom="@+id/configImageViewPortugueseSearch"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignTop="@+id/configImageViewPortugueseSearch"
+                    android:text="@string/empty"
+                    android:textOff="@string/empty"
+                    android:textOn="@string/empty" />
+
+                <TextView
+                    android:id="@+id/textViewConfigSearchPortuguese"
+                    style="@style/AppTextView"
                     android:layout_alignBottom="@+id/configImageViewPortugueseSearch"
                     android:layout_alignTop="@+id/configImageViewPortugueseSearch"
+                    android:layout_toLeftOf="@+id/toggleConfigSearchPortuguese"
                     android:layout_toRightOf="@+id/configImageViewPortugueseSearch"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="4dp"
                     android:text="@string/config_language_pt" />
 
                 <ImageView
@@ -79,9 +129,24 @@
                 <ToggleButton
                     android:id="@+id/toggleConfigSearchSpanish"
                     style="@style/AppSwitchViewIten"
+                    android:layout_width="wrap_content"
+                    android:layout_alignBottom="@+id/configImageViewSpanishSearch"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignTop="@+id/configImageViewSpanishSearch"
+                    android:text="@string/empty"
+                    android:textOff="@string/empty"
+                    android:textOn="@string/empty" />
+
+                <TextView
+                    android:id="@+id/textViewConfigSearchSpanish"
+                    style="@style/AppTextView"
                     android:layout_alignBottom="@+id/configImageViewSpanishSearch"
                     android:layout_alignTop="@+id/configImageViewSpanishSearch"
+                    android:layout_toLeftOf="@+id/toggleConfigSearchSpanish"
                     android:layout_toRightOf="@+id/configImageViewSpanishSearch"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="4dp"
                     android:text="@string/config_language_es" />
 
                 <ImageView
@@ -94,18 +159,52 @@
                 <ToggleButton
                     android:id="@+id/toggleConfigSearchEnglish"
                     style="@style/AppSwitchViewIten"
+                    android:layout_width="wrap_content"
+                    android:layout_alignBottom="@+id/configImageViewEnglishSearch"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignTop="@+id/configImageViewEnglishSearch"
+                    android:text="@string/empty"
+                    android:textOff="@string/empty"
+                    android:textOn="@string/empty" />
+
+                <TextView
+                    android:id="@+id/textViewConfigSearchEnglish"
+                    style="@style/AppTextView"
                     android:layout_alignBottom="@+id/configImageViewEnglishSearch"
                     android:layout_alignTop="@+id/configImageViewEnglishSearch"
+                    android:layout_toLeftOf="@+id/toggleConfigSearchEnglish"
                     android:layout_toRightOf="@+id/configImageViewEnglishSearch"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="4dp"
                     android:text="@string/config_language_in" />
             </RelativeLayout>
 
-            <ToggleButton
-                android:id="@+id/toggleConfigTranslation"
+            <RelativeLayout
+                android:id="@+id/relativeLayyoutConfigTranslation"
                 style="@style/AppSwitchView"
                 android:layout_marginTop="16dp"
-                android:text="@string/config_result_filter"
-                android:textAppearance="?android:attr/textAppearanceLarge" />
+                android:padding="0dp" >
+
+                <ToggleButton
+                    android:id="@+id/toggleConfigTranslation"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginTop="0dp"
+                    android:text="@string/config_result_filter"
+                    android:textAppearance="?android:attr/textAppearanceLarge" />
+
+                <TextView
+                    android:id="@+id/textViewConfigTranslation"
+                    style="@style/AppTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="0dp"
+                    android:layout_toLeftOf="@+id/toggleConfigTranslation"
+                    android:text="@string/config_result_filter"
+                    android:textAppearance="?android:attr/textAppearanceLarge" />
+            </RelativeLayout>
 
             <RelativeLayout
                 android:id="@+id/relativeLayputConfigTranslation"
@@ -121,9 +220,24 @@
                 <ToggleButton
                     android:id="@+id/toggleConfigTranslationNheengatu"
                     style="@style/AppSwitchViewIten"
+                    android:layout_width="wrap_content"
+                    android:layout_alignBottom="@+id/configImageViewNheengatuTranslation"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignTop="@+id/configImageViewNheengatuTranslation"
+                    android:text="@string/empty"
+                    android:textOff="@string/empty"
+                    android:textOn="@string/empty" />
+
+                <TextView
+                    android:id="@+id/textViewConfigTranslationNheengatu"
+                    style="@style/AppTextView"
                     android:layout_alignBottom="@+id/configImageViewNheengatuTranslation"
                     android:layout_alignTop="@+id/configImageViewNheengatuTranslation"
+                    android:layout_toLeftOf="@+id/toggleConfigTranslationNheengatu"
                     android:layout_toRightOf="@+id/configImageViewNheengatuTranslation"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="4dp"
                     android:text="@string/config_language_nh" />
 
                 <ImageView
@@ -136,9 +250,24 @@
                 <ToggleButton
                     android:id="@+id/toggleConfigTranslationPortuguese"
                     style="@style/AppSwitchViewIten"
+                    android:layout_width="wrap_content"
+                    android:layout_alignBottom="@+id/configImageViewPortugueseTranslation"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignTop="@+id/configImageViewPortugueseTranslation"
+                    android:text="@string/empty"
+                    android:textOff="@string/empty"
+                    android:textOn="@string/empty" />
+
+                <TextView
+                    android:id="@+id/textViewConfigTranslationPortuguese"
+                    style="@style/AppTextView"
                     android:layout_alignBottom="@+id/configImageViewPortugueseTranslation"
                     android:layout_alignTop="@+id/configImageViewPortugueseTranslation"
+                    android:layout_toLeftOf="@+id/toggleConfigTranslationPortuguese"
                     android:layout_toRightOf="@+id/configImageViewPortugueseTranslation"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="4dp"
                     android:text="@string/config_language_pt" />
 
                 <ImageView
@@ -151,9 +280,24 @@
                 <ToggleButton
                     android:id="@+id/toggleConfigTranslationSpanish"
                     style="@style/AppSwitchViewIten"
+                    android:layout_width="wrap_content"
+                    android:layout_alignBottom="@+id/configImageViewSpanishTranslation"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignTop="@+id/configImageViewSpanishTranslation"
+                    android:text="@string/empty"
+                    android:textOff="@string/empty"
+                    android:textOn="@string/empty" />
+
+                <TextView
+                    android:id="@+id/textViewConfigTranslationSpanish"
+                    style="@style/AppTextView"
                     android:layout_alignBottom="@+id/configImageViewSpanishTranslation"
                     android:layout_alignTop="@+id/configImageViewSpanishTranslation"
+                    android:layout_toLeftOf="@+id/toggleConfigTranslationSpanish"
                     android:layout_toRightOf="@+id/configImageViewSpanishTranslation"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="4dp"
                     android:text="@string/config_language_es" />
 
                 <ImageView
@@ -166,9 +310,24 @@
                 <ToggleButton
                     android:id="@+id/toggleConfigTranslationEnglish"
                     style="@style/AppSwitchViewIten"
+                    android:layout_width="wrap_content"
+                    android:layout_alignBottom="@+id/configImageViewEnglishTranslation"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignTop="@+id/configImageViewEnglishTranslation"
+                    android:text="@string/empty"
+                    android:textOff="@string/empty"
+                    android:textOn="@string/empty" />
+
+                <TextView
+                    android:id="@+id/textViewConfigTranslationEnglish"
+                    style="@style/AppTextView"
                     android:layout_alignBottom="@+id/configImageViewEnglishTranslation"
                     android:layout_alignTop="@+id/configImageViewEnglishTranslation"
+                    android:layout_toLeftOf="@+id/toggleConfigTranslationEnglish"
                     android:layout_toRightOf="@+id/configImageViewEnglishTranslation"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="4dp"
                     android:text="@string/config_language_in" />
             </RelativeLayout>
         </LinearLayout>
