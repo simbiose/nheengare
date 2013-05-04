@@ -20,11 +20,34 @@
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <TextView
-        android:id="@+id/textViewAboutUrl"
+        android:id="@+id/textViewAboutNheengare"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/textViewAboutBy"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/textViewAboutAppName"
+        android:layout_marginBottom="@dimen/activity_vertical_margin"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:text="@string/about_nheengare"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/textViewAboutBy"
         android:layout_width="wrap_content"
         android:layout_height="32dp"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
+        android:layout_alignParentLeft="true"
+        android:gravity="center"
+        android:text="@string/about_by" />
+
+    <TextView
+        android:id="@+id/textViewAboutUrl"
+        android:layout_width="wrap_content"
+        android:layout_height="32dp"
+        android:layout_alignBaseline="@+id/textViewAboutBy"
+        android:layout_marginLeft="4dp"
+        android:layout_toRightOf="@+id/textViewAboutBy"
         android:clickable="true"
         android:gravity="center"
         android:onClick="onClickOpenSimbioseBrowser"
@@ -38,42 +61,9 @@
         android:layout_width="32dp"
         android:layout_height="32dp"
         android:layout_alignParentBottom="true"
-        android:layout_toLeftOf="@+id/textViewAboutUrl"
+        android:layout_toRightOf="@+id/textViewAboutUrl"
         android:contentDescription="@string/empty"
         android:onClick="onClickOpenSimbioseBrowser"
         android:src="@drawable/ic_world" />
-
-    <TextView
-        android:id="@+id/textViewAboutBy"
-        android:layout_width="wrap_content"
-        android:layout_height="32dp"
-        android:layout_above="@+id/textViewAboutUrl"
-        android:layout_alignLeft="@+id/imageViewAboutWorld"
-        android:gravity="center"
-        android:text="@string/about_by" />
-
-    <TextView
-        android:id="@+id/textViewAboutOrganization"
-        android:layout_width="wrap_content"
-        android:layout_height="32dp"
-        android:layout_above="@+id/textViewAboutUrl"
-        android:layout_alignParentRight="true"
-        android:layout_marginLeft="2dp"
-        android:layout_toRightOf="@+id/textViewAboutBy"
-        android:gravity="center"
-        android:text="@string/about_organization_name" />
-
-    <TextView
-        android:id="@+id/textViewAboutNheengare"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/textViewAboutBy"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/textViewAboutAppName"
-        android:layout_marginBottom="@dimen/activity_vertical_margin"
-        android:layout_marginTop="@dimen/activity_vertical_margin"
-        android:text="@string/about_nheengare"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
 
 </RelativeLayout>
