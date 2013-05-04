@@ -85,6 +85,12 @@ public class MainActivity extends AbstractActivity implements TextWatcher,
 	}
 
 	@Override
+	protected void onResume() {
+		super.onResume();
+		onOptionsChanged(null);
+	}
+
+	@Override
 	protected void loadOnThread() {
 		// load EditView of search
 		edtInput = findEditTextById(R.id.autoCompleteTextViewMain);
