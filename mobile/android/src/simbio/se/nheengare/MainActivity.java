@@ -33,6 +33,7 @@ package simbio.se.nheengare;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 import simbio.se.nheengare.activities.AboutActivity;
 import simbio.se.nheengare.activities.AbstractActivity;
@@ -42,9 +43,10 @@ import simbio.se.nheengare.activities.configuration.ConfigurationsActivityV14;
 import simbio.se.nheengare.core.Analytics;
 import simbio.se.nheengare.core.BlackBoard;
 import simbio.se.nheengare.core.Options;
+import simbio.se.nheengare.models.AbstractModel;
 import simbio.se.nheengare.models.Language.LANGUAGE;
-import simbio.se.nheengare.models.ModelAbstract;
 import simbio.se.nheengare.models.Word;
+import simbio.se.nheengare.utils.OldDalvikVirtualMachineHelper;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
@@ -63,11 +65,11 @@ import android.widget.ListView;
  * @author Ademar Alves de Oliveira
  * @author ademar111190@gmail.com
  */
-public class MainActivity extends AbstractActivity implements TextWatcher,
-		Runnable, OnItemClickListener {
+public class MainActivity extends AbstractActivity implements TextWatcher, Runnable, OnItemClickListener {
 
 	// variables
 	private ArrayAdapter<String> adapter;
+	private ArrayList<String> adapterAux = new ArrayList<String>();
 	private ArrayList<Word> words = new ArrayList<Word>();
 
 	// views
@@ -98,9 +100,7 @@ public class MainActivity extends AbstractActivity implements TextWatcher,
 		edtInput.addTextChangedListener(this);
 
 		// load adapter
-		adapter = new ArrayAdapter<String>(this,
-				android.R.layout.simple_list_item_1, android.R.id.text1,
-				new ArrayList<String>());
+		adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, android.R.id.text1, new ArrayList<String>());
 
 		// load list to show words
 		listResults = findListViewById(R.id.listViewMain);
@@ -121,10 +121,7 @@ public class MainActivity extends AbstractActivity implements TextWatcher,
 
 	// refresh list
 	public void refreshList() {
-		if (!searchLock)
-			new Thread(this).start();
-		else
-			setSearchAgain(true);
+		new Thread(this).start();
 	}
 
 	// textWatcher
@@ -134,8 +131,7 @@ public class MainActivity extends AbstractActivity implements TextWatcher,
 	}
 
 	@Override
-	public void beforeTextChanged(CharSequence s, int start, int count,
-			int after) {
+	public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 		listResults.setSelectionAfterHeaderView();
 	}
 
@@ -144,63 +140,72 @@ public class MainActivity extends AbstractActivity implements TextWatcher,
 	}
 
 	// multithread
-	@SuppressLint("DefaultLocale")
+	@SuppressLint({ "DefaultLocale", "NewApi" })
 	@Override
 	public void run() {
-		setSearchLock(true);
-		ModelAbstract.criteria = edtInput.getText().toString().toLowerCase();
+		if (searchLock) {
+			setSearchAgain(true);
+		} else {
+			setSearchLock(true);
+			AbstractModel.criteria = edtInput.getText().toString().toLowerCase();
 
-		words.clear();
-		words.addAll(getBlackBoard().getWords());
+			words.clear();
+			words.addAll(getBlackBoard().getWords());
 
-		Options options = BlackBoard.getBlackBoard(getApplicationContext())
-				.getOptions();
+			Options options = BlackBoard.getBlackBoard(getApplicationContext()).getOptions();
 
-		if (options.filterSearchLanguages()) {
-			ArrayList<LANGUAGE> langFilter = new ArrayList<LANGUAGE>();
-			if (!options.filterSearchShowNheengatu())
-				langFilter.add(LANGUAGE.LANGUAGE_NHEENGATU);
-			if (!options.filterSearchShowPortuguese())
-				langFilter.add(LANGUAGE.LANGUAGE_PORTUGUESE);
-			if (!options.filterSearchShowSpanish())
-				langFilter.add(LANGUAGE.LANGUAGE_SPANISH);
-			if (!options.filterSearchShowEnglish())
-				langFilter.add(LANGUAGE.LANGUAGE_ENGLISH);
-			if (!langFilter.isEmpty()) {
-				ArrayList<Word> wordsToRemove = new ArrayList<Word>();
-				for (Word w : words)
-					if (langFilter.contains(w.getLanguage()))
-						wordsToRemove.add(w);
-				words.removeAll(wordsToRemove);
-			}
-		}
-
-		Collections.sort(words, Collections.reverseOrder());
-
-		runOnUiThread(new Runnable() {
-			@Override
-			public void run() {
-				adapter.clear();
-				for (Word w : words)
-					for (String s : w.getWrites())
-						adapter.add(s);
-				adapter.notifyDataSetChanged();
-
-				if (firstShow) {
-					firstShow = false;
-					show(new int[] { R.id.autoCompleteTextViewMain,
-							R.id.listViewMain });
-					listResults.setEmptyView(findViewById(R.id.emptyViewMain));
+			if (options.filterSearchLanguages()) {
+				ArrayList<LANGUAGE> langFilter = new ArrayList<LANGUAGE>();
+				if (!options.filterSearchShowNheengatu())
+					langFilter.add(LANGUAGE.LANGUAGE_NHEENGATU);
+				if (!options.filterSearchShowPortuguese())
+					langFilter.add(LANGUAGE.LANGUAGE_PORTUGUESE);
+				if (!options.filterSearchShowSpanish())
+					langFilter.add(LANGUAGE.LANGUAGE_SPANISH);
+				if (!options.filterSearchShowEnglish())
+					langFilter.add(LANGUAGE.LANGUAGE_ENGLISH);
+				if (!langFilter.isEmpty()) {
+					ArrayList<Word> wordsToRemove = new ArrayList<Word>();
+					for (Word w : words)
+						if (langFilter.contains(w.getLanguage()))
+							wordsToRemove.add(w);
+					words.removeAll(wordsToRemove);
 				}
+			}
 
-				if (searchAgain) {
-					setSearchAgain(false);
-					new Thread(MainActivity.this).start();
-				} else {
+			Collections.sort(words, Collections.reverseOrder());
+			List<Word> listTemp = words.subList(0, (Math.min(100, words.size())));
+			adapterAux.clear();
+			for (Word w : listTemp)
+				for (String s : w.getWrites())
+					adapterAux.add(s);
+			listTemp = null;
+
+			runOnUiThread(new Runnable() {
+				@Override
+				public void run() {
+					adapter.clear();
+					if (android.os.Build.VERSION.SDK_INT >= 11)
+						OldDalvikVirtualMachineHelper.arrayAdapterAddAll(adapter, adapterAux);
+					else
+						for (String s : adapterAux)
+							adapter.add(s);
+					adapter.notifyDataSetChanged();
+
+					if (firstShow) {
+						firstShow = false;
+						show(new int[] { R.id.autoCompleteTextViewMain, R.id.listViewMain });
+						listResults.setEmptyView(findViewById(R.id.emptyViewMain));
+					}
+
 					setSearchLock(false);
+					if (searchAgain) {
+						setSearchAgain(false);
+						new Thread(MainActivity.this).start();
+					}
 				}
-			}
-		});
+			});
+		}
 	}
 
 	public synchronized void setSearchAgain(boolean searchAgain) {
@@ -232,21 +237,17 @@ public class MainActivity extends AbstractActivity implements TextWatcher,
 		case R.id.action_config:
 			analytics.track("/Menu/Main/Config");
 			if (android.os.Build.VERSION.SDK_INT >= 14)
-				startActivity(new Intent(getApplicationContext(),
-						ConfigurationsActivityV14.class));
+				startActivity(new Intent(getApplicationContext(), ConfigurationsActivityV14.class));
 			else
-				startActivity(new Intent(getApplicationContext(),
-						ConfigurationsActivity.class));
+				startActivity(new Intent(getApplicationContext(), ConfigurationsActivity.class));
 			return true;
 		case R.id.action_about:
 			analytics.track("/Menu/Main/About");
-			startActivity(new Intent(getApplicationContext(),
-					AboutActivity.class));
+			startActivity(new Intent(getApplicationContext(), AboutActivity.class));
 			return true;
 		case R.id.action_speak:
 			analytics.track("/Menu/Main/Speak");
-			sendEmail(getString(R.string.action_email_subject_main),
-					getString(R.string.action_email_content_main));
+			sendEmail(getString(R.string.action_email_subject_main), getString(R.string.action_email_content_main));
 			return true;
 		case R.id.action_share:
 			analytics.track("/Menu/Main/Share");

@@ -36,19 +36,25 @@ package simbio.se.nheengare.utils;
  * http://stackoverflow.com/questions/6495007/verifyerror-deploying-on-api-1-6
  */
 
+import java.util.ArrayList;
+
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.widget.ArrayAdapter;
 
 /**
  * @author Ademar Alves de Oliveira
  * @author ademar111190@gmail.com
  */
 @SuppressLint("NewApi")
-public class ActionBarHelper {
+public class OldDalvikVirtualMachineHelper {
 
-	public static void setDisplayHomeAsUpEnabled(Activity activity,
-			boolean enabled) {
+	public static void setDisplayHomeAsUpEnabled(Activity activity, boolean enabled) {
 		activity.getActionBar().setDisplayHomeAsUpEnabled(enabled);
+	}
+
+	public static void arrayAdapterAddAll(ArrayAdapter<String> adapter, ArrayList<String> toAdd) {
+		adapter.addAll(toAdd);
 	}
 
 }

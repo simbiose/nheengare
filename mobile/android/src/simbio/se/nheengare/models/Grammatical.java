@@ -31,9 +31,6 @@
  */
 package simbio.se.nheengare.models;
 
-import java.io.IOException;
-import java.io.ObjectInput;
-import java.io.ObjectOutput;
 import java.util.ArrayList;
 
 import org.json.JSONArray;
@@ -46,7 +43,7 @@ import android.content.Context;
  * @author Ademar Alves de Oliveira
  * @author ademar111190@gmail.com
  */
-public class Grammatical extends ModelAbstract {
+public class Grammatical extends AbstractModel {
 
 	// serializable
 	private static final long serialVersionUID = 1L;
@@ -54,10 +51,6 @@ public class Grammatical extends ModelAbstract {
 	private int id;
 	private String name;
 	private ArrayList<GrammaticalClassification> classifications = new ArrayList<GrammaticalClassification>();
-
-	// Exterializable
-	public Grammatical() {
-	}
 
 	public Grammatical(JSONObject json, Context context) {
 		id = json.optInt("id");
@@ -101,8 +94,7 @@ public class Grammatical extends ModelAbstract {
 
 		JSONArray array = json.optJSONArray("classification");
 		for (int c = 0; c < array.length(); c++)
-			classifications.add(new GrammaticalClassification(array
-					.optJSONObject(c)));
+			classifications.add(new GrammaticalClassification(array.optJSONObject(c)));
 	}
 
 	// getters and setters
@@ -122,25 +114,5 @@ public class Grammatical extends ModelAbstract {
 	@Override
 	public boolean isYourThisId(int id) {
 		return id == this.id;
-	}
-
-	// serialize and userialize
-	@SuppressWarnings("unchecked")
-	@Override
-	public void readExternal(ObjectInput input) throws IOException,
-			ClassNotFoundException {
-		super.readExternal(input);
-		id = input.readInt();
-		name = (String) input.readObject();
-		classifications = (ArrayList<GrammaticalClassification>) input
-				.readObject();
-	}
-
-	@Override
-	public void writeExternal(ObjectOutput output) throws IOException {
-		super.writeExternal(output);
-		output.writeInt(id);
-		output.writeObject(name);
-		output.writeObject(classifications);
 	}
 }

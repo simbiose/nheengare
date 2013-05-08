@@ -31,9 +31,6 @@
  */
 package simbio.se.nheengare.models;
 
-import java.io.IOException;
-import java.io.ObjectInput;
-import java.io.ObjectOutput;
 import java.util.ArrayList;
 
 import org.json.JSONArray;
@@ -45,17 +42,13 @@ import simbio.se.nheengare.models.Language.LANGUAGE;
  * @author Ademar Alves de Oliveira
  * @author ademar111190@gmail.com
  */
-public class Tradutions extends ModelAbstract {
+public class Tradutions extends AbstractModel {
 
 	// serializable
 	private static final long serialVersionUID = 1L;
 
 	private LANGUAGE language;
 	private ArrayList<WordWeight> words = new ArrayList<WordWeight>();
-
-	// Exterializable
-	public Tradutions() {
-	}
 
 	public Tradutions(JSONObject json) {
 		language = Language.chooseLanguageUsingId(json.optInt("lang"));
@@ -71,22 +64,5 @@ public class Tradutions extends ModelAbstract {
 
 	public ArrayList<WordWeight> getWords() {
 		return words;
-	}
-
-	// serialize and userialize
-	@SuppressWarnings("unchecked")
-	@Override
-	public void readExternal(ObjectInput input) throws IOException,
-			ClassNotFoundException {
-		super.readExternal(input);
-		language = Language.chooseLanguageUsingId(input.readInt());
-		words = (ArrayList<WordWeight>) input.readObject();
-	}
-
-	@Override
-	public void writeExternal(ObjectOutput output) throws IOException {
-		super.writeExternal(output);
-		output.writeInt(Language.chooseLanguageId(language));
-		output.writeObject(words);
 	}
 }

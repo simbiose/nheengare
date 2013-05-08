@@ -31,15 +31,8 @@
  */
 package simbio.se.nheengare.core;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.StreamCorruptedException;
 import java.util.ArrayList;
 
 import org.json.JSONArray;
@@ -50,7 +43,6 @@ import simbio.se.nheengare.models.Grammatical;
 import simbio.se.nheengare.models.Language;
 import simbio.se.nheengare.models.Source;
 import simbio.se.nheengare.models.Word;
-import simbio.se.nheengare.utils.Config;
 import simbio.se.nheengare.utils.SimbiLog;
 import android.content.Context;
 
@@ -58,7 +50,7 @@ import android.content.Context;
  * @author Ademar Alves de Oliveira
  * @author ademar111190@gmail.com
  */
-public class BlackBoard implements Runnable {
+public class BlackBoard {
 
 	private static BlackBoard blackBoard;
 
@@ -67,129 +59,36 @@ public class BlackBoard implements Runnable {
 	private ArrayList<Grammatical> grammaticals = new ArrayList<Grammatical>();
 	private ArrayList<Word> words = new ArrayList<Word>();
 	private Options options;
-	private String path;
 
-	@SuppressWarnings("unchecked")
 	public BlackBoard(Context context) {
 		// load options
 		options = new Options(context);
 
-		// verify if data already exists
-		path = Config.getDataPath(context);
-		String dataPathSource = path + "source.nheengare";
-		String dataPathLanguages = path + "languages.nheengare";
-		String dataPathGrammatical = path + "grammatical.nheengare";
-		String dataPathWords = path + "words.nheengare";
-
-		boolean loadedWithSucces = false;
-		if (new File(dataPathSource).exists()
-				&& new File(dataPathLanguages).exists()
-				&& new File(dataPathGrammatical).exists()
-				&& new File(dataPathWords).exists()) {
-			SimbiLog.print("Data alrady exists");
-			// load exterializable
-			try {
-				FileInputStream fis = new FileInputStream(dataPathSource);
-				ObjectInputStream ois = new ObjectInputStream(fis);
-				sources = (ArrayList<Source>) ois.readObject();
-				ois.close();
-
-				fis = new FileInputStream(dataPathLanguages);
-				ois = new ObjectInputStream(fis);
-				languages = (ArrayList<Language>) ois.readObject();
-				ois.close();
-
-				fis = new FileInputStream(dataPathGrammatical);
-				ois = new ObjectInputStream(fis);
-				grammaticals = (ArrayList<Grammatical>) ois.readObject();
-				ois.close();
-
-				fis = new FileInputStream(dataPathWords);
-				ois = new ObjectInputStream(fis);
-				words = (ArrayList<Word>) ois.readObject();
-				ois.close();
-
-				loadedWithSucces = true;
-			} catch (FileNotFoundException e) {
-				SimbiLog.printException(e);
-			} catch (StreamCorruptedException e) {
-				SimbiLog.printException(e);
-			} catch (IOException e) {
-				SimbiLog.printException(e);
-			} catch (ClassNotFoundException e) {
-				SimbiLog.printException(e);
-			}
-		}
-		if (!loadedWithSucces) {
-			SimbiLog.print("Data not exists or get some error, load from json and save it");
-			// load database
-			try {
-				// load file
-				InputStream is = context.getAssets().open("db.json");
-				int size = is.available();
-				byte[] buffer = new byte[size];
-				is.read(buffer);
-				is.close();
-
-				// load json objects
-				JSONObject jsonObject = new JSONObject(new String(buffer));
-				JSONArray jsonArray = jsonObject.optJSONArray("sources");
-				for (int c = 0; c < jsonArray.length(); c++)
-					sources.add(new Source(jsonArray.optJSONObject(c)));
-				jsonArray = jsonObject.optJSONArray("languages");
-				for (int c = 0; c < jsonArray.length(); c++)
-					languages.add(new Language(jsonArray.optJSONObject(c)));
-				jsonArray = jsonObject.optJSONArray("grammatical_class");
-				for (int c = 0; c < jsonArray.length(); c++)
-					grammaticals.add(new Grammatical(
-							jsonArray.optJSONObject(c), context));
-				jsonArray = jsonObject.optJSONArray("words");
-				for (int c = 0; c < jsonArray.length(); c++)
-					words.add(new Word(jsonArray.optJSONObject(c)));
-
-				// Save dat
-				new Thread(this).start();
-			} catch (IOException e) {
-				SimbiLog.printException(e);
-			} catch (JSONException j) {
-				SimbiLog.printException(j);
-			}
-		}
-	}
-
-	public void run() {
-		String dataPathSource = path + "source.nheengare";
-		String dataPathLanguages = path + "languages.nheengare";
-		String dataPathGrammatical = path + "grammatical.nheengare";
-		String dataPathWords = path + "words.nheengare";
 		try {
-			FileOutputStream fos = new FileOutputStream(dataPathSource);
-			ObjectOutputStream oos = new ObjectOutputStream(fos);
-			oos.writeObject(sources);
-			oos.flush();
-			oos.close();
+			InputStream is = context.getAssets().open("db.json");
+			int size = is.available();
+			byte[] buffer = new byte[size];
+			is.read(buffer);
+			is.close();
 
-			fos = new FileOutputStream(dataPathLanguages);
-			oos = new ObjectOutputStream(fos);
-			oos.writeObject(languages);
-			oos.flush();
-			oos.close();
-
-			fos = new FileOutputStream(dataPathGrammatical);
-			oos = new ObjectOutputStream(fos);
-			oos.writeObject(grammaticals);
-			oos.flush();
-			oos.close();
-
-			fos = new FileOutputStream(dataPathWords);
-			oos = new ObjectOutputStream(fos);
-			oos.writeObject(words);
-			oos.flush();
-			oos.close();
-		} catch (FileNotFoundException e) {
+			// load json objects
+			JSONObject jsonObject = new JSONObject(new String(buffer));
+			JSONArray jsonArray = jsonObject.optJSONArray("sources");
+			for (int c = 0; c < jsonArray.length(); c++)
+				sources.add(new Source(jsonArray.optJSONObject(c)));
+			jsonArray = jsonObject.optJSONArray("languages");
+			for (int c = 0; c < jsonArray.length(); c++)
+				languages.add(new Language(jsonArray.optJSONObject(c)));
+			jsonArray = jsonObject.optJSONArray("grammatical_class");
+			for (int c = 0; c < jsonArray.length(); c++)
+				grammaticals.add(new Grammatical(jsonArray.optJSONObject(c), context));
+			jsonArray = jsonObject.optJSONArray("words");
+			for (int c = 0; c < jsonArray.length(); c++)
+				words.add(new Word(jsonArray.optJSONObject(c)));
+		} catch (JSONException e) {
 			SimbiLog.printException(e);
-		} catch (IOException e) {
-			SimbiLog.printException(e);
+		} catch (IOException f) {
+			SimbiLog.printException(f);
 		}
 	}
 

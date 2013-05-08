@@ -31,9 +31,6 @@
  */
 package simbio.se.nheengare.models;
 
-import java.io.IOException;
-import java.io.ObjectInput;
-import java.io.ObjectOutput;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -47,7 +44,7 @@ import android.annotation.SuppressLint;
  * @author Ademar Alves de Oliveira
  * @author ademar111190@gmail.com
  */
-public class Word extends ModelAbstract {
+public class Word extends AbstractModel {
 
 	// serializable
 	private static final long serialVersionUID = 1L;
@@ -64,10 +61,6 @@ public class Word extends ModelAbstract {
 	private ArrayList<ExamplePhrases> examples = new ArrayList<ExamplePhrases>();
 	@SuppressLint("UseSparseArrays")
 	private HashMap<Integer, Integer> grammaticals = new HashMap<Integer, Integer>();
-
-	// Exterializable
-	public Word() {
-	}
 
 	public Word(JSONObject json) {
 		id = json.optInt("id");
@@ -104,7 +97,7 @@ public class Word extends ModelAbstract {
 	// overrides
 
 	@Override
-	public int compareTo(ModelAbstract another) {
+	public int compareTo(AbstractModel another) {
 		if (another instanceof Word) {
 			setCriteriaWeight(writes);
 			another.setCriteriaWeight(((Word) another).getWrites());
@@ -165,38 +158,5 @@ public class Word extends ModelAbstract {
 	@Override
 	public boolean isYourThisId(int id) {
 		return id == this.id;
-	}
-
-	// serialize and userialize
-	@SuppressWarnings("unchecked")
-	@Override
-	public void readExternal(ObjectInput input) throws IOException,
-			ClassNotFoundException {
-		super.readExternal(input);
-		id = input.readInt();
-		language = Language.chooseLanguageUsingId(input.readInt());
-		writes = (ArrayList<String>) input.readObject();
-		afis = (ArrayList<String>) input.readObject();
-		wordsEqualsIds = (ArrayList<Integer>) input.readObject();
-		tradutions = (ArrayList<Tradutions>) input.readObject();
-		sourceIds = (ArrayList<Integer>) input.readObject();
-		grammaticalsIds = (ArrayList<Integer>) input.readObject();
-		examples = (ArrayList<ExamplePhrases>) input.readObject();
-		grammaticals = (HashMap<Integer, Integer>) input.readObject();
-	}
-
-	@Override
-	public void writeExternal(ObjectOutput output) throws IOException {
-		super.writeExternal(output);
-		output.writeInt(id);
-		output.writeInt(Language.chooseLanguageId(language));
-		output.writeObject(writes);
-		output.writeObject(afis);
-		output.writeObject(wordsEqualsIds);
-		output.writeObject(tradutions);
-		output.writeObject(sourceIds);
-		output.writeObject(grammaticalsIds);
-		output.writeObject(examples);
-		output.writeObject(grammaticals);
 	}
 }

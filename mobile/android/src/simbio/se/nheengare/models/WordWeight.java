@@ -31,27 +31,19 @@
  */
 package simbio.se.nheengare.models;
 
-import java.io.IOException;
-import java.io.ObjectInput;
-import java.io.ObjectOutput;
-
 import org.json.JSONObject;
 
 /**
  * @author Ademar Alves de Oliveira
  * @author ademar111190@gmail.com
  */
-public class WordWeight extends ModelAbstract {
+public class WordWeight extends AbstractModel {
 
 	// serializable
 	private static final long serialVersionUID = 1L;
 
 	private int wordId;
 	private double weight;
-
-	// Exterializable
-	public WordWeight() {
-	}
 
 	public WordWeight(JSONObject json) {
 		wordId = json.optInt("word");
@@ -66,21 +58,4 @@ public class WordWeight extends ModelAbstract {
 	public double getWeight() {
 		return weight;
 	}
-
-	// serialize and userialize
-	@Override
-	public void readExternal(ObjectInput input) throws IOException,
-			ClassNotFoundException {
-		super.readExternal(input);
-		wordId = input.readInt();
-		weight = input.readDouble();
-	}
-
-	@Override
-	public void writeExternal(ObjectOutput output) throws IOException {
-		super.writeExternal(output);
-		output.writeInt(wordId);
-		output.writeDouble(weight);
-	}
-
 }

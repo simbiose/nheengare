@@ -35,7 +35,7 @@ import simbio.se.nheengare.R;
 import simbio.se.nheengare.activities.AbstractActivity;
 import simbio.se.nheengare.core.Analytics;
 import simbio.se.nheengare.core.BlackBoard;
-import simbio.se.nheengare.utils.ActionBarHelper;
+import simbio.se.nheengare.utils.OldDalvikVirtualMachineHelper;
 import simbio.se.nheengare.utils.SimbiLog;
 import simbio.se.nheengare.view.animation.ResizeHeigthAnimation;
 import android.annotation.SuppressLint;
@@ -63,7 +63,7 @@ public class ConfigurationsActivityAbstract extends AbstractActivity {
 
 		// configure screen
 		if (android.os.Build.VERSION.SDK_INT >= 11)
-			ActionBarHelper.setDisplayHomeAsUpEnabled(this, true);
+			OldDalvikVirtualMachineHelper.setDisplayHomeAsUpEnabled(this, true);
 	}
 
 	@Override

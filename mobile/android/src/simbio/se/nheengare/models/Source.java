@@ -31,9 +31,6 @@
  */
 package simbio.se.nheengare.models;
 
-import java.io.IOException;
-import java.io.ObjectInput;
-import java.io.ObjectOutput;
 import java.util.ArrayList;
 
 import org.json.JSONArray;
@@ -43,7 +40,7 @@ import org.json.JSONObject;
  * @author Ademar Alves de Oliveira
  * @author ademar111190@gmail.com
  */
-public class Source extends ModelAbstract {
+public class Source extends AbstractModel {
 
 	// serializable
 	private static final long serialVersionUID = 1L;
@@ -52,10 +49,6 @@ public class Source extends ModelAbstract {
 	private ArrayList<String> tutors = new ArrayList<String>();
 	private ArrayList<String> urls = new ArrayList<String>();
 	private String isbn;
-
-	// Exterializable
-	public Source() {
-	}
 
 	public Source(JSONObject json) {
 		id = json.optInt("id");
@@ -83,26 +76,5 @@ public class Source extends ModelAbstract {
 
 	public String getIsbn() {
 		return isbn;
-	}
-
-	// serialize and userialize
-	@SuppressWarnings("unchecked")
-	@Override
-	public void readExternal(ObjectInput input) throws IOException,
-			ClassNotFoundException {
-		super.readExternal(input);
-		id = input.readInt();
-		tutors = (ArrayList<String>) input.readObject();
-		urls = (ArrayList<String>) input.readObject();
-		isbn = (String) input.readObject();
-	}
-
-	@Override
-	public void writeExternal(ObjectOutput output) throws IOException {
-		super.writeExternal(output);
-		output.writeInt(id);
-		output.writeObject(tutors);
-		output.writeObject(urls);
-		output.writeObject(isbn);
 	}
 }

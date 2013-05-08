@@ -31,9 +31,6 @@
  */
 package simbio.se.nheengare.models;
 
-import java.io.IOException;
-import java.io.ObjectInput;
-import java.io.ObjectOutput;
 import java.util.ArrayList;
 
 import org.json.JSONArray;
@@ -43,17 +40,13 @@ import org.json.JSONObject;
  * @author Ademar Alves de Oliveira
  * @author ademar111190@gmail.com
  */
-public class ExamplePhrases extends ModelAbstract {
+public class ExamplePhrases extends AbstractModel {
 
 	// serializable
 	private static final long serialVersionUID = 1L;
 
 	private int sourceId;
 	private ArrayList<Phrase> sentences = new ArrayList<Phrase>();
-
-	// Exterializable
-	public ExamplePhrases() {
-	}
 
 	public ExamplePhrases(JSONObject json) {
 		sourceId = json.optInt("source");
@@ -69,22 +62,5 @@ public class ExamplePhrases extends ModelAbstract {
 
 	public ArrayList<Phrase> getSentences() {
 		return sentences;
-	}
-
-	// serialize and userialize
-	@SuppressWarnings("unchecked")
-	@Override
-	public void readExternal(ObjectInput input) throws IOException,
-			ClassNotFoundException {
-		super.readExternal(input);
-		sourceId = input.readInt();
-		sentences = (ArrayList<Phrase>) input.readObject();
-	}
-
-	@Override
-	public void writeExternal(ObjectOutput output) throws IOException {
-		super.writeExternal(output);
-		output.writeInt(sourceId);
-		output.writeObject(sentences);
 	}
 }

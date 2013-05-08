@@ -31,17 +31,13 @@
  */
 package simbio.se.nheengare.models;
 
-import java.io.IOException;
-import java.io.ObjectInput;
-import java.io.ObjectOutput;
-
 import org.json.JSONObject;
 
 /**
  * @author Ademar Alves de Oliveira
  * @author ademar111190@gmail.com
  */
-public class Language extends ModelAbstract {
+public class Language extends AbstractModel {
 
 	// serializable
 	private static final long serialVersionUID = 1L;
@@ -92,10 +88,6 @@ public class Language extends ModelAbstract {
 	private String name;
 	private String iso;
 
-	// Exterializable
-	public Language() {
-	}
-
 	public Language(JSONObject json) {
 		name = json.optString("name");
 		iso = json.optString("iso");
@@ -113,23 +105,5 @@ public class Language extends ModelAbstract {
 
 	public String getIso() {
 		return iso;
-	}
-
-	// serialize and userialize
-	@Override
-	public void readExternal(ObjectInput input) throws IOException,
-			ClassNotFoundException {
-		super.readExternal(input);
-		id = Language.chooseLanguageUsingId(input.readInt());
-		name = (String) input.readObject();
-		iso = (String) input.readObject();
-	}
-
-	@Override
-	public void writeExternal(ObjectOutput output) throws IOException {
-		super.writeExternal(output);
-		output.writeInt(Language.chooseLanguageId(id));
-		output.writeObject(name);
-		output.writeObject(iso);
 	}
 }
