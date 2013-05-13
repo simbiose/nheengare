@@ -31,6 +31,17 @@
         <requestFocus />
     </EditText>
 
+    <ProgressBar
+        android:id="@+id/progressBarMainSearchWord"
+        style="?android:attr/progressBarStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/autoCompleteTextViewMain"
+        android:layout_alignRight="@+id/autoCompleteTextViewMain"
+        android:layout_alignTop="@+id/autoCompleteTextViewMain"
+        android:layout_marginRight="10dp"
+        android:visibility="invisible" />
+
     <ListView
         android:id="@+id/listViewMain"
         android:layout_width="match_parent"

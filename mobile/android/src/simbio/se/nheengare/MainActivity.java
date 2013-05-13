@@ -60,6 +60,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 
 /**
  * @author Ademar Alves de Oliveira
@@ -75,6 +76,7 @@ public class MainActivity extends AbstractActivity implements TextWatcher, Runna
 	// views
 	private EditText edtInput;
 	private ListView listResults;
+	private ProgressBar pbSearch;
 
 	// Threads
 	private boolean firstShow = true;
@@ -105,6 +107,9 @@ public class MainActivity extends AbstractActivity implements TextWatcher, Runna
 		// load list to show words
 		listResults = findListViewById(R.id.listViewMain);
 		listResults.setOnItemClickListener(this);
+
+		// load search loading
+		pbSearch = (ProgressBar) findViewById(R.id.progressBarMainSearchWord);
 	}
 
 	@Override
@@ -148,6 +153,13 @@ public class MainActivity extends AbstractActivity implements TextWatcher, Runna
 		} else {
 			setSearchLock(true);
 			AbstractModel.criteria = edtInput.getText().toString().toLowerCase();
+
+			runOnUiThread(new Runnable() {
+				@Override
+				public void run() {
+					pbSearch.setVisibility(View.VISIBLE);
+				}
+			});
 
 			words.clear();
 			words.addAll(getBlackBoard().getWords());
@@ -199,6 +211,7 @@ public class MainActivity extends AbstractActivity implements TextWatcher, Runna
 					}
 
 					setSearchLock(false);
+					pbSearch.setVisibility(View.INVISIBLE);
 					if (searchAgain) {
 						setSearchAgain(false);
 						new Thread(MainActivity.this).start();
