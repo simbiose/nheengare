@@ -16,10 +16,17 @@
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true" />
 
+    <TextView
+        android:id="@+id/txt_temp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/temp_01" />
+
     <ScrollView
         android:id="@+id/scrollViewConfig"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@+id/txt_temp"
         android:fillViewport="true"
         android:visibility="invisible" >
 

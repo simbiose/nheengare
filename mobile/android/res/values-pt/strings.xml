@@ -2,8 +2,12 @@
 <resources>
 
     <!-- communs to all languages -->
-    <!-- view on string english -->
-
+    <string name="app_name">Nheengaré</string>
+    <string name="about_app_name">NHEENGARÉ</string>
+    <string name="about_organization_name">Simbiose</string>
+    <string name="about_organization_url">http://simbio.se/</string>
+    <string name="action_email_address">support@simbio.se</string>
+    <string name="empty"></string>
 
     <!-- change on each language -->
     <string name="about_title">Sobre</string>
@@ -56,5 +60,8 @@
     <string name="config_language_pt">Português</string>
     <string name="config_language_es">Espanhol</string>
     <string name="config_language_in">Inglês</string>
+
+    <!-- temporary -->
+    <string name="temp_01">estamos trabalhando para colocar as traduções de nheengatu para espanhol e inglês.</string>
 
 </resources>

@@ -61,4 +61,7 @@
     <string name="config_language_es">Spanish</string>
     <string name="config_language_in">English</string>
 
+    <!-- temporary -->
+    <string name="temp_01">we are working to put nheengatu translations from Spanish and English.</string>
+
 </resources>
