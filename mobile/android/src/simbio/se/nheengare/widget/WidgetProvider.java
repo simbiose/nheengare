@@ -1,11 +1,13 @@
 package simbio.se.nheengare.widget;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import simbio.se.nheengare.R;
 import simbio.se.nheengare.core.BlackBoard;
 import simbio.se.nheengare.models.Word;
 import simbio.se.nheengare.utils.Config;
+import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
@@ -66,6 +68,16 @@ public class WidgetProvider extends AppWidgetProvider {
 
 		remoteViews.setTextViewText(R.id.widget_txt, wordText);
 		pushWidgetUpdate(context, remoteViews, widgetId);
+
+		// set service to update
+		Calendar cal = Calendar.getInstance();
+
+		Intent intent = new Intent(context, WidgetService.class);
+		intent.putExtra("WidgetID", widgetId);
+		PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, 0);
+
+		AlarmManager alarm = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+		alarm.setRepeating(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), 5 * 1000, pendingIntent);
 	}
 
 	public static Word getRandomWord(Context context) {
