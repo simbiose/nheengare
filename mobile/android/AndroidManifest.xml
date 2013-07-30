@@ -131,6 +131,7 @@
         android:theme="@style/AppTheme" >
         <activity
             android:name="simbio.se.nheengare.MainActivity"
+            android:configChanges="mcc|mnc|locale|touchscreen|keyboard|keyboardHidden|navigation|orientation|screenLayout|uiMode|screenSize|smallestScreenSize|layoutDirection|fontScale"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -140,18 +141,23 @@
         </activity>
         <activity
             android:name="simbio.se.nheengare.activities.DetailActivity"
+            android:configChanges="mcc|mnc|locale|touchscreen|keyboard|keyboardHidden|navigation|orientation|screenLayout|uiMode|screenSize|smallestScreenSize|layoutDirection|fontScale"
             android:label="@string/empty" />
         <activity
             android:name="simbio.se.nheengare.activities.AboutActivity"
+            android:configChanges="mcc|mnc|locale|touchscreen|keyboard|keyboardHidden|navigation|orientation|screenLayout|uiMode|screenSize|smallestScreenSize|layoutDirection|fontScale"
             android:label="@string/about_title" />
         <activity
             android:name="simbio.se.nheengare.activities.configuration.ConfigurationsActivityAbstract"
+            android:configChanges="mcc|mnc|locale|touchscreen|keyboard|keyboardHidden|navigation|orientation|screenLayout|uiMode|screenSize|smallestScreenSize|layoutDirection|fontScale"
             android:label="@string/action_configure" />
         <activity
             android:name="simbio.se.nheengare.activities.configuration.ConfigurationsActivityV14"
+            android:configChanges="mcc|mnc|locale|touchscreen|keyboard|keyboardHidden|navigation|orientation|screenLayout|uiMode|screenSize|smallestScreenSize|layoutDirection|fontScale"
             android:label="@string/action_configure" />
         <activity
             android:name="simbio.se.nheengare.activities.configuration.ConfigurationsActivity"
+            android:configChanges="mcc|mnc|locale|touchscreen|keyboard|keyboardHidden|navigation|orientation|screenLayout|uiMode|screenSize|smallestScreenSize|layoutDirection|fontScale"
             android:label="@string/action_configure" />
     </application>
 
