@@ -39,6 +39,7 @@
     <string name="examples_of_use">Ejemplos de uso</string>
     <string name="afi">Alfabeto fonético internacional</string>
     <string name="empty_list_search">No palabras encontradas, intenta cambiar la configuración del filtro de búsqueda.</string>
+    <string name="loading">Cargando&#8230;</string>
 
     <!-- gramatical classes -->
     <string name="grammatical">Clase gramatical</string>

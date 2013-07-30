@@ -172,6 +172,7 @@
         <receiver android:name="simbio.se.nheengare.widget.WidgetBroadcastReceiver" >
             <intent-filter>
                 <action android:name="simbio.se.nheengare.widget.action.OPEN_WORD" />
+                <action android:name="simbio.se.nheengare.widget.action.CHANGE_WORD" />
             </intent-filter>
 
             <meta-data
