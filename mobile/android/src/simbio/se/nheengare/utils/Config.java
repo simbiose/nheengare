@@ -43,6 +43,7 @@ public class Config {
 	public static final String LOG_TOKEN = "simbiose";
 	public static final boolean LOG_STACK_TRACE = true;
 	public static final String LOG_TOKEN_STACK_TRACE = "simbioStackTrace";
+	public static final int WORD_WIDGET_DEFAULT_ID = -1;
 
 	public static String getDataPath(Context context) {
 		return context.getFilesDir().getAbsolutePath();

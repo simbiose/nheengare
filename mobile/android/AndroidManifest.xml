@@ -159,6 +159,25 @@
             android:name="simbio.se.nheengare.activities.configuration.ConfigurationsActivity"
             android:configChanges="mcc|mnc|locale|touchscreen|keyboard|keyboardHidden|navigation|orientation|screenLayout|uiMode|screenSize|smallestScreenSize|layoutDirection|fontScale"
             android:label="@string/action_configure" />
+
+        <receiver android:name="simbio.se.nheengare.widget.WidgetProvider" >
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/widget_info" />
+        </receiver>
+        <receiver android:name="simbio.se.nheengare.widget.WidgetBroadcastReceiver" >
+            <intent-filter>
+                <action android:name="simbio.se.nheengare.widget.action.OPEN_WORD" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/widget_info" />
+        </receiver>
     </application>
 
 </manifest>

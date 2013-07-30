@@ -43,6 +43,7 @@ import simbio.se.nheengare.models.Language.LANGUAGE;
 import simbio.se.nheengare.models.Tradutions;
 import simbio.se.nheengare.models.Word;
 import simbio.se.nheengare.models.WordWeight;
+import simbio.se.nheengare.utils.Config;
 import simbio.se.nheengare.utils.OldDalvikVirtualMachineHelper;
 import simbio.se.nheengare.view.AfiView;
 import simbio.se.nheengare.view.ExampleUseView;
@@ -106,8 +107,7 @@ public class DetailActivity extends AbstractActivity {
 	protected void loadOnThread() {
 		// load options
 		ArrayList<LANGUAGE> langFilter = new ArrayList<LANGUAGE>();
-		Options options = BlackBoard.getBlackBoard(getApplicationContext())
-				.getOptions();
+		Options options = BlackBoard.getBlackBoard(getApplicationContext()).getOptions();
 
 		if (options.filterTranslationLanguages()) {
 			if (!options.filterTranslationShowNheengatu())
@@ -120,9 +120,13 @@ public class DetailActivity extends AbstractActivity {
 				langFilter.add(LANGUAGE.LANGUAGE_ENGLISH);
 		}
 
+		// get word ID and verify
+		int wordId = getIntent().getExtras().getInt("Word");
+		if (wordId == Config.WORD_WIDGET_DEFAULT_ID)
+			finish();
+
 		// load word
-		word = getBlackBoard().getWordWithId(
-				getIntent().getExtras().getInt("Word"));
+		word = getBlackBoard().getWordWithId(wordId);
 		setTitle(word.getWriteUnique());
 
 		// setup header view
@@ -134,39 +138,31 @@ public class DetailActivity extends AbstractActivity {
 		tempTradutions = new ArrayList<View>();
 		for (Tradutions t : word.getTradutions()) {
 			if (!langFilter.contains(t.getLanguage())) {
-				int flagResourceId = Flag.getFlagResourceId(t.getLanguage(),
-						FLAG_SIZE.FLAG_SIZE_24);
+				int flagResourceId = Flag.getFlagResourceId(t.getLanguage(), FLAG_SIZE.FLAG_SIZE_24);
 				for (WordWeight ww : t.getWords())
-					tempTradutions.add(new TranslationView(
-							getApplicationContext(), flagResourceId,
-							getBlackBoard().getWordWithId(ww.getWordId())
-									.getWriteUnique(), ww).getView());
+					tempTradutions.add(new TranslationView(getApplicationContext(), flagResourceId, getBlackBoard().getWordWithId(ww.getWordId()).getWriteUnique(), ww).getView());
 			}
 		}
 
 		// setup grammatical class view
 		tempGrammatical = findLinearLayoutById(R.id.linearLayoutDeatilGrammaticalClass);
 		if (!word.getGrammaticalsIds().isEmpty())
-			tempGrammaticals = new GrammaticalView(getApplicationContext(),
-					word.getGrammaticalsIds()).getView();
+			tempGrammaticals = new GrammaticalView(getApplicationContext(), word.getGrammaticalsIds()).getView();
 
 		// setup examples view
 		tempExample = findLinearLayoutById(R.id.linearLayoutDeatilExamplesUse);
 		if (!word.getExamples().isEmpty())
-			tempExamples = new ExampleUseView(getApplicationContext(),
-					word.getExamples(), word.getWrites()).getView();
+			tempExamples = new ExampleUseView(getApplicationContext(), word.getExamples(), word.getWrites()).getView();
 
 		// setup AFI
 		tempAfi = findLinearLayoutById(R.id.linearLayoutDeatilAfi);
 		if (!word.getAfis().isEmpty())
-			tempAfis = new AfiView(getApplicationContext(), word.getAfis())
-					.getView();
+			tempAfis = new AfiView(getApplicationContext(), word.getAfis()).getView();
 	}
 
 	protected void loadOnUiThread() {
 		tempTxtHeader.setText(word.getWriteUnique());
-		tempImgHeader.setImageResource(Flag.getFlagResourceId(
-				word.getLanguage(), FLAG_SIZE.FLAG_SIZE_32));
+		tempImgHeader.setImageResource(Flag.getFlagResourceId(word.getLanguage(), FLAG_SIZE.FLAG_SIZE_32));
 
 		if (word.getTradutions().isEmpty())
 			tempTradution.getLayoutParams().height = 0;
@@ -189,8 +185,7 @@ public class DetailActivity extends AbstractActivity {
 		else
 			tempAfi.addView(tempAfis);
 
-		show(new int[] { R.id.textViewDetailTitle, R.id.imageViewDetailFlag,
-				R.id.scrollViewDetailItens });
+		show(new int[] { R.id.textViewDetailTitle, R.id.imageViewDetailFlag, R.id.scrollViewDetailItens });
 	}
 
 	@Override
@@ -214,17 +209,11 @@ public class DetailActivity extends AbstractActivity {
 			return true;
 		case R.id.action_share:
 			analytics.track("/Menu/Detail/Share");
-			share(String.format(
-					getString(R.string.action_share_content_detail),
-					word.getWriteUnique()));
+			share(String.format(getString(R.string.action_share_content_detail), word.getWriteUnique()));
 			return true;
 		case R.id.action_repot_error:
 			analytics.track("/Menu/Detail/Report");
-			sendEmail(String.format(
-					getString(R.string.action_email_subject_detail),
-					word.getWriteUnique()), String.format(
-					getString(R.string.action_email_content_detail),
-					word.getWriteUnique()));
+			sendEmail(String.format(getString(R.string.action_email_subject_detail), word.getWriteUnique()), String.format(getString(R.string.action_email_content_detail), word.getWriteUnique()));
 			return true;
 		default:
 			analytics.track("/Menu/Detail/Cancel");

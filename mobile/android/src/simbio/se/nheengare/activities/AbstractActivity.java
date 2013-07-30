@@ -61,8 +61,7 @@ import com.google.analytics.tracking.android.EasyTracker;
  * @author ademar111190@gmail.com
  */
 @SuppressLint("NewApi")
-public class AbstractActivity extends Activity implements
-		IOptionsChangedListener {
+public class AbstractActivity extends Activity implements IOptionsChangedListener {
 
 	private boolean dataHasLoaded = false;
 	protected Analytics analytics;
@@ -97,28 +96,24 @@ public class AbstractActivity extends Activity implements
 		intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
 		intent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.app_name));
 		intent.putExtra(Intent.EXTRA_TEXT, content);
-		startActivity(Intent.createChooser(intent,
-				getString(R.string.action_share_with)));
+		startActivity(Intent.createChooser(intent, getString(R.string.action_share_with)));
 	}
 
 	protected void sendEmail(String subject, String content) {
-		Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts(
-				"mailto", getString(R.string.action_email_address), null));
+		Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts("mailto", getString(R.string.action_email_address), null));
 		emailIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, subject);
 		emailIntent.putExtra(Intent.EXTRA_TEXT, Html.fromHtml(content));
-		startActivity(Intent.createChooser(emailIntent,
-				getString(R.string.action_email_with)));
+		startActivity(Intent.createChooser(emailIntent, getString(R.string.action_email_with)));
 	}
 
 	@SuppressWarnings("deprecation")
 	protected void backToHome() {
 		Intent upIntent = new Intent(this, MainActivity.class);
-		if (NavUtils.shouldUpRecreateTask(this, upIntent)) {
-			TaskStackBuilder.from(this).addNextIntent(upIntent)
-					.startActivities();
-			finish();
-		} else {
+		if (getIntent().getExtras().getBoolean("isFromHome", true)) {
 			NavUtils.navigateUpTo(this, upIntent);
+		} else {
+			TaskStackBuilder.from(this).addNextIntent(upIntent).startActivities();
+			finish();
 		}
 	}
 
