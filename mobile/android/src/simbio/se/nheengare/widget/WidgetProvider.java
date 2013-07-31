@@ -35,6 +35,7 @@ public class WidgetProvider extends AppWidgetProvider {
 	}
 
 	private void updateWidgetsIntents(Context context, int[] appWidgetIds) {
+		RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.widget);
 		for (int id : appWidgetIds) {
 			int wordId = WidgetDataManager.getCurrentWordIdForWidget(context, id);
 			Word word;
@@ -44,13 +45,33 @@ public class WidgetProvider extends AppWidgetProvider {
 			} else {
 				word = BlackBoard.getBlackBoard(context).getWordWithId(wordId);
 			}
-			updatePendingIntent(context, id, word.getWriteUnique());
+			updatePendingIntent(context, id, word.getWriteUnique(), remoteViews);
 		}
 	}
 
 	public static void updatePendingIntent(Context context, int widgetId, String wordText) {
+		ComponentName provider = new ComponentName(context, WidgetProvider.class);
+		AppWidgetManager manager = AppWidgetManager.getInstance(context);
 		RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.widget);
+		int ids[] = manager.getAppWidgetIds(provider);
+		for (int id : ids) {
+			if (id == widgetId) {
+				updatePendingIntent(context, widgetId, wordText, remoteViews);
+			} else {
+				int wordId = WidgetDataManager.getCurrentWordIdForWidget(context, id);
+				Word word;
+				if (wordId == Config.WORD_WIDGET_DEFAULT_ID) {
+					word = getRandomWord(context);
+					WidgetDataManager.createdWidgetWithId(context, id, word.getId());
+				} else {
+					word = BlackBoard.getBlackBoard(context).getWordWithId(wordId);
+				}
+				updatePendingIntent(context, id, word.getWriteUnique(), remoteViews);
+			}
+		}
+	}
 
+	public static void updatePendingIntent(Context context, int widgetId, String wordText, RemoteViews remoteViews) {
 		Intent intentOpenWord = new Intent();
 		intentOpenWord.setAction(ACTION_OPEN_WORD);
 		intentOpenWord.putExtra("WidgetID", widgetId);
@@ -59,8 +80,8 @@ public class WidgetProvider extends AppWidgetProvider {
 		intentChangeWord.setAction(ACTION_CHANGE_WORD);
 		intentChangeWord.putExtra("WidgetID", widgetId);
 
-		PendingIntent pendingIntentOpenWord = PendingIntent.getBroadcast(context, 0, intentOpenWord, PendingIntent.FLAG_UPDATE_CURRENT);
-		PendingIntent pendingIntentChangeWord = PendingIntent.getBroadcast(context, 0, intentChangeWord, PendingIntent.FLAG_UPDATE_CURRENT);
+		PendingIntent pendingIntentOpenWord = PendingIntent.getBroadcast(context, widgetId, intentOpenWord, PendingIntent.FLAG_UPDATE_CURRENT);
+		PendingIntent pendingIntentChangeWord = PendingIntent.getBroadcast(context, widgetId, intentChangeWord, PendingIntent.FLAG_UPDATE_CURRENT);
 
 		remoteViews.setOnClickPendingIntent(R.id.widget_icon, pendingIntentChangeWord);
 		remoteViews.setOnClickPendingIntent(R.id.widget_txt, pendingIntentOpenWord);
@@ -74,7 +95,7 @@ public class WidgetProvider extends AppWidgetProvider {
 
 		Intent intent = new Intent(context, WidgetService.class);
 		intent.putExtra("WidgetID", widgetId);
-		PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, 0);
+		PendingIntent pendingIntent = PendingIntent.getBroadcast(context, widgetId, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
 		AlarmManager alarm = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
 		alarm.setRepeating(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), 5 * 1000, pendingIntent);

@@ -12,7 +12,7 @@ public class WidgetService extends Service {
 	@Override
 	public int onStartCommand(Intent intent, int flags, int startId) {
 		int widgetId = intent.getIntExtra("WidgetID", Config.WORD_WIDGET_DEFAULT_ID);
-		SimbiLog.print(">", widgetId, intent.getExtras().size());
+		SimbiLog.print("onStartCommand", widgetId);
 		if (widgetId != Config.WORD_WIDGET_DEFAULT_ID) {
 			Word word = WidgetProvider.getRandomWord(getApplicationContext());
 			WidgetDataManager.createdWidgetWithId(getApplicationContext(), widgetId, word.getId());
@@ -24,6 +24,7 @@ public class WidgetService extends Service {
 
 	@Override
 	public IBinder onBind(Intent intent) {
+		SimbiLog.print("onBind");
 		return null;
 	}
 }
