@@ -32,7 +32,7 @@
     	amazon 			http://www.amazon.com/gp/mas/dl/android?p=simbio.se.nheengare
     	google play		https://play.google.com/store/apps/details?id=simbio.se.nheengare
     -->
-    <string name="action_share_content_main">Nheengaré un diccionario de Nheengatu gratis! http://www.amazon.com/gp/mas/dl/android?p=simbio.se.nheengare</string>
+    <string name="action_share_content_main">Nheengaré un diccionario de Nheengatu gratis! https://play.google.com/store/apps/details?id=simbio.se.nheengare</string>
     <string name="action_share_content_detail">Aprendí el significado de la palabra %s con Nheengaré! http://www.amazon.com/gp/mas/dl/android?p=simbio.se.nheengare</string>
     <string name="search_word">buscar palabra</string>
     <string name="translation">Traducción</string>
