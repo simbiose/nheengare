@@ -120,14 +120,11 @@ public class DetailActivity extends AbstractActivity {
 				langFilter.add(LANGUAGE.LANGUAGE_ENGLISH);
 		}
 
-		// get word ID and verify
+		// get word ID and verify, if ok load word else crash X(
 		int wordId = getIntent().getExtras().getInt("Word");
 		if (wordId == Config.WORD_WIDGET_DEFAULT_ID)
 			finish();
-
-		// load word
 		word = getBlackBoard().getWordWithId(wordId);
-		setTitle(word.getWriteUnique());
 
 		// setup header view
 		tempTxtHeader = findTextViewById(R.id.textViewDetailTitle);
@@ -161,6 +158,8 @@ public class DetailActivity extends AbstractActivity {
 	}
 
 	protected void loadOnUiThread() {
+		setTitle(word.getWriteUnique());
+
 		tempTxtHeader.setText(word.getWriteUnique());
 		tempImgHeader.setImageResource(Flag.getFlagResourceId(word.getLanguage(), FLAG_SIZE.FLAG_SIZE_32));
 
