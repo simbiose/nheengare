@@ -22,6 +22,15 @@ public class WidgetProvider extends AppWidgetProvider {
 	public static final String ACTION_CHANGE_WORD = "simbio.se.nheengare.widget.action.CHANGE_WORD";
 
 	@Override
+	public void onDeleted(Context context, int[] appWidgetIds) {
+		super.onDeleted(context, appWidgetIds);
+		for (int id : appWidgetIds) {
+			WidgetDataManager.deletedWidgetTimeWithId(context, id);
+			WidgetDataManager.deletedWidgetWithId(context, id);
+		}
+	}
+
+	@Override
 	public void onReceive(Context context, Intent intent) {
 		super.onReceive(context, intent);
 		ComponentName provider = new ComponentName(context, WidgetProvider.class);
@@ -91,14 +100,27 @@ public class WidgetProvider extends AppWidgetProvider {
 		pushWidgetUpdate(context, remoteViews, widgetId);
 
 		// set service to update
-		Calendar cal = Calendar.getInstance();
+		long lastBaseTimeORzeroIfFirstTimeOrLessOneIfDeleted = WidgetDataManager.getLastTimeForWidget(context, widgetId);
+		if (lastBaseTimeORzeroIfFirstTimeOrLessOneIfDeleted == -1l)
+			return;
+		else if (lastBaseTimeORzeroIfFirstTimeOrLessOneIfDeleted == 0l)
+			scheduleRefresh(context, widgetId);
+	}
+
+	public static void scheduleRefresh(Context context, int widgetId) {
+		Calendar calendar = Calendar.getInstance();
+		long timeBase = calendar.getTimeInMillis();
+		long timeWait = 5 * 1000;
 
 		Intent intent = new Intent(context, WidgetService.class);
 		intent.putExtra("WidgetID", widgetId);
-		PendingIntent pendingIntent = PendingIntent.getBroadcast(context, widgetId, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+		PendingIntent pendingIntent = PendingIntent.getService(context, widgetId, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
 		AlarmManager alarm = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-		alarm.setRepeating(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), 5 * 1000, pendingIntent);
+		alarm.cancel(pendingIntent);
+		alarm.setRepeating(AlarmManager.RTC_WAKEUP, timeBase, timeWait, pendingIntent);
+
+		WidgetDataManager.createOrUpdateWidgetTimeWithId(context, widgetId, timeBase);
 	}
 
 	public static Word getRandomWord(Context context) {

@@ -34,8 +34,28 @@ public class WidgetDataManager {
 		editor.commit();
 	}
 
+	public static long getLastTimeForWidget(Context context, int widgetId) {
+		long currentImageOrZeroIfNotExistes = PreferenceManager.getDefaultSharedPreferences(context).getLong(getKeyForWidgetTime(widgetId), 0);
+		return currentImageOrZeroIfNotExistes;
+	}
+
+	public static void createOrUpdateWidgetTimeWithId(Context context, int widgetId, long currentTime) {
+		SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+		SharedPreferences.Editor editor = preferences.edit();
+		editor.putLong(getKeyForWidgetTime(widgetId), currentTime);
+		editor.commit();
+	}
+
+	public static void deletedWidgetTimeWithId(Context context, int widgetId) {
+		createOrUpdateWidgetTimeWithId(context, widgetId, -1l);
+	}
+
 	private static String getKeyForWidgetId(int widgetId) {
 		return "WORD_ID_" + widgetId;
+	}
+
+	private static String getKeyForWidgetTime(int widgetId) {
+		return "W_T_" + widgetId;
 	}
 
 }

@@ -3,7 +3,9 @@ package simbio.se.nheengare.widget;
 import simbio.se.nheengare.activities.DetailActivity;
 import simbio.se.nheengare.models.Word;
 import simbio.se.nheengare.utils.Config;
+import android.appwidget.AppWidgetManager;
 import android.content.BroadcastReceiver;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 
@@ -24,6 +26,12 @@ public class WidgetBroadcastReceiver extends BroadcastReceiver {
 			Word word = WidgetProvider.getRandomWord(context);
 			WidgetDataManager.createdWidgetWithId(context, widgetId, word.getId());
 			WidgetProvider.updatePendingIntent(context, widgetId, word.getWriteUnique());
+		} else if (intent.getAction().equals("android.intent.action.BOOT_COMPLETED")) {
+			ComponentName provider = new ComponentName(context, WidgetProvider.class);
+			AppWidgetManager manager = AppWidgetManager.getInstance(context);
+			int ids[] = manager.getAppWidgetIds(provider);
+			for (int id : ids)
+				WidgetProvider.scheduleRefresh(context, id);
 		}
 	}
 }
