@@ -110,7 +110,7 @@ public class WidgetProvider extends AppWidgetProvider {
 	public static void scheduleRefresh(Context context, int widgetId) {
 		Calendar calendar = Calendar.getInstance();
 		long timeBase = calendar.getTimeInMillis();
-		long timeWait = 5 * 1000;
+		long timeWait = 6 * 60 * 60 * 1000;
 
 		Intent intent = new Intent(context, WidgetService.class);
 		intent.putExtra("WidgetID", widgetId);
