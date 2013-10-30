@@ -1,27 +1,37 @@
 #!/bin/lua
 
 --[[
+
+  parse dict 
+  format:
+    word <\t> word {*class*} <\t> class
+
   parse nheengatu vocabulary
   format:
     [*nheengatu word*] (*class, class {...}*) *portuguese word*, *portuguese word*, {...} (*class*) {...}
+  
   runs with luvit
   author @xxleite
 --]]
 
 local io, os, st, js = require 'io', require 'os', require 'string', require 'json'
-local exit, open, read, match, sub, gsub, format, find, stringify, parse = os.exit, io.open, io.read, st.match, st.sub, st.gsub, st.format, st.find, js.stringify, js.parse
+local exit, open, read, match, sub, gsub, format, find, stringify, parse 
+  = os.exit, io.open, io.read, st.match, st.sub, st.gsub, st.format, st.find, js.stringify, js.parse
 io, os, st, js = nil, nil, nil, nil
+
+local db_path, source_path = '../database/db.json', '../database/db.src.json'
 
 local file, out_file, lines
 
-file = open('to_be_parsed', 'r')
+--file = open('to_be_parsed', 'r')
+file = open('some_words', 'r')
 
 if not file then
   print("could not open file") exit()
 end
-
-local x, pt_index_span, _, world, yrl_word, pt_word, vide, yrl_words, pt_words, pt_words_index, lng_classes =
-      0, 10000, '', '', '', '', '', {}, {}, {}, 
+-- x, y = 0, 0
+local pt_index_span, _, world, yrl_word, pt_word, vide, yrl_words, pt_words, pt_words_index, lng_classes =
+      10000, '', '', '', '', '', {}, {}, {}, 
   {
     artigo                      = 1,
     adjetivo                    = 2,
@@ -41,7 +51,8 @@ local unicode_special_chars = {
   ['Ê'] = '\\u00ca', ['Ë'] = '\\u00cb', ['í'] = '\\u00ed', ['ì'] = '\\u00ec', ['î'] = '\\u00ee', ['ï'] = '\\u00ef', ['Í'] = '\\u00cd', ['Ì'] = '\\u00cc',
   ['Î'] = '\\u00ce', ['Ï'] = '\\u00cf', ['ó'] = '\\u00f3', ['ò'] = '\\u00f2', ['ô'] = '\\u00f4', ['õ'] = '\\u00f5', ['ö'] = '\\u00f6', ['Ó'] = '\\u00d3',
   ['Ò'] = '\\u00d2', ['Ô'] = '\\u00d4', ['Õ'] = '\\u00d5', ['Ö'] = '\\u00d6', ['ú'] = '\\u00fa', ['ù'] = '\\u00f9', ['û'] = '\\u00fb', ['ü'] = '\\u00fc',
-  ['Ú'] = '\\u00da', ['Ù'] = '\\u00d9', ['Û'] = '\\u00db', ['ç'] = '\\u00e7', ['Ç'] = '\\u00c7', ['ñ'] = '\\u00f1', ['Ñ'] = '\\u00d1', ['&'] = '\\u0026', ["'"] = '\\u0027'
+  ['Ú'] = '\\u00da', ['Ù'] = '\\u00d9', ['Û'] = '\\u00db', ['ç'] = '\\u00e7', ['Ç'] = '\\u00c7', ['ñ'] = '\\u00f1', ['Ñ'] = '\\u00d1', ['&'] = '\\u0026', 
+  ["'"] = '\\u0027', ['Ỹ'] = '\\u1ef8', ['ỹ'] = '\\u1ef9', ['G̃']= '\\u0047\\u0303',             ['g̃']= '\\u0067\\u0303'
 }
 
 --
@@ -52,6 +63,7 @@ end
 
 --
 local function words_and_classes(fragment)
+  --local y, z, tmp_index, is_class, contains_class, contains_word, classified, last_classified, indexed_words = 0, 0, 0, false, false, false, {}, {}, {}
   local y, z, tmp_index, is_class, contains_class, contains_word, classified, last_classified, indexed_words = 0, 0, 0, false, false, false, {}, {}, {}
   --
   local function check_class(class_name)
@@ -70,6 +82,7 @@ local function words_and_classes(fragment)
   end
   --
   local function parse_fragment(sep, _, piece)
+    y = 0
     --
     if sep==")" then
       is_class = false
@@ -84,6 +97,7 @@ local function words_and_classes(fragment)
     if is_class then
       gsub(piece, "%s*([^%s%,]*)%s*%,*%s*", check_class)
     else
+
       -- create pt word if it does not exists
       if not pt_words_index[piece] then
         tmp_index                    = #pt_words + 1
@@ -96,7 +110,9 @@ local function words_and_classes(fragment)
       
       -- insert class to pt word
       if #last_classified>0 then
-        for y=1, #pt_words[tmp_index].grammatical do
+        --for y=1, #pt_words[tmp_index].grammatical do
+        while y<#pt_words[tmp_index].grammatical do
+          y = y+1
           if pt_words[tmp_index].grammatical[y].class==last_classified[#last_classified].class then
             contains_class = true
           end
@@ -107,17 +123,20 @@ local function words_and_classes(fragment)
         contains_class = false
       end
       
+      p(#pt_words[tmp_index].tradutions, pt_words[tmp_index].tradutions[1].translate, #pt_words[tmp_index].tradutions[1].translate)
+
       -- insert yrl word index to pt word
       if #pt_words[tmp_index].tradutions > 0 then
         tmp_index = pt_words_index[piece] - pt_index_span
-        for y=1, #pt_words[tmp_index].tradutions[1] do
+        while y < #pt_words[tmp_index].tradutions[1].translate do
+          y = y+1
+          p(y, pt_words[tmp_index].tradutions[1].translate[y].word==#yrl_words)
           if pt_words[tmp_index].tradutions[1].translate[y].word==#yrl_words then
             contains_word = true
           end
         end
       else
         tmp_index = pt_words_index[piece] - pt_index_span
-        y = 0
       end
       if not contains_word then
         pt_words[tmp_index].tradutions[1].translate[y+1] = {word=#yrl_words, weigth=(1.1 - ((y+1) * 0.1))}
@@ -134,13 +153,24 @@ local function words_and_classes(fragment)
     end
   end
   --
-  gsub(fragment, "%s*([%,%)%(]?)%s*(%(?)([^%,%)$]*)", parse_fragment)
+  gsub(gsub(fragment, "(%{[^%}]*%})", ""), "%s*([%,%)%(]?)%s*(%(?)([^%,%)$]*)", parse_fragment)
 end
+
+-- parse dict http://www.dict.cc/ word list
+local function parse_dict(from_lang_id, to_lang_id, from_lang_is_like, to_lang_is_like)
+
+  -- pre index already parsed languages
+  parse()
+  
+
+end
+
+-- parse/crawl guarany words at 
 
 -- 
 for line in file:lines() do
   -- skip blank lines, # lines and { lines
-  if sub(line, 1, 1)~='#' and not match(line, "^%s*$") and not match(line, "{") then
+  if sub(line, 1, 1)~='#' and not match(line, "^%s*$") then
     word = match(line, "%[([^%]]*)%]%s?")
     vide = match(line, "%(ver%)%s*%[([^%]]*)%]")
     if not vide then
@@ -153,15 +183,18 @@ for line in file:lines() do
     end
   end
 end
-
+--[[
 local output = '{"sources":[{"id":1,"tutors":["Eduardo de Almeida Navarro"],"urls":["http://tupi.fflch.usp.br/node/6",'..
                '"http://tupi.fflch.usp.br/sites/tupi.fflch.usp.br/files/CURSO%20DE%20L%C3%8DNGUA%20GERAL%20%28NHEENGATU%29.pdf"],'..
                '"ISBN":"978-85-912620-0-7"},{"id":2,"tutors":["Wikip\\u00e9dia"],"urls":["http://pt.wiktionary.org/wiki/Wikcion%C3%A1rio:P%C3%A1gina_principal"]}],"words":'
-
-output = output .. sub(stringify(yrl_words), 1, -2)
-output = output ..','.. sub(stringify(pt_words), 2, -1)
+--]]
+local output = ''
+--output = output .. sub(stringify(yrl_words, {beautify=true,indent_string=" "}), 1, -2)
+--output = output ..','.. sub(stringify(pt_words, {beautify=true,indent_string=" "}), 2, -1)
+output = output .. stringify(yrl_words, {beautify=true,indent_string=" "})
+output = output ..','.. stringify(pt_words, {beautify=true,indent_string=" "})
 output = gsub(output, "\\\\", "\\")
-
+--[[
 output = output .. ',"languages":[{"id":1,"name":"Nheengatu","iso":"yrl"},{"id":2,"name":"Portugu\\u00eas","iso":"por"}],"grammatical_class":[{"id":1,"name":"Artigo","classification"'..
                    ':[{"id":1,"name":"Definido"},{"id":2,"name":"Singular"},{"id":3,"name":"Plural"},{"id":4,"name":"Indefinido"}]},{"id":2,"name":"Adjetivo","classification"'..
                    ':[{"id":1,"name":"Biforme"},{"id":2,"name":"Uniforme"}]},{"id":3,"name":"Numeral","classification":[{"id":1,"name":"Coletivo"},{"id":2,"name":"Ordinal"},'..
@@ -192,10 +225,10 @@ if parse(output) then
   print("")
   print("json data ok!")
 end
-
+--]]
 print(format("%d words in nheengatu and %d words in portuguese, %d characters of raw json data", #yrl_words, #pt_words, #output))
 
-out_file = open('../database/db.json', 'w')
+out_file = open('../database/db.src.json', 'w')
 if out_file then
   out_file:write(output)
   out_file:close()

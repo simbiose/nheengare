@@ -1,0 +1,6 @@
+[submodule "web/modules/luvit-app"]
+	path = web/modules/luvit-app
+	url = git://github.com/dvv/luvit-app.git
+[submodule "web/modules/static"]
+	path = web/modules/static
+	url = git://github.com/dvv/luvit-static.git
