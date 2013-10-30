@@ -36,32 +36,33 @@ import java.util.ArrayList;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import simbio.se.nheengare.models.Language.LANGUAGE;
+
 /**
  * @author Ademar Alves de Oliveira
  * @author ademar111190@gmail.com
  */
-public class Tradutions extends ModelAbstract {
+public class Tradutions extends AbstractModel {
 
 	// serializable
 	private static final long serialVersionUID = 1L;
 
-	private int languageId;
+	private LANGUAGE language;
 	private ArrayList<WordWeight> words = new ArrayList<WordWeight>();
 
 	public Tradutions(JSONObject json) {
-		languageId = json.optInt("lang");
+		language = Language.chooseLanguageUsingId(json.optInt("lang"));
 		JSONArray array = json.optJSONArray("translate");
 		for (int c = 0; c < array.length(); c++)
 			words.add(new WordWeight(array.optJSONObject(c)));
 	}
 
 	// getters and setters
-	public int getLanguageId() {
-		return languageId;
+	public LANGUAGE getLanguage() {
+		return language;
 	}
 
 	public ArrayList<WordWeight> getWords() {
 		return words;
 	}
-
 }

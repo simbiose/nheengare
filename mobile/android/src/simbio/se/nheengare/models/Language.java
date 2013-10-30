@@ -37,23 +37,65 @@ import org.json.JSONObject;
  * @author Ademar Alves de Oliveira
  * @author ademar111190@gmail.com
  */
-public class Language extends ModelAbstract {
+public class Language extends AbstractModel {
 
 	// serializable
 	private static final long serialVersionUID = 1L;
 
-	private int id;
+	public enum LANGUAGE {
+		LANGUAGE_UNKNOW, LANGUAGE_NHEENGATU, LANGUAGE_PORTUGUESE, LANGUAGE_SPANISH, LANGUAGE_ENGLISH, LANGUAGE_GUARANI, LANGUAGE_TUPI
+	}
+
+	public static LANGUAGE chooseLanguageUsingId(int id) {
+		switch (id) {
+		case 1:
+			return LANGUAGE.LANGUAGE_NHEENGATU;
+		case 2:
+			return LANGUAGE.LANGUAGE_PORTUGUESE;
+		case 3:
+			return LANGUAGE.LANGUAGE_SPANISH;
+		case 4:
+			return LANGUAGE.LANGUAGE_ENGLISH;
+		case 5:
+			return LANGUAGE.LANGUAGE_GUARANI;
+		case 6:
+			return LANGUAGE.LANGUAGE_TUPI;
+		default:
+			return LANGUAGE.LANGUAGE_UNKNOW;
+		}
+	}
+
+	public static int chooseLanguageId(LANGUAGE l) {
+		switch (l) {
+		case LANGUAGE_NHEENGATU:
+			return 1;
+		case LANGUAGE_PORTUGUESE:
+			return 2;
+		case LANGUAGE_SPANISH:
+			return 3;
+		case LANGUAGE_ENGLISH:
+			return 4;
+		case LANGUAGE_GUARANI:
+			return 5;
+		case LANGUAGE_TUPI:
+			return 6;
+		default:
+			return 0;
+		}
+	}
+
+	private LANGUAGE id;
 	private String name;
 	private String iso;
 
 	public Language(JSONObject json) {
-		id = json.optInt("id");
 		name = json.optString("name");
 		iso = json.optString("iso");
+		id = chooseLanguageUsingId(json.optInt("id"));
 	}
 
 	// getters and setters
-	public int getId() {
+	public LANGUAGE getId() {
 		return id;
 	}
 
@@ -64,5 +106,4 @@ public class Language extends ModelAbstract {
 	public String getIso() {
 		return iso;
 	}
-
 }

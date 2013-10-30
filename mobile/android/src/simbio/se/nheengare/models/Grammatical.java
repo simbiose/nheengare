@@ -36,11 +36,14 @@ import java.util.ArrayList;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import simbio.se.nheengare.R;
+import android.content.Context;
+
 /**
  * @author Ademar Alves de Oliveira
  * @author ademar111190@gmail.com
  */
-public class Grammatical extends ModelAbstract {
+public class Grammatical extends AbstractModel {
 
 	// serializable
 	private static final long serialVersionUID = 1L;
@@ -49,13 +52,49 @@ public class Grammatical extends ModelAbstract {
 	private String name;
 	private ArrayList<GrammaticalClassification> classifications = new ArrayList<GrammaticalClassification>();
 
-	public Grammatical(JSONObject json) {
+	public Grammatical(JSONObject json, Context context) {
 		id = json.optInt("id");
-		name = json.optString("name");
+
+		// name
+		switch (id) {
+		case 1:
+			name = context.getString(R.string.grammatical_class_article);
+			break;
+		case 2:
+			name = context.getString(R.string.grammatical_class_adjective);
+			break;
+		case 3:
+			name = context.getString(R.string.grammatical_class_numeral);
+			break;
+		case 4:
+			name = context.getString(R.string.grammatical_class_pronoun);
+			break;
+		case 5:
+			name = context.getString(R.string.grammatical_class_verb);
+			break;
+		case 6:
+			name = context.getString(R.string.grammatical_class_adverb);
+			break;
+		case 7:
+			name = context.getString(R.string.grammatical_class_preposition);
+			break;
+		case 8:
+			name = context.getString(R.string.grammatical_class_conjunction);
+			break;
+		case 9:
+			name = context.getString(R.string.grammatical_class_interjection);
+			break;
+		case 10:
+			name = context.getString(R.string.grammatical_class_noun);
+			break;
+		default:
+			name = json.optString("name");
+			break;
+		}
+
 		JSONArray array = json.optJSONArray("classification");
 		for (int c = 0; c < array.length(); c++)
-			classifications.add(new GrammaticalClassification(array
-					.optJSONObject(c)));
+			classifications.add(new GrammaticalClassification(array.optJSONObject(c)));
 	}
 
 	// getters and setters
@@ -76,5 +115,4 @@ public class Grammatical extends ModelAbstract {
 	public boolean isYourThisId(int id) {
 		return id == this.id;
 	}
-
 }

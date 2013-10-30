@@ -37,7 +37,7 @@ import org.json.JSONObject;
  * @author Ademar Alves de Oliveira
  * @author ademar111190@gmail.com
  */
-public class WordWeight extends ModelAbstract {
+public class WordWeight extends AbstractModel {
 
 	// serializable
 	private static final long serialVersionUID = 1L;
@@ -58,5 +58,4 @@ public class WordWeight extends ModelAbstract {
 	public double getWeight() {
 		return weight;
 	}
-
 }

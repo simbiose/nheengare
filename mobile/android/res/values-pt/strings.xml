@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- communs to all languages -->
+    <string name="app_name">Nheengaré</string>
+    <string name="about_app_name">NHEENGARÉ</string>
+    <string name="about_organization_name">Simbiose</string>
+    <string name="about_organization_url">http://simbio.se/</string>
+    <string name="action_email_address">support@simbio.se</string>
+    <string name="empty"></string>
+
+    <!-- change on each language -->
+    <string name="about_title">Sobre</string>
+    <string name="about_nheengare">Nheengaré é um projeto de código livre que visa criar um dicionario online de nheengatu que seja de fácil uso para as pessoas.</string>
+    <string name="about_by">Provido por</string>
+    <string name="action_about">Sobre o Nheengaré</string>
+    <string name="action_about_condensed">Sobre</string>
+    <string name="action_speak">Fale conosco</string>
+    <string name="action_report_error">Reporte uma má tradução</string>
+    <string name="action_report_error_condensed">Reportar tradução</string>
+    <string name="action_email_with">Mandar email com:</string>
+    <string name="action_email_subject_main">Ola pessoal do nheengaré!</string>
+    <string name="action_email_content_main">Gostaria de dizer que&#8230;</string>
+    <string name="action_email_subject_detail">Erro na palavra %s</string>
+    <string name="action_email_content_detail">Olá, encontrei o seguinte erro na palavra %s, </string>
+    <string name="action_share">Compartilhar</string>
+    <string name="action_share_condensed">Share</string>
+    <string name="action_share_with">Compartilhar com:</string>
+    <string name="action_configure">Configurar</string>
+    <string name="action_configure_condensed">Config</string>
+    <!--
+    	amazon 			http://www.amazon.com/gp/mas/dl/android?p=simbio.se.nheengare
+    	google play		https://play.google.com/store/apps/details?id=simbio.se.nheengare
+    -->
+    <string name="action_share_content_main">Nheengaré um dicionario de Nheengatu gratuito! https://play.google.com/store/apps/details?id=simbio.se.nheengare</string>
+    <string name="action_share_content_detail">Eu aprendi o significado da palavra %s com o Nheengaré! https://play.google.com/store/apps/details?id=simbio.se.nheengare</string>
+    <string name="search_word">Procurar palavra</string>
+    <string name="translation">Tradução</string>
+    <string name="examples_of_use">Exemplos de utilização</string>
+    <string name="afi">Alfabeto fonético internacional</string>
+    <string name="empty_list_search">Nenhuma palavra encontrada, tenta alterar os filtros de busca nas configurações.</string>
+    <string name="loading">Carregando&#8230;</string>
+
+    <!-- gramatical classes -->
+    <string name="grammatical">Classe gramatical</string>
+    <string name="grammatical_class_article">Artigo</string>
+    <string name="grammatical_class_adjective">Adjetivo</string>
+    <string name="grammatical_class_numeral">Numeral</string>
+    <string name="grammatical_class_pronoun">Pronome</string>
+    <string name="grammatical_class_verb">Verbo</string>
+    <string name="grammatical_class_adverb">Advérbio</string>
+    <string name="grammatical_class_preposition">Preposição</string>
+    <string name="grammatical_class_conjunction">Conjunção</string>
+    <string name="grammatical_class_interjection">Interjeição</string>
+    <string name="grammatical_class_noun">Substantivo</string>
+
+    <!-- configurations -->
+    <string name="config_search_filter">Filtrar idiomas na busca</string>
+    <string name="config_result_filter">Filtrar idiomas nas traduções</string>
+    <string name="config_language_nh">Nheengatu</string>
+    <string name="config_language_pt">Português</string>
+    <string name="config_language_es">Espanhol</string>
+    <string name="config_language_in">Inglês</string>
+
+    <!-- temporary -->
+    <string name="temp_01">estamos trabalhando para colocar as traduções de nheengatu para espanhol e inglês.</string>
+
+</resources>

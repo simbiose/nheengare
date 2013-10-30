@@ -58,11 +58,13 @@ public class BlackBoard {
 	private ArrayList<Language> languages = new ArrayList<Language>();
 	private ArrayList<Grammatical> grammaticals = new ArrayList<Grammatical>();
 	private ArrayList<Word> words = new ArrayList<Word>();
+	private Options options;
 
 	public BlackBoard(Context context) {
-		// load database
+		// load options
+		options = new Options(context);
+
 		try {
-			// load file
 			InputStream is = context.getAssets().open("db.json");
 			int size = is.available();
 			byte[] buffer = new byte[size];
@@ -79,25 +81,25 @@ public class BlackBoard {
 				languages.add(new Language(jsonArray.optJSONObject(c)));
 			jsonArray = jsonObject.optJSONArray("grammatical_class");
 			for (int c = 0; c < jsonArray.length(); c++)
-				grammaticals.add(new Grammatical(jsonArray.optJSONObject(c)));
+				grammaticals.add(new Grammatical(jsonArray.optJSONObject(c), context));
 			jsonArray = jsonObject.optJSONArray("words");
 			for (int c = 0; c < jsonArray.length(); c++)
 				words.add(new Word(jsonArray.optJSONObject(c)));
-		} catch (IOException e) {
+		} catch (JSONException e) {
 			SimbiLog.printException(e);
-		} catch (JSONException j) {
-			SimbiLog.printException(j);
+		} catch (IOException f) {
+			SimbiLog.printException(f);
 		}
-	}
-
-	public static BlackBoard getBlackBoard() {
-		return getBlackBoard(null);
 	}
 
 	public static BlackBoard getBlackBoard(Context context) {
 		if (blackBoard == null)
 			blackBoard = new BlackBoard(context);
 		return blackBoard;
+	}
+
+	public Options getOptions() {
+		return options;
 	}
 
 	public ArrayList<Source> getSources() {

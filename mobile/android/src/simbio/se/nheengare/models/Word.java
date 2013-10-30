@@ -37,20 +37,21 @@ import java.util.HashMap;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import simbio.se.nheengare.models.Language.LANGUAGE;
 import android.annotation.SuppressLint;
 
 /**
  * @author Ademar Alves de Oliveira
  * @author ademar111190@gmail.com
  */
-public class Word extends ModelAbstract {
+public class Word extends AbstractModel {
 
 	// serializable
 	private static final long serialVersionUID = 1L;
 
 	// variables
 	private int id;
-	private int langId;
+	private LANGUAGE language;
 	private ArrayList<String> writes = new ArrayList<String>();
 	private ArrayList<String> afis = new ArrayList<String>();
 	private ArrayList<Integer> wordsEqualsIds = new ArrayList<Integer>();
@@ -63,7 +64,7 @@ public class Word extends ModelAbstract {
 
 	public Word(JSONObject json) {
 		id = json.optInt("id");
-		langId = json.optInt("lang");
+		language = Language.chooseLanguageUsingId(json.optInt("lang"));
 		JSONArray array = json.optJSONArray("examples");
 		for (int c = 0; c < array.length(); c++)
 			examples.add(new ExamplePhrases(array.optJSONObject(c)));
@@ -96,7 +97,7 @@ public class Word extends ModelAbstract {
 	// overrides
 
 	@Override
-	public int compareTo(ModelAbstract another) {
+	public int compareTo(AbstractModel another) {
 		if (another instanceof Word) {
 			setCriteriaWeight(writes);
 			another.setCriteriaWeight(((Word) another).getWrites());
@@ -109,8 +110,8 @@ public class Word extends ModelAbstract {
 		return id;
 	}
 
-	public int getLangId() {
-		return langId;
+	public LANGUAGE getLanguage() {
+		return language;
 	}
 
 	public ArrayList<String> getWrites() {

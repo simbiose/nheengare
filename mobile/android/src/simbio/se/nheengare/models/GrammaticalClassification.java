@@ -37,7 +37,7 @@ import org.json.JSONObject;
  * @author Ademar Alves de Oliveira
  * @author ademar111190@gmail.com
  */
-public class GrammaticalClassification extends ModelAbstract {
+public class GrammaticalClassification extends AbstractModel {
 
 	// serializable
 	private static final long serialVersionUID = 1L;
@@ -58,5 +58,4 @@ public class GrammaticalClassification extends ModelAbstract {
 	public String getName() {
 		return name;
 	}
-
 }

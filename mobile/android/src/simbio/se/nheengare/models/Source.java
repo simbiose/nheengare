@@ -40,7 +40,7 @@ import org.json.JSONObject;
  * @author Ademar Alves de Oliveira
  * @author ademar111190@gmail.com
  */
-public class Source extends ModelAbstract {
+public class Source extends AbstractModel {
 
 	// serializable
 	private static final long serialVersionUID = 1L;
@@ -77,5 +77,4 @@ public class Source extends ModelAbstract {
 	public String getIsbn() {
 		return isbn;
 	}
-
 }

@@ -33,6 +33,7 @@ package simbio.se.nheengare.activities;
 
 import simbio.se.nheengare.R;
 import simbio.se.nheengare.core.Analytics;
+import simbio.se.nheengare.utils.OldDalvikVirtualMachineHelper;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.net.Uri;
@@ -54,7 +55,7 @@ public class AboutActivity extends AbstractActivity {
 
 		// configure screen
 		if (android.os.Build.VERSION.SDK_INT >= 11)
-			getActionBar().setDisplayHomeAsUpEnabled(true);
+			OldDalvikVirtualMachineHelper.setDisplayHomeAsUpEnabled(this, true);
 	}
 
 	@Override

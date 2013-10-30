@@ -1,0 +1,185 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context=".MainActivity" >
+
+    <ProgressBar
+        android:id="@+id/loadViews"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true" />
+
+    <TextView
+        android:id="@+id/txt_temp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/temp_01" />
+
+    <ScrollView
+        android:id="@+id/scrollViewConfig"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/txt_temp"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:fillViewport="true"
+        android:visibility="invisible" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <Switch
+                android:id="@+id/switchConfigSearch"
+                style="@style/AppSwitchView"
+                android:layout_marginTop="0dp"
+                android:text="@string/config_search_filter"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+
+            <RelativeLayout
+                android:id="@+id/relativeLayputConfigSearch"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <ImageView
+                    android:id="@+id/configImageViewNheengatuSearch"
+                    style="@style/ConfigFlags"
+                    android:contentDescription="@string/config_language_nh"
+                    android:src="@drawable/br_32" />
+
+                <Switch
+                    android:id="@+id/switchConfigSearchNheengatu"
+                    style="@style/AppSwitchViewIten"
+                    android:layout_alignBottom="@+id/configImageViewNheengatuSearch"
+                    android:layout_alignTop="@+id/configImageViewNheengatuSearch"
+                    android:layout_toRightOf="@+id/configImageViewNheengatuSearch"
+                    android:text="@string/config_language_nh" />
+
+                <ImageView
+                    android:id="@+id/configImageViewPortugueseSearch"
+                    style="@style/ConfigFlags"
+                    android:layout_below="@+id/configImageViewNheengatuSearch"
+                    android:contentDescription="@string/config_language_pt"
+                    android:src="@drawable/pt_32" />
+
+                <Switch
+                    android:id="@+id/switchConfigSearchPortuguese"
+                    style="@style/AppSwitchViewIten"
+                    android:layout_alignBottom="@+id/configImageViewPortugueseSearch"
+                    android:layout_alignTop="@+id/configImageViewPortugueseSearch"
+                    android:layout_toRightOf="@+id/configImageViewPortugueseSearch"
+                    android:text="@string/config_language_pt" />
+
+                <ImageView
+                    android:id="@+id/configImageViewSpanishSearch"
+                    style="@style/ConfigFlags"
+                    android:layout_below="@+id/configImageViewPortugueseSearch"
+                    android:contentDescription="@string/config_language_es"
+                    android:src="@drawable/es_32" />
+
+                <Switch
+                    android:id="@+id/switchConfigSearchSpanish"
+                    style="@style/AppSwitchViewIten"
+                    android:layout_alignBottom="@+id/configImageViewSpanishSearch"
+                    android:layout_alignTop="@+id/configImageViewSpanishSearch"
+                    android:layout_toRightOf="@+id/configImageViewSpanishSearch"
+                    android:text="@string/config_language_es" />
+
+                <ImageView
+                    android:id="@+id/configImageViewEnglishSearch"
+                    style="@style/ConfigFlags"
+                    android:layout_below="@+id/configImageViewSpanishSearch"
+                    android:contentDescription="@string/config_language_in"
+                    android:src="@drawable/en_32" />
+
+                <Switch
+                    android:id="@+id/switchConfigSearchEnglish"
+                    style="@style/AppSwitchViewIten"
+                    android:layout_alignBottom="@+id/configImageViewEnglishSearch"
+                    android:layout_alignTop="@+id/configImageViewEnglishSearch"
+                    android:layout_toRightOf="@+id/configImageViewEnglishSearch"
+                    android:text="@string/config_language_in" />
+            </RelativeLayout>
+
+            <Switch
+                android:id="@+id/switchConfigTranslation"
+                style="@style/AppSwitchView"
+                android:layout_marginTop="16dp"
+                android:text="@string/config_result_filter"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+
+            <RelativeLayout
+                android:id="@+id/relativeLayputConfigTranslation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <ImageView
+                    android:id="@+id/configImageViewNheengatuTranslation"
+                    style="@style/ConfigFlags"
+                    android:contentDescription="@string/config_language_nh"
+                    android:src="@drawable/br_32" />
+
+                <Switch
+                    android:id="@+id/switchConfigTranslationNheengatu"
+                    style="@style/AppSwitchViewIten"
+                    android:layout_alignBottom="@+id/configImageViewNheengatuTranslation"
+                    android:layout_alignTop="@+id/configImageViewNheengatuTranslation"
+                    android:layout_toRightOf="@+id/configImageViewNheengatuTranslation"
+                    android:text="@string/config_language_nh" />
+
+                <ImageView
+                    android:id="@+id/configImageViewPortugueseTranslation"
+                    style="@style/ConfigFlags"
+                    android:layout_below="@+id/configImageViewNheengatuTranslation"
+                    android:contentDescription="@string/config_language_pt"
+                    android:src="@drawable/pt_32" />
+
+                <Switch
+                    android:id="@+id/switchConfigTranslationPortuguese"
+                    style="@style/AppSwitchViewIten"
+                    android:layout_alignBottom="@+id/configImageViewPortugueseTranslation"
+                    android:layout_alignTop="@+id/configImageViewPortugueseTranslation"
+                    android:layout_toRightOf="@+id/configImageViewPortugueseTranslation"
+                    android:text="@string/config_language_pt" />
+
+                <ImageView
+                    android:id="@+id/configImageViewSpanishTranslation"
+                    style="@style/ConfigFlags"
+                    android:layout_below="@+id/configImageViewPortugueseTranslation"
+                    android:contentDescription="@string/config_language_es"
+                    android:src="@drawable/es_32" />
+
+                <Switch
+                    android:id="@+id/switchConfigTranslationSpanish"
+                    style="@style/AppSwitchViewIten"
+                    android:layout_alignBottom="@+id/configImageViewSpanishTranslation"
+                    android:layout_alignTop="@+id/configImageViewSpanishTranslation"
+                    android:layout_toRightOf="@+id/configImageViewSpanishTranslation"
+                    android:text="@string/config_language_es" />
+
+                <ImageView
+                    android:id="@+id/configImageViewEnglishTranslation"
+                    style="@style/ConfigFlags"
+                    android:layout_below="@+id/configImageViewSpanishTranslation"
+                    android:contentDescription="@string/config_language_in"
+                    android:src="@drawable/en_32" />
+
+                <Switch
+                    android:id="@+id/switchConfigTranslationEnglish"
+                    style="@style/AppSwitchViewIten"
+                    android:layout_alignBottom="@+id/configImageViewEnglishTranslation"
+                    android:layout_alignTop="@+id/configImageViewEnglishTranslation"
+                    android:layout_toRightOf="@+id/configImageViewEnglishTranslation"
+                    android:text="@string/config_language_in" />
+            </RelativeLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</RelativeLayout>

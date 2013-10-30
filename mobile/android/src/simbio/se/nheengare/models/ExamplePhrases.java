@@ -40,7 +40,7 @@ import org.json.JSONObject;
  * @author Ademar Alves de Oliveira
  * @author ademar111190@gmail.com
  */
-public class ExamplePhrases extends ModelAbstract {
+public class ExamplePhrases extends AbstractModel {
 
 	// serializable
 	private static final long serialVersionUID = 1L;
@@ -63,5 +63,4 @@ public class ExamplePhrases extends ModelAbstract {
 	public ArrayList<Phrase> getSentences() {
 		return sentences;
 	}
-
 }

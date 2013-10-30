@@ -47,7 +47,8 @@ public class GrammaticalView extends AbstractView {
 		super(context, R.layout.view_grammatical_class);
 		String g = new String();
 		for (Integer i : grammaticalsIds) {
-			g += BlackBoard.getBlackBoard().getGrammaticalWithId(i).getName()
+			g += BlackBoard.getBlackBoard(context).getGrammaticalWithId(i)
+					.getName()
 					+ ", ";
 		}
 		if (g.length() > 0)

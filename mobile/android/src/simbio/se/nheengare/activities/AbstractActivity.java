@@ -35,6 +35,8 @@ import simbio.se.nheengare.MainActivity;
 import simbio.se.nheengare.R;
 import simbio.se.nheengare.core.Analytics;
 import simbio.se.nheengare.core.BlackBoard;
+import simbio.se.nheengare.core.IOptionsChangedListener;
+import simbio.se.nheengare.core.Options;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
@@ -47,7 +49,10 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.ToggleButton;
 
 import com.google.analytics.tracking.android.EasyTracker;
 
@@ -56,7 +61,7 @@ import com.google.analytics.tracking.android.EasyTracker;
  * @author ademar111190@gmail.com
  */
 @SuppressLint("NewApi")
-public class AbstractActivity extends Activity {
+public class AbstractActivity extends Activity implements IOptionsChangedListener {
 
 	private boolean dataHasLoaded = false;
 	protected Analytics analytics;
@@ -91,28 +96,24 @@ public class AbstractActivity extends Activity {
 		intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
 		intent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.app_name));
 		intent.putExtra(Intent.EXTRA_TEXT, content);
-		startActivity(Intent.createChooser(intent,
-				getString(R.string.action_share_with)));
+		startActivity(Intent.createChooser(intent, getString(R.string.action_share_with)));
 	}
 
 	protected void sendEmail(String subject, String content) {
-		Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts(
-				"mailto", getString(R.string.action_email_address), null));
+		Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts("mailto", getString(R.string.action_email_address), null));
 		emailIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, subject);
 		emailIntent.putExtra(Intent.EXTRA_TEXT, Html.fromHtml(content));
-		startActivity(Intent.createChooser(emailIntent,
-				getString(R.string.action_email_with)));
+		startActivity(Intent.createChooser(emailIntent, getString(R.string.action_email_with)));
 	}
 
 	@SuppressWarnings("deprecation")
 	protected void backToHome() {
 		Intent upIntent = new Intent(this, MainActivity.class);
-		if (NavUtils.shouldUpRecreateTask(this, upIntent)) {
-			TaskStackBuilder.from(this).addNextIntent(upIntent)
-					.startActivities();
-			finish();
-		} else {
+		if (getIntent().getExtras().getBoolean("isFromHome", true)) {
 			NavUtils.navigateUpTo(this, upIntent);
+		} else {
+			TaskStackBuilder.from(this).addNextIntent(upIntent).startActivities();
+			finish();
 		}
 	}
 
@@ -137,6 +138,23 @@ public class AbstractActivity extends Activity {
 		return (LinearLayout) super.findViewById(id);
 	}
 
+	public RelativeLayout findRelativeLayoutById(int id) {
+		return (RelativeLayout) super.findViewById(id);
+	}
+
+	public ScrollView findScrollViewById(int id) {
+		return (ScrollView) super.findViewById(id);
+	}
+
+	public ToggleButton findToggleButtonViewById(int id) {
+		return (ToggleButton) super.findViewById(id);
+	}
+
+	// Options changedlistener
+	@Override
+	public void onOptionsChanged(Options newOptions) {
+	}
+
 	// Overrides
 
 	@Override
@@ -144,6 +162,7 @@ public class AbstractActivity extends Activity {
 		super.onStart();
 		EasyTracker.getInstance().activityStart(this);
 		analytics = Analytics.getAnalytics(getApplicationContext());
+		Options.addOptionsChangeListener(this);
 		if (!dataHasLoaded) {
 			new Thread(new Runnable() {
 				@Override
@@ -166,6 +185,7 @@ public class AbstractActivity extends Activity {
 	protected void onStop() {
 		super.onStop();
 		EasyTracker.getInstance().activityStop(this);
+		Options.removeOptionsChangeListener(this);
 	}
 
 	// Others Overrides

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- communs to all languages -->
+    <string name="app_name">Nheengaré</string>
+    <string name="about_app_name">NHEENGARÉ</string>
+    <string name="about_organization_name">Simbiose</string>
+    <string name="about_organization_url">http://simbio.se/</string>
+    <string name="action_email_address">support@simbio.se</string>
+    <string name="empty"></string>
+
+    <!-- change on each language -->
+    <string name="about_title">Acerca</string>
+    <string name="about_nheengare">Nheengaré es un proyecto de código abierto que tiene como objetivo crear un diccionario en línea de nheengatu que es fácil de usar para las personas.</string>
+    <string name="about_by">Desarrollado por</string>
+    <string name="action_about">Acerca de el Nheengaré</string>
+    <string name="action_about_condensed">Acerca</string>
+    <string name="action_speak">Contáctenos</string>
+    <string name="action_report_error">Informar de una mala traducción</string>
+    <string name="action_report_error_condensed">Informe traducción</string>
+    <string name="action_email_with">Enviar email con:</string>
+    <string name="action_email_subject_main">Hola personal de el nheengaré!</string>
+    <string name="action_email_content_main">Yo diría que&#8230;</string>
+    <string name="action_email_subject_detail">Error en la palabra %s</string>
+    <string name="action_email_content_detail">Hola, he encontrado el siguiente error en la palabra %s, </string>
+    <string name="action_share">Compartir</string>
+    <string name="action_share_condensed">Share</string>
+    <string name="action_share_with">Compartir con:</string>
+    <string name="action_configure">Configurar</string>
+    <string name="action_configure_condensed">Config</string>
+    <!--
+    	amazon 			http://www.amazon.com/gp/mas/dl/android?p=simbio.se.nheengare
+    	google play		https://play.google.com/store/apps/details?id=simbio.se.nheengare
+    -->
+    <string name="action_share_content_main">Nheengaré un diccionario de Nheengatu gratis! https://play.google.com/store/apps/details?id=simbio.se.nheengare</string>
+    <string name="action_share_content_detail">Aprendí el significado de la palabra %s con Nheengaré! http://www.amazon.com/gp/mas/dl/android?p=simbio.se.nheengare</string>
+    <string name="search_word">buscar palabra</string>
+    <string name="translation">Traducción</string>
+    <string name="examples_of_use">Ejemplos de uso</string>
+    <string name="afi">Alfabeto fonético internacional</string>
+    <string name="empty_list_search">No palabras encontradas, intenta cambiar la configuración del filtro de búsqueda.</string>
+    <string name="loading">Cargando&#8230;</string>
+
+    <!-- gramatical classes -->
+    <string name="grammatical">Clase gramatical</string>
+    <string name="grammatical_class_article">Artículo</string>
+    <string name="grammatical_class_adjective">Adjetivo</string>
+    <string name="grammatical_class_numeral">Numeral</string>
+    <string name="grammatical_class_pronoun">Pronombre</string>
+    <string name="grammatical_class_verb">Verbo</string>
+    <string name="grammatical_class_adverb">Adverbio</string>
+    <string name="grammatical_class_preposition">Preposición</string>
+    <string name="grammatical_class_conjunction">Conjunción</string>
+    <string name="grammatical_class_interjection">Interjección</string>
+    <string name="grammatical_class_noun">Sustantivo</string>
+
+    <!-- configurations -->
+    <string name="config_search_filter">Filtrar lenguas en la búsqueda.</string>
+    <string name="config_result_filter">Filtrar lenguas en la traducciones.</string>
+    <string name="config_language_nh">Nheengatu</string>
+    <string name="config_language_pt">Portugués</string>
+    <string name="config_language_es">Español</string>
+    <string name="config_language_in">Inglés</string>
+
+    <!-- temporary -->
+    <string name="temp_01">estamos trabajando para poner traducciones nheengatu de español e Inglés.</string>
+
+</resources>
