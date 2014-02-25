@@ -3,17 +3,17 @@
 
 
 
-    Nheengaré é um software livre; você pode redistribui-lo e/ou 
+    Nheengaré é um software livre; você pode redistribui-lo e/ou
 
-    modifica-lo dentro dos termos da Licença Pública Geral GNU como 
+    modifica-lo dentro dos termos da Licença Pública Geral GNU como
 
-    publicada pela Fundação do Software Livre (FSF); na versão 3 da 
+    publicada pela Fundação do Software Livre (FSF); na versão 3 da
 
     Licença.
 
 
 
-    Este programa é distribuido na esperança que possa ser  util, 
+    Este programa é distribuido na esperança que possa ser  util,
 
     mas SEM NENHUMA GARANTIA; sem uma garantia implicita de ADEQUAÇÂO a qualquer
 
@@ -47,11 +47,14 @@ import simbio.se.nheengare.models.AbstractModel;
 import simbio.se.nheengare.models.Language.LANGUAGE;
 import simbio.se.nheengare.models.Word;
 import simbio.se.nheengare.utils.OldDalvikVirtualMachineHelper;
+import simbio.se.nheengare.utils.SimbiLog;
+
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -61,6 +64,7 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 /**
  * @author Ademar Alves de Oliveira
@@ -161,7 +165,7 @@ public class MainActivity extends AbstractActivity implements TextWatcher, Runna
 				}
 			});
 
-			words.clear();
+            ArrayList<Word> words = new ArrayList<Word>();
 			words.addAll(getBlackBoard().getWords());
 
 			Options options = BlackBoard.getBlackBoard(getApplicationContext()).getOptions();
@@ -192,6 +196,9 @@ public class MainActivity extends AbstractActivity implements TextWatcher, Runna
 				for (String s : w.getWrites())
 					adapterAux.add(s);
 			listTemp = null;
+            this.words.clear();
+            this.words.addAll(words);
+            words = null;
 
 			runOnUiThread(new Runnable() {
 				@Override

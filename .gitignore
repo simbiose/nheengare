@@ -1,3 +1,10 @@
 mobile/android/bin/
 mobile/android/gen/
 .DS_Store
+*.iml
+*.idea
+*.dex
+*.class
+*.ap_
+mobile/android/.gradle/
+mobile/android/build/
