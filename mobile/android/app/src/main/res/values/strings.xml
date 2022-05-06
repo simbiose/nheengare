@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Nheengaré</string>
+    <string name="about_app_name">NHEENGARÉ</string>
+    <string name="about_organization_url">https://github.com/simbiose</string>
+    <string name="action_email_address">ademar111190@gmail.com</string>
+    <string name="empty" />
+
+    <string name="about_title">About</string>
+    <string name="about_nheengare">Nheengaré is an open source project that aims to create an online dictionary of nheengatu.</string>
+    <string name="about_by">Powered by</string>
+    <string name="action_about">About Nheengaré</string>
+    <string name="action_about_condensed">About</string>
+    <string name="action_speak">Contact us</string>
+    <string name="action_report_error">Report a bad translation</string>
+    <string name="action_report_error_condensed">Report translation</string>
+    <string name="action_email_with">Send email with:</string>
+    <string name="action_email_subject_main">Hi nheengaré people!</string>
+    <string name="action_email_content_main">I would say…</string>
+    <string name="action_email_subject_detail">Error in word %s</string>
+    <string name="action_email_content_detail">Hello, I found the following error in the word %s, </string>
+    <string name="action_share">Share</string>
+    <string name="action_share_condensed">Share</string>
+    <string name="action_share_with">Share with:</string>
+    <string name="action_configure">Configure</string>
+    <string name="action_configure_condensed">Config</string>
+    <string name="action_share_content_main">Nheengaré the Open Source Nheengatu dictionary! https://f-droid.org/en/packages/simbio.se.nheengare/</string>
+    <string name="action_share_content_detail">I learned the meaning of word %s with Nheengaré! https://f-droid.org/en/packages/simbio.se.nheengare/</string>
+    <string name="search_word">Search word</string>
+    <string name="translation">Translation</string>
+    <string name="examples_of_use">Examples of use</string>
+    <string name="afi">International Phonetic Alphabet</string>
+    <string name="empty_list_search">No words found.</string>
+    <string name="loading">Loading…</string>
+
+    <string name="grammatical">Grammatical class</string>
+    <string name="grammatical_class_article">Article</string>
+    <string name="grammatical_class_adjective">Adjective</string>
+    <string name="grammatical_class_numeral">Numeral</string>
+    <string name="grammatical_class_pronoun">Pronoun</string>
+    <string name="grammatical_class_verb">Verb</string>
+    <string name="grammatical_class_adverb">Adverb</string>
+    <string name="grammatical_class_preposition">Preposition</string>
+    <string name="grammatical_class_conjunction">Conjunction</string>
+    <string name="grammatical_class_interjection">Interjection</string>
+    <string name="grammatical_class_noun">Noun</string>
+
+    <string name="config_search_filter">Filter languages at search.</string>
+    <string name="config_result_filter">Filter languages at translation.</string>
+    <string name="config_language_nh">Nheengatu</string>
+    <string name="config_language_pt">Portuguese</string>
+    <string name="config_language_es">Spanish</string>
+    <string name="config_language_in">English</string>
+
+    <string name="temp_01">We are working on nheengatu translations for Spanish and English.</string>
+
+</resources>

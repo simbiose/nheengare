@@ -1,5 +1,7 @@
 mobile/android/bin/
 mobile/android/gen/
+mobile/android/build
+mobile/android/app/build
 .DS_Store
 *.iml
 *.idea
@@ -8,3 +10,4 @@ mobile/android/gen/
 *.ap_
 mobile/android/.gradle/
 mobile/android/build/
+mobile/android/local.properties
