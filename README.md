@@ -1,6 +1,10 @@
 # summary
 nheengaré is an open source project that aims to create an online and mobile dictionary of [nheengatu](http://en.wikipedia.org/wiki/Nheengatu_language) that is easy to use.
 
+[<img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png"
+     alt="Get it on F-Droid"
+     height="80">](https://f-droid.org/packages/simbio.se.nheengare)
+
 # nheengare means?
 nheengaré means *nheengatu* (language) and *eré* (according to, agreed).
 
